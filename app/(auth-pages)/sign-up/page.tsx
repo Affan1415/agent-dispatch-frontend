@@ -21,7 +21,7 @@ function SignupForm() {
         {/* Left Section - Robot Illustration */}
         <div className="hidden md:flex flex-col items-center">
           <img
-            src="/external/image00018i133-1tfc-300w.png"
+            src="images/Sophia.png"
             alt="Robot Illustration"
             className="w-72 h-auto"
           />

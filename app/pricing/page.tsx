@@ -12,22 +12,20 @@ const plans = [
     name: "Nova - AI Assistant",
     description:
       "A reliable AI partner for business owners and busy professionals.",
-    price: 49,
-    image: "/robot.png",
+    price: 0,
+    image: "images/Inspector.png",
   },
   {
     name: "Orion - Business AI",
-    description:
-      "Advanced AI designed for entrepreneurs and corporate teams.",
-    price: 79,
-    image: "/business-ai.png",
+    description: "Advanced AI designed for entrepreneurs and corporate teams.",
+    price: 59,
+    image: "images/Magni.png",
   },
   {
     name: "Luna - Creative AI",
-    description:
-      "AI-powered assistant for designers, writers, and creatives.",
-    price: 59,
-    image: "/creative-ai.png",
+    description: "AI-powered assistant for designers, writers, and creatives.",
+    price: 79,
+    image: "images/Builder.png",
   },
 ];
 

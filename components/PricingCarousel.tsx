@@ -29,15 +29,19 @@ const PricingCarousel: React.FC<PricingCarouselProps> = ({ plans }) => {
       >
         {plans.map((plan, index) => (
           <SwiperSlide key={index}>
-            <div className="bg-gray-900 p-8 rounded-lg flex items-center justify-between w-full">
-              <img src={plan.image} alt={plan.name} className="w-44 h-44" />
-              <div className="text-center flex-1 px-8">
+            <div className="bg-gray-900 p-8 rounded-lg flex flex-col md:flex-row items-center justify-center w-full gap-8">
+              <img
+                src={plan.image}
+                alt={plan.name}
+                className="w-56 h-56 object-cover flex-shrink-0 rounded-lg max-w-xs"
+              />
+              <div className="text-center md:text-left flex-1 px-6">
                 <h2 className="text-3xl font-bold">{plan.name}</h2>
-                <p className="text-lg mt-2 max-w-md mx-auto">
+                <p className="text-lg mt-2 max-w-md mx-auto md:mx-0">
                   {plan.description}
                 </p>
               </div>
-              <p className="text-2xl font-bold pr-6">
+              <p className="text-2xl font-bold text-right md:text-left">
                 ${plan.price}
                 <span className="text-sm">/month</span>
               </p>

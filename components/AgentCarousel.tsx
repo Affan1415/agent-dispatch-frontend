@@ -6,7 +6,7 @@ const agents = [
     role: "AI Assistant.",
     description:
       "A reliable AI partner for business owners and professionals—managing calendars, scheduling meetings, planning trips, and answering everyday challenges with ease.",
-    image: "/path-to-nova-image.png",
+    image: "images/1.png",
     glow: "bg-purple-500/50",
   },
   {
@@ -14,7 +14,7 @@ const agents = [
     role: "Sales Strategist.",
     description:
       "Lumi harnesses your business data to craft persuasive sales scripts, compelling cold emails, and impactful pitches—helping you close deals effortlessly.",
-    image: "/path-to-lumi-image.png",
+    image: "images/2.png",
     glow: "bg-blue-500/50",
   },
   {
@@ -22,16 +22,8 @@ const agents = [
     role: "eCommerce Expert.",
     description:
       "Your go-to AI for online business success—helping with store setup, product launches, and optimizing eCommerce operations for smooth growth.",
-    image: "/path-to-neon-image.png",
+    image: "images/4.png",
     glow: "bg-teal-500/50",
-  },
-  {
-    name: "Vega",
-    role: "Marketing Specialist.",
-    description:
-      "Vega crafts high-impact marketing campaigns powered by AI to enhance customer engagement and boost conversion rates.",
-    image: "/path-to-vega-image.png",
-    glow: "bg-red-500/50",
   },
 ];
 

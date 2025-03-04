@@ -26,7 +26,11 @@ export default function Navbar() {
   return (
     <header className="w-full max-w-6xl mx-auto p-6 flex justify-between items-center bg-black text-white">
       {/* Logo */}
-      <h1 className="text-2xl font-bold">Agent Dispatch</h1>
+      <img
+        src="/images/Logo.png"
+        alt="Agent Dispatch Logo"
+        className="w-32 h-auto"
+      />
 
       {/* Desktop Navigation */}
       <nav className="hidden lg:flex items-center space-x-10">
@@ -46,7 +50,10 @@ export default function Navbar() {
           Contact Us
         </Link>
         {user ? (
-          <Button onClick={handleSignOut} className="bg-red-500 hover:bg-red-600">
+          <Button
+            onClick={handleSignOut}
+            className="bg-red-500 hover:bg-red-600"
+          >
             Sign Out
           </Button>
         ) : (
@@ -93,7 +100,10 @@ export default function Navbar() {
             Contact Us
           </Link>
           {user ? (
-            <Button onClick={handleSignOut} className="bg-red-500 hover:bg-red-600 w-11/12">
+            <Button
+              onClick={handleSignOut}
+              className="bg-red-500 hover:bg-red-600 w-11/12"
+            >
               Sign Out
             </Button>
           ) : (

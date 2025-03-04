@@ -55,7 +55,7 @@ export default async function RootLayout({
               <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
                 {user? <Authnullnavbar/>:<HeaderAuth/>}
               </nav>
-              <div className="flex flex-col gap-20 w-full p-5">
+              <div>
                 {children}
               </div>
           <Footer/>
