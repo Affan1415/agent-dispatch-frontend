@@ -43,7 +43,7 @@ export default function DashboardPage() {
 
   // Map the fetched chatbots to the format expected by DashboardCards
   const chatbotCards = chatbots.map((bot) => ({
-    image: bot.image || "/default-chatbot.png", // fallback image if none provided
+    image: bot.image || "images/1.png", // fallback image if none provided
     alt: bot.name,
     title: bot.name,
     subtitle: bot.description || "Chatbot",
