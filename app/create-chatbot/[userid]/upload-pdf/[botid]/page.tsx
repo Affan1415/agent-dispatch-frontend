@@ -1,17 +1,45 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
 
 export default function UploadPDF() {
   const params = useParams();
-  const userId = params?.userId; // Expecting the route parameter to be named "userId"
+  const userId = params?.userId; // expecting the dynamic route parameter "userId"
+  const botid = params?.botid; // expecting the dynamic route parameter "userId"
   const supabase = createClient();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // New states for chatbot details – adjust default values as needed
+  const [agentName, setAgentName] = useState("Nova");
+  const [agentDescription, setAgentDescription] = useState("");
+  const [widgetColor, setWidgetColor] = useState("");
+  const [widgetPosition, setWidgetPosition] = useState("");
+  const [widgetMessage, setWidgetMessage] = useState("");
+  const [apiKey, setApiKey] = useState("");
+
+  // Generate API key on mount
+  useEffect(() => {
+    const generateApiKey = async () => {
+      try {
+        const response = await fetch("/api/generateKey");
+        if (!response.ok) {
+          throw new Error("Failed to fetch API key");
+        }
+        const data = await response.json();
+        console.log(data);
+        setApiKey(data.apiKey);
+      } catch (error) {
+        console.error("Error generating API key:", error);
+      }
+    };
+    generateApiKey();
+  }, []);
 
   const handleUpload = async () => {
     if (!selectedFile || !userId) {
@@ -41,6 +69,67 @@ export default function UploadPDF() {
     setUploadStatus("Upload successful!");
     setSelectedFile(null);
     console.log("File uploaded successfully:", data);
+  };
+
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    setLoading(true);
+
+    if (!userId) {
+      setUploadStatus("User ID is missing.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      // Insert chatbot data into Supabase
+      const { error } = await supabase.from("chatbots").insert([
+        {
+          name: agentName,
+          description: agentDescription || null,
+          color: widgetColor || null,
+          position: widgetPosition || null,
+          message: widgetMessage || null,
+          user_id: userId,
+          api_key: apiKey,
+        },
+      ]);
+
+      if (error) throw new Error(`Error creating agent: ${error.message}`);
+
+      // Use the environment variable for the API URL
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      if (!apiUrl) {
+        throw new Error("API URL is not defined in the environment variables.");
+      }
+
+      // Fetch the latest PDF document from your backend
+      const response = await fetch(
+        `${apiUrl}/chat/fetch_latest_pdf/${userId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch document.");
+      }
+
+      console.log("✅ Document retrieved successfully!");
+      alert("Document retrieved successfully!");
+
+      // Redirect after successful insertion & document retrieval
+      window.location.href = `/chatbot/${userId}/${botid}`;
+    } catch (error) {
+      console.error("❌ Error:", error);
+      setUploadStatus((error as Error).message || "An unknown error occurred.");
+      alert("Error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -74,6 +163,16 @@ export default function UploadPDF() {
           <p className="mt-4 text-center text-sm text-gray-300">
             {uploadStatus}
           </p>
+        )}
+
+        {uploadStatus === "Upload successful!" && userId && (
+          <button
+            onClick={handleSubmit}
+            disabled={loading}
+            className="mt-6 w-full bg-green-600 hover:bg-green-700 py-3 rounded-lg transition duration-200"
+          >
+            {loading ? "Processing..." : "Test Your Chat Bot"}
+          </button>
         )}
       </div>
     </div>

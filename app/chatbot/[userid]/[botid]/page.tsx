@@ -7,16 +7,16 @@ import Link from "next/link";
 
 export default function ProtectedPage() {
   const [prompt, setPrompt] = useState("");
-  const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>(
-    []
-  );
+  const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>([]);
   const [userId, setUserId] = useState<string | null>(null);
   const [error, setError] = useState("");
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const params = useParams();
+  const botid = params?.botid as string;
 
   useEffect(() => {
     const userid = params?.userid as string;
+    
     if (userid) {
       console.log("User ID from params:", userid);
       setUserId(userid);
@@ -34,15 +34,21 @@ export default function ProtectedPage() {
     setMessages((prev) => [...prev, { text: prompt, isUser: true }]);
     setPrompt("");
     const trimmedMessages = messages.slice(-5);
-    console.log("Trimmed Messages Before Sending:", trimmedMessages); // ✅ Debugging line
+    console.log("Trimmed Messages Before Sending:", trimmedMessages);
     try {
-      const res = await fetch("http://localhost:4000/chat/rag", {
+      // Get API URL from env variables
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      if (!apiUrl) {
+        throw new Error("API URL is not defined");
+      }
+
+      const res = await fetch(`${apiUrl}/chat/rag`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           question: prompt,
-          user_id: userId, // ✅ Fix: Use 'user_id' instead of 'userId'
-          history: trimmedMessages, // Pass limited history
+          user_id: userId,
+          history: trimmedMessages,
         }),
       });
 
@@ -53,7 +59,6 @@ export default function ProtectedPage() {
       const data = await res.json();
       console.log("API Response:", data);
 
-      // ✅ Extract `content` from the nested `response` object
       const responseText =
         data.response?.content && typeof data.response.content === "string"
           ? data.response.content
@@ -80,10 +85,10 @@ export default function ProtectedPage() {
         <h2 className="font-bold text-2xl">Chat with RAG</h2>
         <div className="mt-6">
           <Link
-            href={`/dashboard/myAgents/telegram/${userId}`}
+            href={`/integrations/${userId}/${botid}`}
             className="px-4 py-2 bg-purple-500 text-white rounded-lg shadow hover:bg-purple-600 transition"
           >
-            Connect Telegram Bot
+            Go to Integrations
           </Link>
         </div>
         <div className="flex flex-col gap-4 max-h-[400px] overflow-auto p-4 border rounded-lg bg-gray-50">
@@ -93,7 +98,9 @@ export default function ProtectedPage() {
               className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`max-w-xs p-3 mb-3 rounded-lg text-sm ${message.isUser ? "bg-blue-500 text-white" : "bg-gray-300 text-black"}`}
+                className={`max-w-xs p-3 mb-3 rounded-lg text-sm ${
+                  message.isUser ? "bg-blue-500 text-white" : "bg-gray-300 text-black"
+                }`}
               >
                 {message.text}
               </div>
