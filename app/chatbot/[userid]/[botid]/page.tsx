@@ -7,16 +7,18 @@ import Link from "next/link";
 
 export default function ProtectedPage() {
   const [prompt, setPrompt] = useState("");
-  const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>([]);
+  const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>(
+    []
+  );
   const [userId, setUserId] = useState<string | null>(null);
   const [error, setError] = useState("");
+  const [isBotTyping, setIsBotTyping] = useState(false); // For typing indicator
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const params = useParams();
   const botid = params?.botid as string;
 
   useEffect(() => {
     const userid = params?.userid as string;
-    
     if (userid) {
       console.log("User ID from params:", userid);
       setUserId(userid);
@@ -33,10 +35,11 @@ export default function ProtectedPage() {
     setError("");
     setMessages((prev) => [...prev, { text: prompt, isUser: true }]);
     setPrompt("");
-    const trimmedMessages = messages.slice(-5);
-    console.log("Trimmed Messages Before Sending:", trimmedMessages);
+
+    // Simulate bot typing
+    setIsBotTyping(true);
+
     try {
-      // Get API URL from env variables
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
       if (!apiUrl) {
         throw new Error("API URL is not defined");
@@ -48,7 +51,7 @@ export default function ProtectedPage() {
         body: JSON.stringify({
           question: prompt,
           user_id: userId,
-          history: trimmedMessages,
+          history: messages.slice(-5),
         }),
       });
 
@@ -64,10 +67,21 @@ export default function ProtectedPage() {
           ? data.response.content
           : "No valid response from server";
 
-      setMessages((prev) => [...prev, { text: responseText, isUser: false }]);
+      // Simulate streaming effect
+      let displayedText = "";
+      for (let i = 0; i < responseText.length; i++) {
+        displayedText += responseText[i];
+        setMessages((prev) => [
+          ...prev.slice(0, -1),
+          { text: displayedText, isUser: false },
+        ]);
+        await new Promise((resolve) => setTimeout(resolve, 20)); // Adjust speed here
+      }
     } catch (error) {
       console.error("Fetch error:", error);
       setError("Failed to fetch response");
+    } finally {
+      setIsBotTyping(false);
     }
   };
 
@@ -76,14 +90,11 @@ export default function ProtectedPage() {
   }, [messages]);
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-6 p-6">
-      <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
-        <InfoIcon size="16" strokeWidth={2} />
-        This is a protected page. You can only see it as an authenticated user.
-      </div>
+    <div className="flex-1 w-full flex flex-col gap-6 p-4 sm:p-6 min-h-screen">
+      {/* Chat Header */}
       <div className="flex flex-col gap-4">
         <h2 className="font-bold text-2xl">Chat with RAG</h2>
-        <div className="mt-6">
+        <div className="mt-4">
           <Link
             href={`/integrations/${userId}/${botid}`}
             className="px-4 py-2 bg-purple-500 text-white rounded-lg shadow hover:bg-purple-600 transition"
@@ -91,39 +102,60 @@ export default function ProtectedPage() {
             Go to Integrations
           </Link>
         </div>
-        <div className="flex flex-col gap-4 max-h-[400px] overflow-auto p-4 border rounded-lg bg-gray-50">
+      </div>
+
+      {/* Chat Window */}
+      <div className="flex-1 flex flex-col gap-4 bg-white rounded-lg shadow-lg p-4">
+        <div className="flex-1 flex flex-col gap-4 overflow-auto">
           {messages.map((message, index) => (
             <div
               key={index}
               className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`max-w-xs p-3 mb-3 rounded-lg text-sm ${
-                  message.isUser ? "bg-blue-500 text-white" : "bg-gray-300 text-black"
+                className={`max-w-[80%] p-3 rounded-lg text-sm ${
+                  message.isUser
+                    ? "bg-blue-500 text-white rounded-br-none"
+                    : "bg-gray-100 text-gray-800 rounded-bl-none"
                 }`}
               >
                 {message.text}
               </div>
             </div>
           ))}
+          {isBotTyping && (
+            <div className="flex justify-start">
+              <div className="bg-gray-100 text-gray-800 p-3 rounded-lg rounded-bl-none">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-100"></div>
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-200"></div>
+                </div>
+              </div>
+            </div>
+          )}
           <div ref={chatEndRef} />
         </div>
-        <form onSubmit={handleSubmit} className="flex items-center gap-4 mt-4">
+
+        {/* Input Form */}
+        <form onSubmit={handleSubmit} className="flex items-center gap-4">
           <input
             type="text"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="Enter your prompt"
-            className="p-3 border rounded w-full shadow-sm"
+            placeholder="Type a message..."
+            className="flex-1 p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
             type="submit"
-            className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
           >
             Send
           </button>
         </form>
       </div>
+
+      {/* Error Message */}
       {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
   );

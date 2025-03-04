@@ -13,65 +13,64 @@ export default async function CreateChatBot() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    // Redirect to sign-in if the user is not authenticated
     redirect("/sign-in");
   }
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center p-6">
-      {/* Navbar or page header can go here if needed */}
-
-      <div className="w-full max-w-4xl flex flex-col items-center">
-        <h2 className="text-xl font-medium">Your Agents</h2>
+      <div className="w-full max-w-5xl text-center">
+        <h2 className="text-3xl font-semibold">Your Agents</h2>
         <p className="text-gray-400 text-sm mb-6">
           Select an agent to view details.
         </p>
+      </div>
 
-        <div className="grid grid-cols-2 gap-6">
-          {/* Agent Card 1 - Nova */}
-          <div className="bg-gray-900 rounded-xl p-6 text-center shadow-lg">
+      {/* Agents Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl px-4">
+        {[
+          {
+            id: 1,
+            name: "Nova",
+            role: "AI Assistant",
+            image: "/images/1.png",
+            capacity: 1,
+          },
+          {
+            id: 2,
+            name: "Lumi",
+            role: "Sales Strategist",
+            image: "/images/2.png",
+            capacity: 2,
+          },
+        ].map((agent) => (
+          <div
+            key={agent.id}
+            className="bg-gray-900 rounded-xl p-6 text-center shadow-lg flex flex-col items-center"
+          >
             <img
-              src="/nova.png"
-              alt="Nova"
-              className="mx-auto w-24 h-24 mb-4"
+              src={agent.image}
+              alt={agent.name}
+              className="w-28 h-28 mb-4"
             />
-            <h3 className="text-lg font-bold">Nova</h3>
-            <p className="text-gray-400 text-sm">AI Assistant</p>
+            <h3 className="text-xl font-bold">{agent.name}</h3>
+            <p className="text-gray-400 text-sm">{agent.role}</p>
             <p className="mt-2 text-sm">
-              Current Capacity: <span className="font-bold">1</span>
+              Current Capacity:{" "}
+              <span className="font-bold">{agent.capacity}</span>
             </p>
-            <Link href={`/create-chatbot/${user.id}/upload-pdf/1`}>
-              <Button className="mt-4 bg-blue-500 hover:bg-blue-600">
+            <Link href={`/create-chatbot/${user.id}/upload-pdf/${agent.id}`}>
+              <Button className="mt-4 bg-blue-500 hover:bg-blue-600 w-full">
                 Create
               </Button>
             </Link>
           </div>
+        ))}
+      </div>
 
-          {/* Agent Card 2 - Lumi */}
-          <div className="bg-gray-900 rounded-xl p-6 text-center shadow-lg">
-            <img
-              src="/lumi.png"
-              alt="Lumi"
-              className="mx-auto w-24 h-24 mb-4"
-            />
-            <h3 className="text-lg font-bold">Lumi</h3>
-            <p className="text-gray-400 text-sm">Sales Strategist</p>
-            <p className="mt-2 text-sm">
-              Current Capacity: <span className="font-bold">2</span>
-            </p>
-            <Link href={`/create-chatbot/${user.id}/upload-pdf/2`}>
-              <Button className="mt-4 bg-blue-500 hover:bg-blue-600">
-                Create
-              </Button>
-            </Link>
-          </div>
-        </div>
-
-        {/* Add New Agent */}
-        <div className="mt-6 flex flex-col items-center">
-          <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-700">
-            <span className="text-3xl">+</span>
-          </div>
+      {/* Floating Add Button */}
+      <div className="fixed bottom-8 right-8 md:bottom-12 md:right-12">
+        <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg cursor-pointer hover:scale-110 transition">
+          <span className="text-3xl font-bold">+</span>
         </div>
       </div>
     </div>

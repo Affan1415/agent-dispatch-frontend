@@ -43,7 +43,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
-      <body className="bg-background text-foreground">
+      <body className="bg-background bg-black text-foreground">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -53,12 +53,10 @@ export default async function RootLayout({
           <main className="min-h-screen flex flex-col items-stretch w-full">
             <div className="flex-1 w-full flex flex-col gap-20">
               <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-                {user? <Authnullnavbar/>:<HeaderAuth/>}
+                {user ? <Authnullnavbar /> : <HeaderAuth />}
               </nav>
-              <div>
-                {children}
-              </div>
-          <Footer/>
+              <div>{children}</div>
+              <Footer />
             </div>
           </main>
         </ThemeProvider>
