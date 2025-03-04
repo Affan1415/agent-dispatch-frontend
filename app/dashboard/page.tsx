@@ -6,12 +6,14 @@ import { createClient } from "@/utils/supabase/client";
 
 export default function DashboardPage() {
   const [chatbots, setChatbots] = useState<any[]>([]);
+  const [userId, setUserId] = useState<string>("");
   const supabase = createClient();
 
   useEffect(() => {
     async function fetchChatbots() {
       // Get the currently logged-in user
-      const { data: userData, error: userError } = await supabase.auth.getUser();
+      const { data: userData, error: userError } =
+        await supabase.auth.getUser();
       if (userError) {
         console.error("Error getting user:", userError);
         return;
@@ -21,6 +23,8 @@ export default function DashboardPage() {
         console.error("User not logged in");
         return;
       }
+      // Store only the user id in state
+      setUserId(user.id);
 
       // Fetch chatbots only for the logged-in user by filtering on user_id
       const { data, error } = await supabase
@@ -43,20 +47,19 @@ export default function DashboardPage() {
     alt: bot.name,
     title: bot.name,
     subtitle: bot.description || "Chatbot",
-    capacity: 0, // capacity field is not used; adjust or remove as needed
+    capacity: 0, // adjust or remove as needed
   }));
 
   return (
     <div className="p-8 bg-black min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-semibold text-white">Dashboard</h1>
-        <Link href="/dashboard/create-chatbot">
+        <Link href={`/create-chatbot/${userId}`}>
           <button className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition">
             Create a Chatbot
           </button>
         </Link>
       </div>
-
       <DashboardCards cards={chatbotCards} />
     </div>
   );
