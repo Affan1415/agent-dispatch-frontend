@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
 
@@ -15,6 +16,7 @@ export default function UploadPDF() {
   const [uploadStatus, setUploadStatus] = useState("");
   const [loading, setLoading] = useState(false);
   const [apiKey, setApiKey] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     const generateApiKey = async () => {
@@ -60,13 +62,14 @@ export default function UploadPDF() {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
       if (!apiUrl) throw new Error("API URL is not defined.");
-      const response = await fetch(
-        `${apiUrl}/chat/fetch_latest_pdf/${userId}`,
-        { method: "GET", headers: { "Content-Type": "application/json" } }
-      );
+      const response = await fetch(`${apiUrl}/fetch_latest_pdf/${userId}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
       if (!response.ok) throw new Error("Failed to fetch document.");
       alert("Document retrieved successfully!");
-      window.location.href = `/chatbot/${userId}/${botid}`;
+      // window.location.href = `/chatbot/${userId}/${botid}`;
+      router.push(`/chatbot/${userId}/${botid}`);
     } catch (error) {
       console.error("Error:", error);
       setUploadStatus(error.message || "An error occurred.");
@@ -78,8 +81,8 @@ export default function UploadPDF() {
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-8">
       <nav className="mb-4 text-sm text-gray-400">
-         <Link href="/upload">Upload PDF</Link>{" "}
-        &gt; <Link href="#">Test Your Chatbot</Link> &gt;{" "}
+        <Link href="/upload">Upload PDF</Link> &gt;{" "}
+        <Link href="#">Test Your Chatbot</Link> &gt;{" "}
         <Link href="#">Integrations</Link>
       </nav>
       <h1 className="text-4xl font-bold mb-4">Upload Your PDF</h1>

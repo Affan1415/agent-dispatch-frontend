@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function ProtectedPage() {
   const [prompt, setPrompt] = useState("");
   const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>(
-    []
+    [],
   );
   const [userId, setUserId] = useState<string | null>(null);
   const [error, setError] = useState("");
@@ -45,7 +45,7 @@ export default function ProtectedPage() {
         throw new Error("API URL is not defined");
       }
 
-      const res = await fetch(`${apiUrl}/chat/rag`, {
+      const res = await fetch(`${apiUrl}/rag`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
