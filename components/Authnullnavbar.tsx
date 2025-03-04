@@ -22,8 +22,12 @@ export default function AuthNavbar() {
   };
 
   return (
-    <header className="w-full max-w-4xl flex justify-between items-center mb-6 mx-auto">
-      <h1 className="text-3xl font-semibold">Agent Dispatch</h1>
+    <header className="w-full max-w-6xl mx-auto p-6 flex justify-between items-center bg-black text-white">
+      <img
+        src="/images/Logo.png"
+        alt="Agent Dispatch Logo"
+        className="w-32 h-auto"
+      />
       <nav className="flex space-x-6">
         <Link href="/dashboard" className="text-blue-400 hover:underline">
           Dashboard

@@ -31,7 +31,7 @@ export default async function Dashboard() {
           {/* Agent Card 1 */}
           <div className="bg-gray-900 rounded-xl p-6 text-center shadow-lg">
             <img
-              src="/nova.png"
+              src="images/1.png"
               alt="Nova"
               className="mx-auto w-24 h-24 mb-4"
             />
@@ -48,7 +48,7 @@ export default async function Dashboard() {
           {/* Agent Card 2 */}
           <div className="bg-gray-900 rounded-xl p-6 text-center shadow-lg">
             <img
-              src="/lumi.png"
+              src="images/2.png"
               alt="Lumi"
               className="mx-auto w-24 h-24 mb-4"
             />
