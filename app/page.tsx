@@ -321,7 +321,7 @@ export default function Home() {
           </div>
 
           {/* Right Section: FAQ List */}
-          <div className="md:w-1/2 space-y-3 sm:space-y-4">
+          {/* <div className="md:w-1/2 space-y-3 sm:space-y-4">
             {[
               "How does the AI adapt to my business needs?",
               "What tools does your platform integrate with?",
@@ -340,7 +340,7 @@ export default function Home() {
                 </span>
               </button>
             ))}
-          </div>
+          </div> */}
         </div>
       </section>
     </div>
