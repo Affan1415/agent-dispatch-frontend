@@ -33,10 +33,12 @@ export default function ProtectedPage() {
     }
 
     setError("");
-    setMessages((prev) => [...prev, { text: prompt, isUser: true }]);
+
+    // Append the user message to state
+    const newUserMessage = { text: prompt, isUser: true };
+    setMessages((prev) => [...prev, newUserMessage]);
     setPrompt("");
 
-    // Simulate bot typing
     setIsBotTyping(true);
 
     try {
@@ -51,7 +53,7 @@ export default function ProtectedPage() {
         body: JSON.stringify({
           question: prompt,
           user_id: userId,
-          history: messages.slice(-5),
+          history: [...messages, newUserMessage].slice(-5), // Corrected history passing
         }),
       });
 
@@ -67,16 +69,9 @@ export default function ProtectedPage() {
           ? data.response.content
           : "No valid response from server";
 
-      // Simulate streaming effect
-      let displayedText = "";
-      for (let i = 0; i < responseText.length; i++) {
-        displayedText += responseText[i];
-        setMessages((prev) => [
-          ...prev.slice(0, -1),
-          { text: displayedText, isUser: false },
-        ]);
-        await new Promise((resolve) => setTimeout(resolve, 20)); // Adjust speed here
-      }
+      // Append bot message properly (without modifying previous messages)
+      const newBotMessage = { text: responseText, isUser: false };
+      setMessages((prev) => [...prev, newBotMessage]);
     } catch (error) {
       console.error("Fetch error:", error);
       setError("Failed to fetch response");
@@ -84,6 +79,7 @@ export default function ProtectedPage() {
       setIsBotTyping(false);
     }
   };
+
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
