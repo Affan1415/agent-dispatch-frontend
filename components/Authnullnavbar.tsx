@@ -1,17 +1,19 @@
 "use client";
+
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { Button } from "@/components/ui/button";
+import { User } from "@supabase/supabase-js";
 
 export default function AuthNavbar() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const supabase = createClient();
 
   useEffect(() => {
     const getUser = async () => {
       const { data } = await supabase.auth.getUser();
-      setUser(data?.user);
+      setUser(data?.user || null);
     };
     getUser();
   }, [supabase]);
@@ -32,10 +34,7 @@ export default function AuthNavbar() {
         <Link href="/dashboard" className="text-blue-400 hover:underline">
           Dashboard
         </Link>
-        <Link
-          href="/dashboard/myChatbots"
-          className="text-blue-400 hover:underline"
-        >
+        <Link href="/dashboard/myChatbots" className="text-blue-400 hover:underline">
           My Chatbots
         </Link>
         <div className="relative group">
