@@ -1,24 +1,28 @@
+"use client";
 
 import React from "react";
-import Sidebar from "@/components/Sidebar";
-import Card from "@/components/Card";
-import ToggleSwitch from "@/components/ToggleSwitch";
+import { useParams } from "next/navigation";
+import TelegramIntegration from "@/components/TelegramIntegration";
+import CustomBotIntegration from "@/components/CustomBotIntegration";
 
 const Integrations: React.FC = () => {
+  const params = useParams();
+  // Expecting route parameters like /integrations/[botid]/[userid]
+  const botid = params?.botid;
+  const userId = params?.userId; // Extract user id from the route
+//   console.log(params)
+
   return (
     <div className="flex min-h-screen bg-black text-white">
-      <Sidebar />
-      <main className="flex-1 p-6 space-y-6">
-        <div className="flex justify-between">
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <ToggleSwitch />
-        </div>
-        <div className="grid md:grid-cols-2 gap-6">
-          <Card title="Analytics" content="Messages Handled" />
-          <Card title="Response Rate" content="85%" />
-          <Card title="Recent Interactions" content="3 Conversations" />
-        </div>
-      </main>
+      {botid === "1" ? (
+        <TelegramIntegration userId={userId} />
+      ) : botid === "2" ? (
+        <CustomBotIntegration userId={userId} />
+      ) : (
+        <p className="mt-6 text-center text-gray-400">
+          No integration available.
+        </p>
+      )}
     </div>
   );
 };

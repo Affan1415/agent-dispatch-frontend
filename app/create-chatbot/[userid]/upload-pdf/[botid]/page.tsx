@@ -7,7 +7,7 @@ import { createClient } from "@/utils/supabase/client";
 
 export default function UploadPDF() {
   const params = useParams();
-  const userId = params?.userid;
+  const userId = params?.userId;
   const botid = params?.botid;
   const supabase = createClient();
 
