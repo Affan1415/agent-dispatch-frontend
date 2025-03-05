@@ -1,14 +1,15 @@
 "use client";
+
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
 
 export default function UploadPDF() {
   const params = useParams();
-  const userId = params?.userId;
-  const botid = params?.botid;
+  const router = useRouter();
+  const userId = params?.userId as string;
+  const botid = params?.botid as string; // Optional, if provided
   const supabase = createClient();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -16,8 +17,8 @@ export default function UploadPDF() {
   const [uploadStatus, setUploadStatus] = useState("");
   const [loading, setLoading] = useState(false);
   const [apiKey, setApiKey] = useState("");
-  const router = useRouter();
 
+  // Generate API key on mount
   useEffect(() => {
     const generateApiKey = async () => {
       try {
@@ -32,6 +33,7 @@ export default function UploadPDF() {
     generateApiKey();
   }, []);
 
+  // Handle file upload to Supabase Storage
   const handleUpload = async () => {
     if (!selectedFile || !userId) {
       setUploadStatus("No file selected or user ID missing.");
@@ -52,6 +54,7 @@ export default function UploadPDF() {
     setSelectedFile(null);
   };
 
+  // Handle document retrieval and redirect
   const handleSubmit = async () => {
     setLoading(true);
     if (!userId) {
@@ -69,7 +72,7 @@ export default function UploadPDF() {
       if (!response.ok) throw new Error("Failed to fetch document.");
       alert("Document retrieved successfully!");
       router.push(`/chatbot/${userId}/${botid}`);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error:", error);
       setUploadStatus(error.message || "An error occurred.");
     } finally {
@@ -100,9 +103,7 @@ export default function UploadPDF() {
           {uploading ? "Uploading..." : "Upload PDF"}
         </button>
         {uploadStatus && (
-          <p className="mt-4 text-center text-sm text-gray-300">
-            {uploadStatus}
-          </p>
+          <p className="mt-4 text-center text-sm text-gray-300">{uploadStatus}</p>
         )}
         {uploadStatus === "Upload successful!" && userId && (
           <button
