@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export default function CreateChatBot() {
   const params = useParams();
-  const userId = params?.userId as string; // Ensure that your route is /create-chatbot/[userId]
+  const userId = params?.userid as string; // Ensure that your route is /create-chatbot/[userId]
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center p-6">
