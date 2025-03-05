@@ -7,10 +7,11 @@ import CustomBotIntegration from "@/components/CustomBotIntegration";
 
 const Integrations: React.FC = () => {
   const params = useParams();
-  // Expecting route parameters like /integrations/[botid]/[userid]
-  const botid = params?.botid;
-  const userId = params?.userId; // Extract user id from the route
-//   console.log(params)
+  // Extract parameters and ensure they are strings
+  const userIdParam = params?.userId;
+  const botidParam = params?.botid;
+  const userId = Array.isArray(userIdParam) ? userIdParam[0] : userIdParam || "";
+  const botid = Array.isArray(botidParam) ? botidParam[0] : botidParam || "";
 
   return (
     <div className="flex min-h-screen bg-black text-white">
