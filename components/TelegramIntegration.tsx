@@ -72,9 +72,7 @@ export default function TelegramBotSetup({ userId }: TelegramBotSetupProps) {
             Start a chat and use the command <code>/newbot</code>.
           </li>
           <li>Choose a name and a unique username for your bot.</li>
-          <li>
-            BotFather will provide you with an API token. Copy it.
-          </li>
+          <li>BotFather will provide you with an API token. Copy it.</li>
           <li>Paste the token below and submit.</li>
         </ol>
         <p className="mb-4 text-center">

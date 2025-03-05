@@ -9,12 +9,13 @@ export default function EmbeddedCodeGenerator({
   widgetMessage: string;
   apikey: string;
 }) {
-  const embedCode = `<script src="https://api.thetasden.site/chat-widget.js?api_key=${apikey}&color=${widgetColor}&position=${widgetPosition}"></script>`.trim();
+  const embedCode =
+    `<script src="https://api.thetasden.site/chat-widget.js?api_key=${apikey}&color=${widgetColor}&position=${widgetPosition}"></script>`.trim();
 
   return (
     <textarea
       readOnly
-      className="w-full p-2 border border-gray-300 rounded-md bg-gray-100 text-sm font-mono"
+      className="w-full p-5 border border-teal-700/20 mt-3 rounded-md bg-transparent  text-sm font-mono "
       rows={8}
       value={embedCode}
     />

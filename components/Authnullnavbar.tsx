@@ -24,51 +24,47 @@ export default function AuthNavbar() {
   };
 
   return (
-    <header className="w-full max-w-6xl mx-auto p-6 flex justify-between items-center bg-black text-white">
-      <img
-        src="/images/Logo.png"
-        alt="Agent Dispatch Logo"
-        className="w-32 h-auto"
-      />
-      <nav className="flex space-x-6">
-        <Link href="/dashboard" className="text-blue-400 hover:underline">
-          Dashboard
+    <header className="w-screen h-[80px] overflow-hidden flex items-center justify-center border-b border-b-gray-800 z-[100]">
+      <div className="w-full max-w-6xl mx-auto p-6 flex justify-between items-center  text-white">
+        {/* Logo */}
+        <Link href="/">
+          <img
+            src="/images/Logo.png"
+            alt="Agent Dispatch Logo"
+            className="w-32 h-auto"
+          />
         </Link>
-        <Link href="/dashboard/myChatbots" className="text-blue-400 hover:underline">
-          My Chatbots
-        </Link>
-        <div className="relative group">
-          <button className="text-blue-400 hover:underline">Settings ▾</button>
-          <div className="absolute hidden group-hover:block bg-gray-800 p-2 rounded-lg shadow-lg mt-1 z-10">
-            <Link
-              href="/dashboard/settings/billing"
-              className="block px-4 py-2 text-white hover:bg-gray-700"
+
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center space-x-10">
+          <Link
+            href="/dashboard"
+            className="text-white hover:underline underline-offset-2"
+          >
+            Dashboard{" "}
+          </Link>{" "}
+          <Link
+            href="/dashboard/myChatbots"
+            className="text-white hover:underline underline-offset-2"
+          >
+            My Chatbots{" "}
+          </Link>
+          {user ? (
+            <Button
+              onClick={handleSignOut}
+              className="text-white hover:underline underline-offset-2"
             >
-              Billing
-            </Link>
-            <Link
-              href="/dashboard/settings/subscriptions"
-              className="block px-4 py-2 text-white hover:bg-gray-700"
-            >
-              Subscriptions
-            </Link>
-            {user ? (
-              <Button
-                onClick={handleSignOut}
-                className="bg-red-500 hover:bg-red-600 w-full mt-2"
-              >
-                Sign Out
+              Sign Out
+            </Button>
+          ) : (
+            <Link href="/sign-in">
+              <Button className="bg-[#7B8CE5] px-6 py-2 rounded-full text-white font-semibold transition-all duration-300 hover:bg-indigo-600 hover:scale-105">
+                GET STARTED
               </Button>
-            ) : (
-              <Link href="/sign-in">
-                <Button className="bg-indigo-500 px-6 py-2 rounded-full text-white font-semibold transition-all duration-300 hover:bg-indigo-600 hover:scale-105">
-                  GET STARTED
-                </Button>
-              </Link>
-            )}
-          </div>
-        </div>
-      </nav>
+            </Link>
+          )}
+        </nav>
+      </div>
     </header>
   );
 }

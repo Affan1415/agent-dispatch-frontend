@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { supabase } from "@/utils/supabase";
+import BlurredCircle from "@/components/BlurredCircle";
 
 const IntegrationInstructionsPage = () => {
   const params = useParams();
@@ -44,7 +45,7 @@ const IntegrationInstructionsPage = () => {
     switch (selectedIntegration) {
       case "wordpress":
         return (
-          <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+          <div className="mt-4 p-4  bg-gradient-to-t rounded-xl border   from-teal-800/20 to-purple-900/10  border-teal-100/10 ">
             <h3 className="text-lg font-semibold mb-2">
               WordPress Integration
             </h3>
@@ -58,7 +59,7 @@ const IntegrationInstructionsPage = () => {
         );
       case "shopify":
         return (
-          <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+          <div className="mt-4 p-4  bg-gradient-to-t rounded-xl border   from-teal-800/20 to-purple-900/10  border-teal-100/10 ">
             <h3 className="text-lg font-semibold mb-2">Shopify Integration</h3>
             <p>
               For Shopify, edit your theme's <code>theme.liquid</code> file and
@@ -71,7 +72,7 @@ const IntegrationInstructionsPage = () => {
         );
       case "custom":
         return (
-          <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+          <div className="mt-4 p-4  bg-gradient-to-t rounded-xl border   from-teal-800/20 to-purple-900/10  border-teal-100/10 ">
             <h3 className="text-lg font-semibold mb-2">
               Custom Website Integration
             </h3>
@@ -89,65 +90,87 @@ const IntegrationInstructionsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center p-8">
-      <h1 className="text-3xl font-bold text-gray-800 mb-8">
-        Integration Instructions
-      </h1>
-      {loading ? (
-        <p>Loading widget script...</p>
-      ) : widgetScript ? (
-        <div className="w-full max-w-3xl bg-white p-6 rounded-xl shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4">Your Widget Script</h2>
-          <pre className="bg-gray-900 text-green-400 p-4 rounded overflow-x-auto text-sm">
-            {widgetScript}
-          </pre>
-          <button
-            onClick={handleCopy}
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-          >
-            Copy Script
-          </button>
-
-          <div className="mt-8">
-            <h2 className="text-2xl font-semibold mb-4">Integration Options</h2>
-            <div className="flex space-x-4">
-              <button
-                className={`px-4 py-2 rounded ${
-                  selectedIntegration === "wordpress"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200 text-gray-800"
-                }`}
-                onClick={() => setSelectedIntegration("wordpress")}
-              >
-                WordPress
-              </button>
-              <button
-                className={`px-4 py-2 rounded ${
-                  selectedIntegration === "shopify"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200 text-gray-800"
-                }`}
-                onClick={() => setSelectedIntegration("shopify")}
-              >
-                Shopify
-              </button>
-              <button
-                className={`px-4 py-2 rounded ${
-                  selectedIntegration === "custom"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200 text-gray-800"
-                }`}
-                onClick={() => setSelectedIntegration("custom")}
-              >
-                Custom Website
-              </button>
-            </div>
-            {renderInstructions()}
-          </div>
+    <div className="h-full bg-black flex flex-col items-center p-8 relative ">
+      <div className="absolute left-0 opacity-90 ">
+        <BlurredCircle />
+      </div>
+      <div className="absolute right-0 opacity-90 scale-x-[-1]  ">
+        <BlurredCircle />
+      </div>
+      <div className="max-w-screen-xl flex items-center justify-center flex-col gap-3 z-10">
+        <div className="text-center fleex flex-col items-center justify-center text-white">
+          <h2 className="text-4xl lg:text-5xl mt-2 font-semibold w-full  leading-tight">
+            <span className="bg-gradient-to-r from-white to-blue-300 text-transparent bg-clip-text">
+              Integration!
+            </span>{" "}
+            Read the Instructions
+          </h2>
+          <p className="text-gray-400 mt-6 text-sm sm:text-base max-w-4xl">
+            Choose the colors, postion and integrate the bot into your website.
+          </p>
         </div>
-      ) : (
-        <p className="text-red-500">No widget script found.</p>
-      )}
+        <div>
+          {loading ? (
+            <p>Loading widget script...</p>
+          ) : widgetScript ? (
+            <div className="w-full max-w-3xl text-white p-6 mt-6 rounded-xl shadow-lg  bg-gradient-to-t border   from-teal-800/20 to-purple-900/10  border-teal-100/10">
+              <h2 className="text-2xl font-semibold mb-4">
+                Your Widget Script
+              </h2>
+              <pre className="bg-gray-900 text-green-400 p-4 rounded overflow-x-auto text-sm">
+                {widgetScript}
+              </pre>
+              <button
+                onClick={handleCopy}
+                className="mt-4 px-4 py-2 bg-teal-700/50  text-white rounded hover:bg-blue-600 transition"
+              >
+                Copy Script
+              </button>
+
+              <div className="mt-8 ">
+                <h2 className="text-2xl font-semibold mb-4">
+                  Integration Options
+                </h2>
+                <div className="flex space-x-4">
+                  <button
+                    className={`px-4 py-2 rounded ${
+                      selectedIntegration === "wordpress"
+                        ? "bg-teal-700/50 text-white"
+                        : "bg-gray-200 text-gray-800"
+                    }`}
+                    onClick={() => setSelectedIntegration("wordpress")}
+                  >
+                    WordPress
+                  </button>
+                  <button
+                    className={`px-4 py-2 rounded ${
+                      selectedIntegration === "shopify"
+                        ? "bg-teal-700/50 text-white"
+                        : "bg-gray-200 text-gray-800"
+                    }`}
+                    onClick={() => setSelectedIntegration("shopify")}
+                  >
+                    Shopify
+                  </button>
+                  <button
+                    className={`px-4 py-2 rounded ${
+                      selectedIntegration === "custom"
+                        ? "bg-teal-700/50 text-white"
+                        : "bg-gray-200 text-gray-800"
+                    }`}
+                    onClick={() => setSelectedIntegration("custom")}
+                  >
+                    Custom Website
+                  </button>
+                </div>
+                {renderInstructions()}
+              </div>
+            </div>
+          ) : (
+            <p className="text-red-500">No widget script found.</p>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

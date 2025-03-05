@@ -10,10 +10,14 @@ interface CustomIntegrationProps {
   userId: string;
 }
 
-const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({ userId }) => {
+const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({
+  userId,
+}) => {
   const [widgetColor, setWidgetColor] = useState("#2563eb");
   const [widgetPosition, setWidgetPosition] = useState("bottom-right");
-  const [widgetMessage, setWidgetMessage] = useState("Hi there! How can I help you?");
+  const [widgetMessage, setWidgetMessage] = useState(
+    "Hi there! How can I help you?"
+  );
   const [loading, setLoading] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [apiKey, setApiKey] = useState("");
@@ -79,7 +83,9 @@ const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({ userId }
         ]);
 
       if (websiteChatbotError) {
-        throw new Error(`Error creating website chatbot: ${websiteChatbotError.message}`);
+        throw new Error(
+          `Error creating website chatbot: ${websiteChatbotError.message}`
+        );
       }
 
       // 4. Redirect after successful insertion
@@ -98,12 +104,20 @@ const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({ userId }
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center p-6 bg-white">
-      <h1 className="text-3xl font-semibold text-gray-800 mb-6">
-        Create Custom Integration
-      </h1>
+    <div className="w-full flex flex-col items-center p-6 py-16  bg-gradient-to-t rounded-xl border   from-teal-800/20 to-purple-900/10  border-teal-100/10 text-white">
+      <div className="text-center fleex flex-col items-center justify-center">
+        <h2 className="text-4xl lg:text-5xl mt-2 font-semibold w-full  leading-tight">
+          <span className="bg-gradient-to-r from-white to-gray-300 text-transparent bg-clip-text">
+            Kaboom!
+          </span>{" "}
+          Chatbot is Created
+        </h2>
+        <p className="text-gray-400 mt-6 text-sm sm:text-base max-w-4xl">
+          Choose the colors, postion and integrate the bot into your website.
+        </p>
+      </div>
 
-      <form onSubmit={handleSubmit} className="w-full max-w-lg space-y-4">
+      <form onSubmit={handleSubmit} className="w-full max-w-5xl space-y-4 mt-6">
         {/* Customization Form */}
         <CustomizationForm
           widgetColor={widgetColor}
@@ -115,12 +129,12 @@ const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({ userId }
         />
 
         {/* Chat Widget Preview */}
-        <section className="p-6 border border-gray-200 rounded-lg shadow-md bg-white">
+        <section className="p-6 border border-gray-200 text-white rounded-lg shadow-md  bg-gradient-to-t  from-teal-800/20 to-purple-900/10  border-teal-100/10 ">
           <h2 className="text-xl font-semibold mb-4">Live Preview</h2>
           <p className="text-sm text-gray-500 mb-4">
             See how your chat widget will appear on your website.
           </p>
-          <div className="relative w-full h-64 border border-dashed border-gray-300 rounded-lg bg-gray-100">
+          <div className="relative w-full h-64 border border-dashed border-teal-700/50 rounded-lg  ">
             <ChatWidgetPreview
               widgetColor={widgetColor}
               widgetPosition={widgetPosition}
@@ -130,7 +144,7 @@ const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({ userId }
         </section>
 
         {/* Embed Code Section */}
-        <section className="p-4 border rounded-lg bg-gray-50">
+        <section className="p-4 border rounded-lg bg-gradient-to-t  from-teal-800/20 to-purple-900/10  border-teal-100/10">
           <h2 className="text-lg font-semibold">Embed Code</h2>
           <EmbeddedCodeGenerator
             widgetColor={widgetColor}
@@ -143,9 +157,9 @@ const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({ userId }
         <button
           type="submit"
           disabled={loading}
-          className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition disabled:opacity-50"
+          className="px-10 py-4 rounded-full   border border-teal-700/30 w-full text-center bg-[#7B8CE5] justify-center flex flex-row items-center gap-3 to-black/0 text-white mt-6  hover:bg-indigo-300/80 transition"
         >
-          {loading ? "Creating..." : "Create Integration"}
+          {loading ? "Deploying..." : "Deploy the Bot"}
         </button>
       </form>
     </div>

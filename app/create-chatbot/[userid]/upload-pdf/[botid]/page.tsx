@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
+import BlurredCircle from "@/components/BlurredCircle";
+import { DotIcon, UploadIcon } from "lucide-react";
 
 export default function UploadPDF() {
   const params = useParams();
@@ -41,7 +43,18 @@ export default function UploadPDF() {
     }
     setUploading(true);
     setUploadStatus("Uploading...");
-    const filePath = `PDFS/${userId}/${selectedFile.name}`;
+    const getRandomDigits = () => Math.floor(1000 + Math.random() * 9000); // Generates a 4-digit random number
+    const fileExtension = selectedFile.name.split(".").pop(); // Get file extension
+    const fileNameWithoutExt = selectedFile.name.replace(
+      `.${fileExtension}`,
+      ""
+    ); // Remove extension
+
+    const randomDigits = getRandomDigits();
+    const newFileName = `${fileNameWithoutExt}_${randomDigits}.${fileExtension}`;
+
+    const filePath = `PDFS/${userId}/${newFileName}`;
+
     const { data, error } = await supabase.storage
       .from("avatars")
       .upload(filePath, selectedFile, { cacheControl: "3600", upsert: false });
@@ -50,7 +63,7 @@ export default function UploadPDF() {
       setUploadStatus(`Upload failed: ${error.message}`);
       return;
     }
-    setUploadStatus("Upload successful!");
+    setUploadStatus("Uploaded successfully!");
     setSelectedFile(null);
   };
 
@@ -81,39 +94,72 @@ export default function UploadPDF() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-8">
-      <nav className="mb-4 text-sm text-gray-400">
-        <Link href="/upload">Upload PDF</Link> &gt;{" "}
-        <Link href="#">Test Your Chatbot</Link> &gt;{" "}
-        <Link href="#">Integrations</Link>
-      </nav>
-      <h1 className="text-4xl font-bold mb-4">Upload Your PDF</h1>
-      <div className="w-full max-w-md bg-black p-8 rounded-xl shadow-2xl">
-        <input
-          type="file"
-          accept="application/pdf"
-          onChange={(e) => e.target.files && setSelectedFile(e.target.files[0])}
-          className="mb-6 w-full text-gray-800 rounded-lg p-2"
-        />
-        <button
-          onClick={handleUpload}
-          disabled={uploading}
-          className="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-lg transition duration-200"
-        >
-          {uploading ? "Uploading..." : "Upload PDF"}
-        </button>
-        {uploadStatus && (
-          <p className="mt-4 text-center text-sm text-gray-300">{uploadStatus}</p>
-        )}
-        {uploadStatus === "Upload successful!" && userId && (
+    <div className="min-h-fit text-white flex flex-col items-center justify-center py-16 lg:py-32 relative ">
+      <div className="absolute left-0 opacity-80 -z-0  ">
+        <BlurredCircle />
+      </div>
+      <div className="absolute right-0 opacity-80 -z-0 scale-x-[-1] ">
+        <BlurredCircle />
+      </div>
+
+      <div className="max-w-screen-xl md:min-w-[500px] flex items-center shadow-2xl shadow-teal-700/10  z-10 justify-center px-7 md:px-8 flex-col  bg-gradient-to-t  from-teal-800/20 to-purple-900/10 border border-teal-100/10  p-10 rounded-xl ">
+        <nav className="mb-4 text-sm  text-white">
+          <Link href="/upload">Upload PDF</Link> &gt;{" "}
+          <Link href="#">Test Your Chatbot</Link> &gt;{" "}
+          <Link href="#">Integrations</Link>
+        </nav>
+        <h1 className="text-4xl font-bold mb-4">Upload Your PDF</h1>
+        <div className="w-full max-w-md mt-8 border border-teal-500/20 bg-black  shadow-teal-700/20 backdrop-blur-2xl p-8 text-white rounded-xl shadow-2xl">
+          <div className="mb-6">
+            <input
+              id="file-upload"
+              type="file"
+              accept="application/pdf"
+              onChange={(e) =>
+                e.target.files && setSelectedFile(e.target.files[0])
+              }
+              className="hidden"
+            />
+            <label
+              htmlFor="file-upload"
+              className="cursor-pointer  bg-[#246b532e] hover:bg-teal-800/40  text-white px-4 py-2 rounded-lg shadow-md  transition flex items-center justify-center"
+            >
+              Choose File
+            </label>
+            {selectedFile && (
+              <>
+                <p className="text-[#96a2e0]  text-md w-full text-center mt-4">
+                  {selectedFile.name}
+                </p>
+                <p className="text-white  gap-2  font-light flex flex-row  text-md w-full text-center mt-4">
+                  <UploadIcon className="w-5 h-5 text-white" /> Please click on
+                  upload to upload the document
+                </p>
+              </>
+            )}
+          </div>
           <button
-            onClick={handleSubmit}
-            disabled={loading}
-            className="mt-6 w-full bg-green-600 hover:bg-green-700 py-3 rounded-lg transition duration-200"
+            onClick={handleUpload}
+            disabled={uploading}
+            className="w-full py-3 bg-[#246b532e] hover:bg-teal-800/40 rounded-lg transition duration-200"
           >
-            {loading ? "Processing..." : "Test Your Chat Bot"}
+            {uploading ? "Uploading..." : "Upload PDF"}
           </button>
-        )}
+          {uploadStatus && (
+            <p className="mt-4 text-center text-sm text-gray-300">
+              Your Document is {uploadStatus}
+            </p>
+          )}
+          {uploadStatus === "Uploaded successfully!" && userId && (
+            <button
+              onClick={handleSubmit}
+              disabled={loading}
+              className="mt-6 w-full bg-teal-900/60 hover:bg-teal-900/80 py-3 rounded-lg transition duration-200"
+            >
+              {loading ? "Processing..." : "Test Your Chat Bot"}
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

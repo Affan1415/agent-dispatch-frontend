@@ -11,7 +11,7 @@ import { supabase } from "@/utils/supabase";
 import { UUID } from "crypto";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
-import axios from 'axios';
+import axios from "axios";
 
 const CreateAgentPage = () => {
   const [widgetColor, setWidgetColor] = useState("#2563eb");
@@ -66,7 +66,6 @@ const CreateAgentPage = () => {
     e.preventDefault();
     setLoading(true);
 
-
     if (!userId) {
       setUploadStatus("User ID is missing.");
       setLoading(false);
@@ -113,7 +112,6 @@ const CreateAgentPage = () => {
       console.error("❌ Error:", error);
       setUploadStatus((error as Error).message || "An unknown error occurred.");
       alert("Error occurred. Please try again.");
-
     } finally {
       setLoading(false);
     }
@@ -135,7 +133,17 @@ const CreateAgentPage = () => {
     setUploading(true);
     setUploadStatus("Uploading...");
 
-    const filePath = `PDFS/${userId}/${selectedFile.name}`;
+    const getRandomDigits = () => Math.floor(1000 + Math.random() * 9000); // Generates a 4-digit random number
+    const fileExtension = selectedFile.name.split(".").pop(); // Get file extension
+    const fileNameWithoutExt = selectedFile.name.replace(
+      `.${fileExtension}`,
+      ""
+    ); // Remove extension
+
+    const randomDigits = getRandomDigits();
+    const newFileName = `${fileNameWithoutExt}_${randomDigits}.${fileExtension}`;
+
+    const filePath = `PDFS/${userId}/${newFileName}`;
 
     const { data, error } = await supabase.storage
       .from("avatars")
@@ -159,8 +167,6 @@ const CreateAgentPage = () => {
   if (!isClient) {
     return null; // Return null or a loading spinner until the component is mounted client-side
   }
-
-
 
   return (
     <div className="min-h-screen flex flex-col items-center p-6 bg-white">
@@ -237,7 +243,6 @@ const CreateAgentPage = () => {
               widgetColor={widgetColor}
               widgetPosition={widgetPosition}
               widgetMessage={widgetMessage}
-
             />
           </div>
         </section>
@@ -251,7 +256,6 @@ const CreateAgentPage = () => {
             widgetMessage={widgetMessage}
             apikey={apikey} // ✅ Add this line
           />
-
         </section>
 
         <button

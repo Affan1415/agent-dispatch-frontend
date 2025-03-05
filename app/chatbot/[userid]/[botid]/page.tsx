@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { InfoIcon } from "lucide-react";
+import { ArrowRight, InfoIcon } from "lucide-react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 
 export default function ProtectedPage() {
   const [prompt, setPrompt] = useState("");
   const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>(
-    [],
+    []
   );
   const [userId, setUserId] = useState<string | null>(null);
   const [error, setError] = useState("");
@@ -80,79 +80,118 @@ export default function ProtectedPage() {
     }
   };
 
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: "smooth", // Smooth scrolling
+      });
+    }
+  }, [messages, isBotTyping]); // Scroll when messages or bot typing changes
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-6 p-4 sm:p-6 min-h-screen">
-      {/* Chat Header */}
-      <div className="flex flex-col gap-4">
-        <h2 className="font-bold text-2xl">Chat with RAG</h2>
-        <div className="mt-4">
-          <Link
-            href={`/integrations/${userId}/${botid}`}
-            className="px-4 py-2 bg-purple-500 text-white rounded-lg shadow hover:bg-purple-600 transition"
-          >
-            Go to Integrations
-          </Link>
-        </div>
-      </div>
+    <div className="w-full flex items-center gap-6  sm:p-6 flex-col">
+      <div className="max-w-screen-xl w-full flex flex-col gap-2">
+        <div className="flex flex-col items-center justify-center gap-4 text-white">
+          <div className="max-w-full flex flex-col items-center justify-center text-center ">
+            <h2 className="text-4xl lg:text-6xl font-semibold w-full  leading-tight">
+              <span className="bg-gradient-to-r from-teal-300 via-teal-200 to-blue-200/40 text-transparent bg-clip-text">
+                Kaboom!
+              </span>{" "}
+              Chatbot is Created
+            </h2>
+            <p className="text-gray-400 mt-6 text-sm sm:text-base max-w-4xl">
+              Test the bot using the provided window and ask relevant questions
+              based on the document. After testing, click on 'Integration' to .
+              integrate the bot
+            </p>
 
-      {/* Chat Window */}
-      <div className="flex-1 flex flex-col gap-4 bg-white rounded-lg shadow-lg p-4">
-        <div className="flex-1 flex flex-col gap-4 overflow-auto">
-          {messages.map((message, index) => (
-            <div
-              key={index}
-              className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}
+            <Link
+              href={`/integrations/${userId}/${botid}`}
+              className="px-10 py-4 rounded-full   border border-teal-700/20 bg-gradient-to-r from-teal-700/60  via-teal-700/40 flex flex-row items-center gap-3 to-black/0 text-white mt-6  hover:bg-teal-700/80 transition"
             >
-              <div
-                className={`max-w-[80%] p-3 rounded-lg text-sm ${
-                  message.isUser
-                    ? "bg-blue-500 text-white rounded-br-none"
-                    : "bg-gray-100 text-gray-800 rounded-bl-none"
-                }`}
-              >
-                {message.text}
+              Go to Integrations <ArrowRight className="w-5 h-5 text-white" />
+            </Link>
+
+            <div className="flex flex-row gap-2 items-center flex-wrap mt-6">
+              <h1 className="pr-6">Ask Some Question Like: </h1>
+              <div className="px-5 py-2 rounded-full border border-teal-700/70">
+                What is this document about?
+              </div>
+              <div className="px-5 py-2 rounded-full border border-teal-700/70">
+                Anything about the document?
+              </div>
+              <div className="px-5 py-2 rounded-full border border-teal-700/70">
+                Give summary for the document?
               </div>
             </div>
-          ))}
-          {isBotTyping && (
-            <div className="flex justify-start">
-              <div className="bg-gray-100 text-gray-800 p-3 rounded-lg rounded-bl-none">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-100"></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-200"></div>
+          </div>
+        </div>
+
+        {/* Chat Window */}
+        <div className="flex-1 flex flex-col gap-4  mt-8 bg-gradient-to-t  relative max-h-[600px]  from-teal-800/20 to-purple-900/10 border border-teal-100/10  rounded-lg shadow-lg p-4 min-h-[600px]">
+          <div
+            ref={chatContainerRef}
+            className="flex-1 flex flex-col gap-4 overflow-y-auto"
+          >
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}
+              >
+                <div
+                  className={`max-w-[80%] p-3 rounded-lg text-sm ${
+                    message.isUser
+                      ? "bg-teal-700/80 text-white rounded-br-none"
+                      : "bg-teal-700/20 text-gray-200 rounded-bl-none"
+                  }`}
+                >
+                  {message.text}
                 </div>
               </div>
+            ))}
+            {isBotTyping && (
+              <div className="flex justify-start">
+                <div className="bg-teal-700/40 text-gray-800 p-3 rounded-lg rounded-bl-none">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-teal-700 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-teal-700 rounded-full animate-bounce delay-100"></div>
+                    <div className="w-2 h-2 bg-teal-700 rounded-full animate-bounce delay-200"></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div ref={chatEndRef} />
+          </div>
+
+          {/* Input Form */}
+          <form
+            onSubmit={handleSubmit}
+            className="flex items-center gap-4 bg-transparent"
+          >
+            <div className="w-full h-full  bg-gradient-to-r  from-black/20 to-teal-900/10  border-teal-700/10">
+              <input
+                type="text"
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                placeholder="Type a message..."
+                className="flex-1 p-3 border text-white border-teal-700/30 rounded-lg w-full bg-transparent shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-700/40 "
+              />
             </div>
-          )}
-          <div ref={chatEndRef} />
+            <button
+              type="submit"
+              className="p-3 bg-teal-700/40 text-white rounded-lg hover:bg-teal-700/70 transition"
+            >
+              Send
+            </button>
+          </form>
         </div>
 
-        {/* Input Form */}
-        <form onSubmit={handleSubmit} className="flex items-center gap-4">
-          <input
-            type="text"
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            placeholder="Type a message..."
-            className="flex-1 p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <button
-            type="submit"
-            className="p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
-          >
-            Send
-          </button>
-        </form>
+        {/* Error Message */}
+        {error && <p className="text-red-500 mt-4">{error}</p>}
       </div>
-
-      {/* Error Message */}
-      {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
   );
 }

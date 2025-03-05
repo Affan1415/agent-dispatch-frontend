@@ -1,6 +1,6 @@
 import DeployButton from "@/components/deploy-button";
 import { EnvVarWarning } from "@/components/env-var-warning";
-import HeaderAuth from "@/components/header-auth";
+import HeaderAuth from "../components/header-auth";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { Geist } from "next/font/google";
@@ -11,7 +11,6 @@ import Footer from "@/components/Footer";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Authnullnavbar from "@/components/Authnullnavbar";
-
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
