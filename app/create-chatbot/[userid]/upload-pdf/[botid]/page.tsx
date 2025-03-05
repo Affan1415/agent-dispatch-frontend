@@ -68,7 +68,6 @@ export default function UploadPDF() {
       });
       if (!response.ok) throw new Error("Failed to fetch document.");
       alert("Document retrieved successfully!");
-      // window.location.href = `/chatbot/${userId}/${botid}`;
       router.push(`/chatbot/${userId}/${botid}`);
     } catch (error) {
       console.error("Error:", error);

@@ -1,32 +1,22 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
 import ChatWidgetPreview from "@/components/ChatWidgetPreview";
 import EmbeddedCodeGenerator from "@/components/EmbedCodeGenerator";
 import CustomizationForm from "@/components/CustomizationForm";
 import { supabase } from "@/utils/supabase";
- 
-const CustomIntegrationComponent = () => {
+
+interface CustomIntegrationProps {
+  userId: string;
+}
+
+const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({ userId }) => {
   const [widgetColor, setWidgetColor] = useState("#2563eb");
   const [widgetPosition, setWidgetPosition] = useState("bottom-right");
   const [widgetMessage, setWidgetMessage] = useState("Hi there! How can I help you?");
   const [loading, setLoading] = useState(false);
-  const [userId, setUserId] = useState<string | null>(null);
   const [isClient, setIsClient] = useState(false);
   const [apiKey, setApiKey] = useState("");
-  
-  // Extract userId from route parameters
-  const params = useParams();
-  const router = useRouter();
-  const userid = params.userid as string;
-
-  useEffect(() => {
-    if (userid) {
-      setUserId(userid);
-    }
-    setIsClient(true);
-  }, [userid]);
 
   // Generate API key on mount
   useEffect(() => {
@@ -44,6 +34,9 @@ const CustomIntegrationComponent = () => {
       }
     };
     generateApiKey();
+
+    // Mark this component as client-side once mounted
+    setIsClient(true);
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -57,21 +50,40 @@ const CustomIntegrationComponent = () => {
     }
 
     try {
-      // Insert integration details into the custom_website_chatbot table
-      const { error } = await supabase.from("custom_website_chatbot").insert([
-        {
-          color: widgetColor || null,
-          position: widgetPosition || null,
-          message: widgetMessage || null,
-          user_id: userId,
-          api_key: apiKey,
-        },
-      ]);
+      // 1. Insert into 'chatbots' table
+      const { data: chatbotData, error: chatbotError } = await supabase
+        .from("chatbots")
+        .insert([{ user_id: userId }])
+        .select("chatbot_id")
+        .single();
 
-      if (error) throw new Error(`Error creating integration: ${error.message}`);
+      if (chatbotError) {
+        throw new Error(`Error creating chatbot: ${chatbotError.message}`);
+      }
+      const { chatbot_id } = chatbotData;
 
-      // Redirect after successful insertion
-      window.location.href = `/integrations/${userId}`;
+      // 2. Construct the widget script
+      const encodedMessage = encodeURIComponent(widgetMessage);
+      const encodedColor = encodeURIComponent(widgetColor);
+      const widgetScript = `<script src="https://api.agent-dispatch.com/chat-widget.js?api_key=${apiKey}&color=${encodedColor}&message=${encodedMessage}&position=${widgetPosition}"></script>`;
+
+      // 3. Insert into 'custom_website_chatbots' table
+      const { error: websiteChatbotError } = await supabase
+        .from("custom_website_chatbots")
+        .insert([
+          {
+            chatbot_id,
+            api_key: apiKey,
+            widget_script: widgetScript,
+          },
+        ]);
+
+      if (websiteChatbotError) {
+        throw new Error(`Error creating website chatbot: ${websiteChatbotError.message}`);
+      }
+
+      // 4. Redirect after successful insertion
+      window.location.href = `/instructions/${chatbot_id}`;
     } catch (error) {
       console.error("Error:", error);
       alert((error as Error).message || "An unknown error occurred.");
@@ -81,7 +93,8 @@ const CustomIntegrationComponent = () => {
   };
 
   if (!isClient) {
-    return null; // Ensure this component only renders client-side
+    // Render nothing (or a loader) until we confirm we're in a client environment
+    return null;
   }
 
   return (

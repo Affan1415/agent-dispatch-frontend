@@ -14,9 +14,9 @@ const Integrations: React.FC = () => {
 
   return (
     <div className="flex min-h-screen bg-black text-white">
-      {botid === "1" ? (
+      {botid === "2" ? (
         <TelegramIntegration userId={userId} />
-      ) : botid === "2" ? (
+      ) : botid === "1" ? (
         <CustomBotIntegration userId={userId} />
       ) : (
         <p className="mt-6 text-center text-gray-400">
