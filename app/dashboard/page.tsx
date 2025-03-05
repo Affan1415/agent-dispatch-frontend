@@ -7,26 +7,41 @@ import { createClient } from "@/utils/supabase/client";
 export default function DashboardPage() {
   const [chatbots, setChatbots] = useState<any[]>([]);
   const [userId, setUserId] = useState<string>("");
+  const [plan, setPlan] = useState<string>("FREE");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const supabase = createClient();
 
   useEffect(() => {
-    async function fetchChatbots() {
-      // Get the currently logged-in user
-      const { data: userData, error: userError } =
-        await supabase.auth.getUser();
-      if (userError) {
+    async function fetchUserData() {
+      setIsLoading(true);
+
+      // Fetch user and their plan in a single call
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+      if (userError || !user) {
         console.error("Error getting user:", userError);
+        setIsLoading(false);
         return;
       }
-      const user = userData.user;
-      if (!user) {
-        console.error("User not logged in");
-        return;
-      }
-      // Store only the user id in state
+
       setUserId(user.id);
 
-      // Fetch chatbots only for the logged-in user by filtering on user_id
+      // Fetch user plan
+      const { data: userPlanData, error: planError } = await supabase
+        .from("users")
+        .select("plan_sub")
+        .eq("userID", user.id)
+        .single();
+
+      if (planError) {
+        console.error("Error fetching user plan:", planError);
+      } else {
+        setPlan(userPlanData?.plan_sub?.toLowerCase() || "free");
+      }
+
+      // Fetch chatbots for the logged-in user
       const { data, error } = await supabase
         .from("chatbots")
         .select("*")
@@ -37,30 +52,55 @@ export default function DashboardPage() {
       } else {
         setChatbots(data);
       }
+
+      setIsLoading(false);
     }
-    fetchChatbots();
+
+    fetchUserData();
   }, [supabase]);
 
-  // Map the fetched chatbots to the format expected by DashboardCards
+  // Define chatbot limits
+  const chatbotLimit = plan === "pro" ? 5 : 1;
+  const hasReachedLimit = chatbots.length >= chatbotLimit;
+
+  // Map chatbots to expected format for DashboardCards
   const chatbotCards = chatbots.map((bot) => ({
-    image: bot.image || "images/1.png", // fallback image if none provided
+    image: bot.image || "images/1.png",
     alt: bot.name,
     title: bot.name,
     subtitle: bot.description || "Chatbot",
-    capacity: 0, // adjust or remove as needed
+    capacity: 0, // Adjust or remove as needed
   }));
 
   return (
     <div className="p-8 bg-black min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-semibold text-white">Dashboard</h1>
-        <Link href={`/create-chatbot/${userId}`}>
-          <button className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition">
-            Create a Chatbot
-          </button>
-        </Link>
+        <div>
+          <Link href={hasReachedLimit ? "#" : `/create-chatbot/${userId}`}>
+            <button
+              className={`px-6 py-2 rounded-full transition ${
+                hasReachedLimit
+                  ? "bg-gray-500 cursor-not-allowed"
+                  : "bg-blue-500 hover:bg-blue-600 text-white"
+              }`}
+              disabled={hasReachedLimit}
+            >
+              Create a Chatbot
+            </button>
+          </Link>
+          {hasReachedLimit && (
+            <p className="text-red-400 mt-2 text-sm">
+              Subscribe to Pro plan to increase limit to 5 chatbots.
+            </p>
+          )}
+        </div>
       </div>
-      <DashboardCards cards={chatbotCards} />
+      {isLoading ? (
+        <p className="text-white">Loading...</p>
+      ) : (
+        <DashboardCards cards={chatbotCards} />
+      )}
     </div>
   );
 }
