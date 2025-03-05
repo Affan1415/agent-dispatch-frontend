@@ -83,7 +83,7 @@ const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({ userId }
       }
 
       // 4. Redirect after successful insertion
-      window.location.href = `/instructions/${chatbot_id}`;
+      window.location.href = `/instruction/${chatbot_id}`;
     } catch (error) {
       console.error("Error:", error);
       alert((error as Error).message || "An unknown error occurred.");
