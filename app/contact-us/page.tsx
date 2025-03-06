@@ -1,4 +1,5 @@
 "use client";
+import BlurredCircle from "@/components/BlurredCircle";
 import { supabase } from "@/utils/supabase";
 import React, { useState } from "react";
 
@@ -53,8 +54,14 @@ const Contact: React.FC = () => {
     setLoading(false);
   };
   return (
-    <div className="flex flex-col items-center bg-black px-4 py-10">
-      <div className="w-full max-w-screen-xl mx-auto">
+    <div className="flex flex-col items-center bg-black px-4 py-10 relative">
+      <div className="absolute left-0 opacity-[0.8]  ">
+        <BlurredCircle />
+      </div>
+      <div className="absolute right-0 opacity-[0.8] scale-x-[-1]  ">
+        <BlurredCircle />
+      </div>
+      <div className="w-full max-w-screen-xl mx-auto z-50">
         {/* Main Content */}
         <div className="text-center flex items-center justify-center w-full flex-col gap-4">
           <h2 className="text-2xl md:text-3xl font-normal text-white">
@@ -70,7 +77,7 @@ const Contact: React.FC = () => {
         {/* Contact Form */}
         <form
           onSubmit={handleSubmit}
-          className="mt-10 flex flex-col items-center justify-center rounded-2xl bg-gradient-to-t  from-teal-800/20 to-purple-900/10 border border-teal-100/10 p-8 w-full max-w-[846px] mx-auto"
+          className="mt-10 flex flex-col items-center justify-center rounded-2xl bg-gradient-to-t  from-blue-800/10 to-purple-900/10 border border-teal-100/10 p-8 w-full max-w-[846px] mx-auto"
         >
           <h3 className="text-3xl md:text-4xl font-bold text-white text-center">
             Let’s Build Your AI

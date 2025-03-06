@@ -11,6 +11,7 @@ import {
   HelpCircle,
   Zap,
 } from "lucide-react";
+import BlurredCircle from "@/components/BlurredCircle";
 
 // Dynamically import PricingCarousel to disable SSR for Swiper components
 const PricingCarousel = dynamic(() => import("@/components/PricingCarousel"), {
@@ -19,29 +20,36 @@ const PricingCarousel = dynamic(() => import("@/components/PricingCarousel"), {
 
 const plans = [
   {
-    name: "Nova - AI Assistant",
+    name: "Nova - AI Custom Chatbot",
     description:
-      "A reliable AI partner for business owners and busy professionals.",
-    price: 0,
+      "Nova is an AI-powered agent that effortlessly creates intelligent chatbots, seamlessly integrating into any website with just a simple script. Enhance customer engagement, automate support, and deliver dynamic interactions—all with minimal setup.",
+    price: 49,
     image: "images/Inspector.png",
   },
   {
-    name: "Orion - Business AI",
-    description: "Advanced AI designed for entrepreneurs and corporate teams.",
-    price: 59,
+    name: "Lumi  - Social Media Chatbot Agent",
+    description:
+      "Lumi is a powerful AI agent that effortlessly creates and deploys bots, seamlessly integrating them into Telegram. Automate conversations, enhance engagement, and streamline interactions with ease..",
+    price: 49,
     image: "images/Magni.png",
   },
   {
-    name: "Luna - Creative AI",
+    name: "Luna - Creative AI Coming Soon",
     description: "AI-powered assistant for designers, writers, and creatives.",
-    price: 79,
+    price: 49,
     image: "images/Builder.png",
   },
 ];
 
 const PricingPage = () => {
   return (
-    <div className="bg-black text-white flex items-center justify-center w-full">
+    <div className="bg-black text-white flex items-center justify-center w-full relative">
+      <div className="absolute left-0 opacity-[0.8]  ">
+        <BlurredCircle />
+      </div>
+      <div className="absolute right-0 opacity-[0.8] scale-x-[-1]  ">
+        <BlurredCircle />
+      </div>
       {/* Hero Section with Carousel */}
       <div className="max-w-screen-xl w-full flex flex-col  py-16">
         <div>
@@ -50,7 +58,7 @@ const PricingPage = () => {
 
         {/* Resource Usage */}
         <div className="px-4 mf:px-12 lg:px-28">
-          <div className="p-6 md:p-10 w-full min-h-[500px]  bg-gradient-to-t rounded-xl mx-auto from-teal-800/20 to-purple-900/10 border border-teal-100/10 ">
+          <div className="p-6 md:p-10 w-full min-h-[500px]  bg-gradient-to-t rounded-xl mx-auto from-blue-800/10 to-purple-900/10 border border-teal-100/10 ">
             <h2 className="text-2xl font-bold mb-4">Usage</h2>
             <ul className="list-none space-y-4 text-gray-800">
               <li className="flex items-start gap-3">

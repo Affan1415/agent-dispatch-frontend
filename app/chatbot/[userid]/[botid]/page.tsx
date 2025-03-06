@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { ArrowRight, InfoIcon } from "lucide-react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import BlurredCircle from "@/components/BlurredCircle";
 
 export default function ProtectedPage() {
   const [prompt, setPrompt] = useState("");
@@ -92,12 +93,12 @@ export default function ProtectedPage() {
   }, [messages, isBotTyping]); // Scroll when messages or bot typing changes
 
   return (
-    <div className="w-full flex items-center gap-6  sm:p-6 flex-col">
-      <div className="max-w-screen-xl w-full flex flex-col gap-2">
-        <div className="flex flex-col items-center justify-center gap-4 text-white">
-          <div className="max-w-full flex flex-col items-center justify-center text-center ">
+    <div className="w-full flex items-center gap-6  sm:p-6 flex-col relative">
+      <div className="max-w-screen-xl w-full flex flex-col gap-2 z-50 ">
+        <div className="flex flex-col items-center justify-center gap-4 text-white z-[100]">
+          <div className="max-w-full flex flex-col items-center justify-center text-center z-[100] ">
             <h2 className="text-4xl lg:text-6xl font-semibold w-full  leading-tight">
-              <span className="bg-gradient-to-r from-teal-300 via-teal-200 to-blue-200/40 text-transparent bg-clip-text">
+              <span className="bg-gradient-to-r from-blue-300 via-blue-200 to-blue-200/40 text-transparent bg-clip-text">
                 Kaboom!
               </span>{" "}
               Chatbot is Created
@@ -110,20 +111,20 @@ export default function ProtectedPage() {
 
             <Link
               href={`/integrations/${userId}/${botid}`}
-              className="px-10 py-4 rounded-full   border border-teal-700/20 bg-gradient-to-r from-teal-700/60  via-teal-700/40 flex flex-row items-center gap-3 to-black/0 text-white mt-6  hover:bg-teal-700/80 transition"
+              className="px-10 py-4 rounded-full   border border-teal-700/20 bg-gradient-to-r from-blue-700/30  via-blue-700/20 flex flex-row items-center gap-3 to-black/0 text-white mt-6  hover:bg-blue-700/40 transition"
             >
               Go to Integrations <ArrowRight className="w-5 h-5 text-white" />
             </Link>
 
             <div className="flex flex-row gap-2 items-center flex-wrap mt-6">
               <h1 className="pr-6">Ask Some Question Like: </h1>
-              <div className="px-5 py-2 rounded-full border border-teal-700/70">
+              <div className="px-5 py-2 rounded-full border border-blue-700/40">
                 What is this document about?
               </div>
-              <div className="px-5 py-2 rounded-full border border-teal-700/70">
+              <div className="px-5 py-2 rounded-full border border-blue-700/40">
                 Anything about the document?
               </div>
-              <div className="px-5 py-2 rounded-full border border-teal-700/70">
+              <div className="px-5 py-2 rounded-full border border-blue-700/40">
                 Give summary for the document?
               </div>
             </div>
@@ -131,7 +132,7 @@ export default function ProtectedPage() {
         </div>
 
         {/* Chat Window */}
-        <div className="flex-1 flex flex-col gap-4  mt-8 bg-gradient-to-t  relative max-h-[600px]  from-teal-800/20 to-purple-900/10 border border-teal-100/10  rounded-lg shadow-lg p-4 min-h-[600px]">
+        <div className="flex-1 flex flex-col gap-4  mt-8 bg-gradient-to-t z-50  relative max-h-[600px]  from-blue-800/20 to-purple-900/10 border border-teal-100/10  rounded-lg shadow-lg p-4 min-h-[600px]">
           <div
             ref={chatContainerRef}
             className="flex-1 flex flex-col gap-4 overflow-y-auto"
@@ -144,7 +145,7 @@ export default function ProtectedPage() {
                 <div
                   className={`max-w-[80%] p-3 rounded-lg text-sm ${
                     message.isUser
-                      ? "bg-teal-700/80 text-white rounded-br-none"
+                      ? "bg-blue-700/40 text-white rounded-br-none"
                       : "bg-teal-700/20 text-gray-200 rounded-bl-none"
                   }`}
                 >
@@ -156,9 +157,9 @@ export default function ProtectedPage() {
               <div className="flex justify-start">
                 <div className="bg-teal-700/40 text-gray-800 p-3 rounded-lg rounded-bl-none">
                   <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-teal-700 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-teal-700 rounded-full animate-bounce delay-100"></div>
-                    <div className="w-2 h-2 bg-teal-700 rounded-full animate-bounce delay-200"></div>
+                    <div className="w-2 h-2 bg-blue-700 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-blue-700 rounded-full animate-bounce delay-100"></div>
+                    <div className="w-2 h-2 bg-blue-700 rounded-full animate-bounce delay-200"></div>
                   </div>
                 </div>
               </div>
@@ -182,7 +183,7 @@ export default function ProtectedPage() {
             </div>
             <button
               type="submit"
-              className="p-3 bg-teal-700/40 text-white rounded-lg hover:bg-teal-700/70 transition"
+              className="p-3 bg-[#7B8CE5] text-white rounded-lg hover:bg-blue-700/40 transition"
             >
               Send
             </button>
@@ -191,6 +192,12 @@ export default function ProtectedPage() {
 
         {/* Error Message */}
         {error && <p className="text-red-500 mt-4">{error}</p>}
+      </div>
+      <div className="absolute left-0 opacity-[0.5] -z-10 ">
+        <BlurredCircle />
+      </div>
+      <div className="absolute right-0 opacity-[0.5] scale-x-[-1] -z-10  ">
+        <BlurredCircle />
       </div>
     </div>
   );

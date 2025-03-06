@@ -92,7 +92,7 @@ const PricingCarousel: React.FC<PricingCarouselProps> = ({ plans }) => {
       >
         {plans.map((plan, index) => (
           <SwiperSlide key={index}>
-            <div className="bg-gradient-to-t from-teal-800/20 to-purple-900/10 border border-teal-100/10 rounded-xl flex flex-col md:flex-row items-center justify-between w-full gap-8 p-6">
+            <div className="bg-gradient-to-t from-blue-800/10 to-purple-900/10 border border-teal-100/10 rounded-xl flex flex-col md:flex-row items-center justify-between w-full gap-8 p-6">
               <div className="relative">
                 <img
                   src={plan.image}

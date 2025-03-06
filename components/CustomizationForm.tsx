@@ -19,7 +19,7 @@ const CustomizationForm: React.FC<CustomizationFormProps> = ({
   setWidgetMessage,
 }) => {
   return (
-    <div className=" bg-gradient-to-t flex flex-col items-center gap-4  from-teal-800/20 to-purple-900/10  border-teal-100/10 p-5 rounded-xl border">
+    <div className=" bg-gradient-to-t flex flex-col items-center gap-4  from-blue-800/20 to-purple-900/10  border-teal-100/10 p-5 rounded-xl border">
       <div className="flex flex-row gap-4 w-full">
         <label htmlFor="widgetColor">Widget Color</label>
         <input

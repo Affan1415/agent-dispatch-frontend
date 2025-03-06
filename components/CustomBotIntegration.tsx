@@ -5,6 +5,7 @@ import ChatWidgetPreview from "@/components/ChatWidgetPreview";
 import EmbeddedCodeGenerator from "@/components/EmbedCodeGenerator";
 import CustomizationForm from "@/components/CustomizationForm";
 import { supabase } from "@/utils/supabase";
+import BlurredCircle from "./BlurredCircle";
 
 interface CustomIntegrationProps {
   userId: string;
@@ -104,13 +105,19 @@ const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({
   }
 
   return (
-    <div className="w-full flex flex-col items-center p-6 py-16  bg-gradient-to-t rounded-xl border   from-teal-800/20 to-purple-900/10  border-teal-100/10 text-white">
+    <div className="w-full flex flex-col items-center p-6 py-16  bg-gradient-to-t rounded-xl border   from-blue-800/10 to-purple-900/10  border-teal-100/10 text-white">
+      <div className="absolute left-0 opacity-[0.7]  ">
+        <BlurredCircle />
+      </div>
+      <div className="absolute right-0 opacity-[0.7] scale-x-[-1]  ">
+        <BlurredCircle />
+      </div>
       <div className="text-center fleex flex-col items-center justify-center">
         <h2 className="text-4xl lg:text-5xl mt-2 font-semibold w-full  leading-tight">
-          <span className="bg-gradient-to-r from-white to-gray-300 text-transparent bg-clip-text">
-            Kaboom!
+          <span className="bg-gradient-to-r from-white to-blue-300 text-transparent bg-clip-text">
+            Customization!
           </span>{" "}
-          Chatbot is Created
+          As You Like.
         </h2>
         <p className="text-gray-400 mt-6 text-sm sm:text-base max-w-4xl">
           Choose the colors, postion and integrate the bot into your website.
@@ -129,7 +136,7 @@ const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({
         />
 
         {/* Chat Widget Preview */}
-        <section className="p-6 border border-gray-200 text-white rounded-lg shadow-md  bg-gradient-to-t  from-teal-800/20 to-purple-900/10  border-teal-100/10 ">
+        <section className="p-6 border border-gray-200 text-white rounded-lg shadow-md  bg-gradient-to-t  from-blue-800/10 to-purple-900/10  border-teal-100/10 ">
           <h2 className="text-xl font-semibold mb-4">Live Preview</h2>
           <p className="text-sm text-gray-500 mb-4">
             See how your chat widget will appear on your website.
@@ -144,7 +151,7 @@ const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({
         </section>
 
         {/* Embed Code Section */}
-        <section className="p-4 border rounded-lg bg-gradient-to-t  from-teal-800/20 to-purple-900/10  border-teal-100/10">
+        <section className="p-4 border rounded-lg bg-gradient-to-t  from-blue-800/10 to-purple-900/10  border-teal-100/10">
           <h2 className="text-lg font-semibold">Embed Code</h2>
           <EmbeddedCodeGenerator
             widgetColor={widgetColor}

@@ -330,7 +330,7 @@ export default function Home() {
                   Brand Website
                 </h4>
                 <p className="text-gray-400 text-xs sm:text-sm">
-                  eCommerce, 24 pages
+                  Customer Serice Bot Integrations
                 </p>
               </div>
             </div>
@@ -338,15 +338,15 @@ export default function Home() {
             {/* Conversation with Julia */}
             <div className="bg-gray-900 p-4 sm:p-5 rounded-xl shadow-md flex items-center gap-3 sm:gap-4 min-w-[280px] whitespace-nowrap hover:scale-105 transition duration-300">
               <img
-                src="/images/gmail-icon.png"
+                src="/images/telegram.png"
                 className="w-6 h-6 sm:w-10 sm:h-10"
               />
               <div>
                 <h4 className="text-base sm:text-lg font-semibold">
-                  Conversation with Julia
+                  Telegram Integration
                 </h4>
                 <p className="text-gray-400 text-xs sm:text-sm">
-                  Follow-up scheduled
+                  Chatbot which responds efficiently and correctly.
                 </p>
               </div>
             </div>
@@ -420,7 +420,7 @@ export default function Home() {
       </section>
 
       {/* AI Chat Bubbles Section */}
-      <section className="bg-black text-white w-full py-16 md:py-16  flex items-center justify-center relative">
+      <section className=" text-white w-full py-16 md:py-16  flex items-center justify-center relative">
         <div className="max-w-screen-xl w-full  px-4 sm:px-8 md:px-12 lg:px-20">
           <div className="text-center max-w-3xl mx-auto">
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold">
@@ -444,7 +444,7 @@ export default function Home() {
                   className="w-16 h-16 md:w-28 md:h-28  md:-translate-x-12 -rotate-[25deg]"
                 />
                 <span className="whitespace-normal text-center  md:-translate-x-8  text-sm md:text-base">
-                  Nova, plan and schedule my social media posts.
+                  Nova, Customer Service Chatbot.
                 </span>
               </div>
 
@@ -456,7 +456,7 @@ export default function Home() {
                   className="w-16 h-16 md:w-20 md:h-20  md:-translate-x-12 -rotate-[25deg]"
                 />
                 <span className="whitespace-nowrap text-center  md:-translate-x-8   text-sm md:text-base">
-                  Kai, review my Facebook comments.
+                  Lumi, Social Media Chatbots.
                 </span>
               </div>
             </div>
@@ -470,7 +470,7 @@ export default function Home() {
                   className="w-16 h-16 md:w-20 md:h-20  md:-translate-x-12 -rotate-[25deg]"
                 />
                 <span className="whitespace-nowrap text-center md:-translate-x-8  text-sm md:text-base">
-                  Sage, get me ready for today’s meetings.
+                  Sage, Marketing Content Writer.
                 </span>
               </div>
             </div>
@@ -487,7 +487,7 @@ export default function Home() {
           <h3 className="text-center text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 md:mb-12">
             Trusted by{" "}
             <span className="bg-gradient-to-r from-purple-500 via-blue-300/80 to-teal-300/70 text-transparent bg-clip-text">
-              30k+ World Class
+              World Class
             </span>{" "}
             Companies
           </h3>

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import BlurredCircle from "./BlurredCircle";
 
 interface TelegramDetailsProps {
   data: {
@@ -21,8 +22,14 @@ const TelegramDetails: React.FC<TelegramDetailsProps> = ({ data }) => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col items-center p-8">
-      <div className="max-w-3xl w-full bg-gray-900 p-8 rounded-xl shadow-lg">
+    <div className="h-auto  text-white flex flex-col items-center p-8 relative">
+      <div className="absolute left-0 opacity-90 ">
+        <BlurredCircle />
+      </div>
+      <div className="absolute right-0 opacity-90 scale-x-[-1]  ">
+        <BlurredCircle />
+      </div>
+      <div className="max-w-5xl w-full from-blue-800/20 to-purple-900/10  border-teal-100/10  border p-8 rounded-xl shadow-lg">
         <h1 className="text-3xl font-bold mb-4">Telegram Bot Details</h1>
         <p className="mb-6 text-gray-400">
           Your Telegram bot has been successfully created.
@@ -62,32 +69,32 @@ const TelegramDetails: React.FC<TelegramDetailsProps> = ({ data }) => {
             BotFather to manage your bot settings. You can customize integration
             options below.
           </p>
-          <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">
-          Set Up Your Telegram Bot
-        </h2>
-        <ol className="list-decimal list-inside text-gray-700 mb-6 space-y-1">
-          <li>
-            Open Telegram and search for <strong>BotFather</strong>.
-          </li>
-          <li>
-            Start a chat and use the command <code>/newbot</code>.
-          </li>
-          <li>Choose a name and a unique username for your bot.</li>
-          <li>BotFather will provide you with an API token. Copy it.</li>
-          <li>Paste the token below and submit.</li>
-        </ol>
-          <div className="flex flex-col gap-4">
-            <Button className="bg-purple-500 hover:bg-purple-600">
+          <h2 className="text-2xl font-bold text-gray-200 mb-6 border-b pb-2">
+            Set Up Your Telegram Bot
+          </h2>
+          <ol className="list-decimal list-inside text-gray-200 mb-6 space-y-1">
+            <li>
+              Open Telegram and search for <strong>BotFather</strong>.
+            </li>
+            <li>
+              Start a chat and use the command <code>/newbot</code>.
+            </li>
+            <li>Choose a name and a unique username for your bot.</li>
+            <li>BotFather will provide you with an API token. Copy it.</li>
+            <li>Paste the token below and submit.</li>
+          </ol>
+          <div className="flex flex-row flex-wrap items-center justify-center w-full gap-4">
+            <Button className="bg-purple-500/70 hover:bg-purple-600">
               Use Telegram App
             </Button>
-            <Button className="bg-green-500 hover:bg-green-600">
+            <Button className="bg-green-500/70 hover:bg-green-600">
               Use BotFather Plugin
             </Button>
-            <Button className="bg-indigo-500 hover:bg-indigo-600">
+            <Button className="bg-indigo-500/70 hover:bg-indigo-600">
               Custom Website Integration
             </Button>
           </div>
-          <p className="mt-6 text-gray-400 text-sm">
+          <p className="mt-6 text-gray-400 text-sm mx-auto w-full text-center">
             For more help, visit{" "}
             <Link
               href="https://t.me/botfather"

@@ -4,6 +4,7 @@ import React from "react";
 import { useParams } from "next/navigation";
 import TelegramIntegration from "@/components/TelegramIntegration";
 import CustomBotIntegration from "@/components/CustomBotIntegration";
+import BlurredCircle from "@/components/BlurredCircle";
 
 const Integrations: React.FC = () => {
   const params = useParams();

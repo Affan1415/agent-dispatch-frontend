@@ -6,23 +6,24 @@ const AgentCarousel = () => {
   const agents = [
     {
       name: "Nova",
-      role: "AI Assistant.",
+      role: "AI Custom Chatbot gent",
       description:
-        "A reliable AI partner for business owners and professionals—managing calendars, scheduling meetings, planning trips, and answering everyday challenges with ease.",
+        "Nova is an AI-powered agent that effortlessly creates intelligent chatbots, seamlessly integrating into any website with just a simple script. Enhance customer engagement, automate support, and deliver dynamic interactions—all with minimal setup.",
       image: "images/1.png",
+
       glowColor: "#68E4FF",
     },
     {
       name: "Lumi",
-      role: "Sales Strategist.",
+      role: "Social Media Chatbot Agent",
       description:
-        "Lumi harnesses your business data to craft persuasive sales scripts, compelling cold emails, and impactful pitches—helping you close deals effortlessly.",
+        "Lumi is a powerful AI agent that effortlessly creates and deploys bots, seamlessly integrating them into Telegram. Automate conversations, enhance engagement, and streamline interactions with ease..",
       image: "images/2.png",
       glowColor: "#DC75F5",
     },
     {
       name: "Neon",
-      role: "eCommerce Expert.",
+      role: "eCommerce Expert. Coming Soon!",
       description:
         "Your go-to AI for online business success—helping with store setup, product launches, and optimizing eCommerce operations for smooth growth.",
       image: "images/4.png",

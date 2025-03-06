@@ -45,7 +45,7 @@ const IntegrationInstructionsPage = () => {
     switch (selectedIntegration) {
       case "wordpress":
         return (
-          <div className="mt-4 p-4  bg-gradient-to-t rounded-xl border   from-teal-800/20 to-purple-900/10  border-teal-100/10 ">
+          <div className="mt-4 p-4  bg-gradient-to-t rounded-xl border   from-blue-800/10 to-purple-900/10  border-teal-100/10 ">
             <h3 className="text-lg font-semibold mb-2">
               WordPress Integration
             </h3>
@@ -59,7 +59,7 @@ const IntegrationInstructionsPage = () => {
         );
       case "shopify":
         return (
-          <div className="mt-4 p-4  bg-gradient-to-t rounded-xl border   from-teal-800/20 to-purple-900/10  border-teal-100/10 ">
+          <div className="mt-4 p-4  bg-gradient-to-t rounded-xl border   from-blue-800/10 to-purple-900/10  border-teal-100/10 ">
             <h3 className="text-lg font-semibold mb-2">Shopify Integration</h3>
             <p>
               For Shopify, edit your theme's <code>theme.liquid</code> file and
@@ -72,7 +72,7 @@ const IntegrationInstructionsPage = () => {
         );
       case "custom":
         return (
-          <div className="mt-4 p-4  bg-gradient-to-t rounded-xl border   from-teal-800/20 to-purple-900/10  border-teal-100/10 ">
+          <div className="mt-4 p-4  bg-gradient-to-t rounded-xl border   from-blue-800/10 to-purple-900/10  border-teal-100/10 ">
             <h3 className="text-lg font-semibold mb-2">
               Custom Website Integration
             </h3>
@@ -113,7 +113,7 @@ const IntegrationInstructionsPage = () => {
           {loading ? (
             <p>Loading widget script...</p>
           ) : widgetScript ? (
-            <div className="w-full max-w-3xl text-white p-6 mt-6 rounded-xl shadow-lg  bg-gradient-to-t border   from-teal-800/20 to-purple-900/10  border-teal-100/10">
+            <div className="w-full max-w-3xl text-white p-6 mt-6 rounded-xl shadow-lg  bg-gradient-to-t border   from-blue-800/10 to-purple-900/10  border-teal-100/10">
               <h2 className="text-2xl font-semibold mb-4">
                 Your Widget Script
               </h2>
@@ -122,7 +122,7 @@ const IntegrationInstructionsPage = () => {
               </pre>
               <button
                 onClick={handleCopy}
-                className="mt-4 px-4 py-2 bg-teal-700/50  text-white rounded hover:bg-blue-600 transition"
+                className="mt-4 px-4 py-2 bg-blue-700/20  text-white rounded hover:bg-blue-600 transition"
               >
                 Copy Script
               </button>
@@ -135,7 +135,7 @@ const IntegrationInstructionsPage = () => {
                   <button
                     className={`px-4 py-2 rounded ${
                       selectedIntegration === "wordpress"
-                        ? "bg-teal-700/50 text-white"
+                        ? "bg-blue-700/20  text-white border border-blue-400/30"
                         : "bg-gray-200 text-gray-800"
                     }`}
                     onClick={() => setSelectedIntegration("wordpress")}
@@ -145,7 +145,7 @@ const IntegrationInstructionsPage = () => {
                   <button
                     className={`px-4 py-2 rounded ${
                       selectedIntegration === "shopify"
-                        ? "bg-teal-700/50 text-white"
+                        ? "bg-blue-700/20  text-white border border-blue-400/30"
                         : "bg-gray-200 text-gray-800"
                     }`}
                     onClick={() => setSelectedIntegration("shopify")}
@@ -155,7 +155,7 @@ const IntegrationInstructionsPage = () => {
                   <button
                     className={`px-4 py-2 rounded ${
                       selectedIntegration === "custom"
-                        ? "bg-teal-700/50 text-white"
+                        ? "bg-blue-700/20  text-white border border-blue-400/30"
                         : "bg-gray-200 text-gray-800"
                     }`}
                     onClick={() => setSelectedIntegration("custom")}

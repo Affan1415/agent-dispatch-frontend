@@ -109,7 +109,7 @@ export default function UploadPDF() {
           <Link href="#">Integrations</Link>
         </nav>
         <h1 className="text-4xl font-bold mb-4">Upload Your PDF</h1>
-        <div className="w-full max-w-md mt-8 border border-teal-500/20 bg-black  shadow-teal-700/20 backdrop-blur-2xl p-8 text-white rounded-xl shadow-2xl">
+        <div className="w-full max-w-md mt-8 border border-teal-500/20 bg-black  shadow-blue-800/10 backdrop-blur-2xl p-8 text-white rounded-xl shadow-2xl">
           <div className="mb-6">
             <input
               id="file-upload"
@@ -122,7 +122,7 @@ export default function UploadPDF() {
             />
             <label
               htmlFor="file-upload"
-              className="cursor-pointer  bg-[#246b532e] hover:bg-teal-800/40  text-white px-4 py-2 rounded-lg shadow-md  transition flex items-center justify-center"
+              className="cursor-pointer  bg-[#365b862e] hover:bg-blue-800/40  text-white px-4 py-2 rounded-lg shadow-md  transition flex items-center justify-center"
             >
               Choose File
             </label>
@@ -141,7 +141,7 @@ export default function UploadPDF() {
           <button
             onClick={handleUpload}
             disabled={uploading}
-            className="w-full py-3 bg-[#246b532e] hover:bg-teal-800/40 rounded-lg transition duration-200"
+            className="w-full py-3 bg-[#24426b83] hover:bg-blue-800/40 rounded-lg transition duration-200"
           >
             {uploading ? "Uploading..." : "Upload PDF"}
           </button>
