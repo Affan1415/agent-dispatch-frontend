@@ -31,6 +31,6 @@
     "components/header-auth.jsx",
     "components/AgentCarousel.jsx",
     "app/page.jsx"
-  ],
+, "app/details/[chatbotid]/page.jsx"  ],
   "exclude": ["node_modules"]
 }
