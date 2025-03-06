@@ -30,7 +30,8 @@
     ".next/types/**/*.ts",
     "components/header-auth.jsx",
     "components/AgentCarousel.jsx",
-    "app/page.jsx"
-, "app/details/[chatbotid]/page.jsx"  ],
+    "app/page.jsx",
+    "app/details/[chatbotid]/page.tsx"
+  ],
   "exclude": ["node_modules"]
 }

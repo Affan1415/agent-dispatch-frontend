@@ -24,8 +24,8 @@ export async function POST(req: Request) {
       mode: "subscription",
       customer_email: userEmail,
       line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}&userId=${userId}&userEmail=${encodedEmail}`,
-      cancel_url: `http://localhost:3000/cancel`,
+      success_url: `${process.env.NEXT_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}&userId=${userId}&userEmail=${encodedEmail}`,
+      cancel_url: `${process.env.NEXT_BASE_URL}/cancel`,
       metadata: { userId },
     });
 
