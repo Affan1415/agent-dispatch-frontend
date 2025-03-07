@@ -129,7 +129,7 @@ export default function DashboardPage() {
           {plan === "pro" ? (
             <>
               {(chatbots?.length ?? 0) ? (
-                <div className="max-w-screen-xl flex flex-col self-start  w-full">
+                <div className="max-w-screen-xl z-[50] flex flex-col self-start  w-full">
                   <div className="flex justify-between items-center w-full mb-6 max-w-screen-xl z-10  ">
                     <h1 className="text-3xl font-semibold text-white flex flex-row gap-2 items-center">
                       <LayoutGridIcon className="w-6 h-6 text-white" />
