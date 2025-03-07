@@ -20,6 +20,17 @@ export default function UploadPDF() {
   const [loading, setLoading] = useState(false);
   const [apiKey, setApiKey] = useState("");
 
+  // Redirect to sign-in if no authenticated user is found
+  useEffect(() => {
+    async function checkAuth() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        router.push("/sign-in");
+      }
+    }
+    checkAuth();
+  }, [router, supabase]);
+
   // Generate API key on mount
   useEffect(() => {
     const generateApiKey = async () => {
@@ -45,10 +56,7 @@ export default function UploadPDF() {
     setUploadStatus("Uploading...");
     const getRandomDigits = () => Math.floor(1000 + Math.random() * 9000); // Generates a 4-digit random number
     const fileExtension = selectedFile.name.split(".").pop(); // Get file extension
-    const fileNameWithoutExt = selectedFile.name.replace(
-      `.${fileExtension}`,
-      ""
-    ); // Remove extension
+    const fileNameWithoutExt = selectedFile.name.replace(`.${fileExtension}`, ""); // Remove extension
 
     const randomDigits = getRandomDigits();
     const newFileName = `${fileNameWithoutExt}_${randomDigits}.${fileExtension}`;
@@ -95,21 +103,21 @@ export default function UploadPDF() {
 
   return (
     <div className="min-h-fit text-white flex flex-col items-center justify-center py-16 lg:py-32 relative ">
-      <div className="absolute left-0 opacity-80 -z-0  ">
+      <div className="absolute left-0 opacity-80 -z-0">
         <BlurredCircle />
       </div>
-      <div className="absolute right-0 opacity-80 -z-0 scale-x-[-1] ">
+      <div className="absolute right-0 opacity-80 -z-0 scale-x-[-1]">
         <BlurredCircle />
       </div>
 
-      <div className="max-w-screen-xl md:min-w-[500px] flex items-center shadow-2xl shadow-teal-700/10  z-10 justify-center px-7 md:px-8 flex-col  bg-gradient-to-t  from-teal-800/20 to-purple-900/10 border border-teal-100/10  p-10 rounded-xl ">
-        <nav className="mb-4 text-sm  text-white">
+      <div className="max-w-screen-xl md:min-w-[500px] flex items-center shadow-2xl shadow-teal-700/10 z-10 justify-center px-7 md:px-8 flex-col bg-gradient-to-t from-teal-800/20 to-purple-900/10 border border-teal-100/10 p-10 rounded-xl">
+        <nav className="mb-4 text-sm text-white">
           <Link href="/upload">Upload PDF</Link> &gt;{" "}
           <Link href="#">Test Your Chatbot</Link> &gt;{" "}
           <Link href="#">Integrations</Link>
         </nav>
         <h1 className="text-4xl font-bold mb-4">Upload Your PDF</h1>
-        <div className="w-full max-w-md mt-8 border border-teal-500/20 bg-black  shadow-blue-800/10 backdrop-blur-2xl p-8 text-white rounded-xl shadow-2xl">
+        <div className="w-full max-w-md mt-8 border border-teal-500/20 bg-black shadow-blue-800/10 backdrop-blur-2xl p-8 text-white rounded-xl shadow-2xl">
           <div className="mb-6">
             <input
               id="file-upload"
@@ -122,16 +130,16 @@ export default function UploadPDF() {
             />
             <label
               htmlFor="file-upload"
-              className="cursor-pointer  bg-[#365b862e] hover:bg-blue-800/40  text-white px-4 py-2 rounded-lg shadow-md  transition flex items-center justify-center"
+              className="cursor-pointer bg-[#365b862e] hover:bg-blue-800/40 text-white px-4 py-2 rounded-lg shadow-md transition flex items-center justify-center"
             >
               Choose File
             </label>
             {selectedFile && (
               <>
-                <p className="text-[#96a2e0]  text-md w-full text-center mt-4">
+                <p className="text-[#96a2e0] text-md w-full text-center mt-4">
                   {selectedFile.name}
                 </p>
-                <p className="text-white  gap-2  font-light flex flex-row  text-md w-full text-center mt-4">
+                <p className="text-white gap-2 font-light flex flex-row text-md w-full text-center mt-4">
                   <UploadIcon className="w-5 h-5 text-white" /> Please click on
                   upload to upload the document
                 </p>

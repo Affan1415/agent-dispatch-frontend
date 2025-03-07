@@ -1,13 +1,28 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import GlowEffect from "@/components/GlowEffect";
 import BlurredCircle from "@/components/BlurredCircle";
+import { createClient } from "@/utils/supabase/client";
+
 export default function CreateChatBot() {
   const params = useParams();
   const userId = params?.userid as string; // Ensure that your route is /create-chatbot/[userId]
+  const router = useRouter();
+  const supabase = createClient();
+
+  useEffect(() => {
+    async function checkAuth() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        router.push("/sign-in");
+      }
+    }
+    checkAuth();
+  }, [router, supabase]);
 
   return (
     <div className="min-h-[70vh] bg-black text-white flex flex-col items-center p-6 relative">
@@ -21,7 +36,6 @@ export default function CreateChatBot() {
       <div className="max-w-screen-xl flex items-center justify-center flex-col gap-12 ">
         <div className="w-full max-w-5xl text-center">
           <h2 className="text-5xl font-semibold">
-            {" "}
             <span className="bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 text-transparent bg-clip-text">
               Your Agents
             </span>
@@ -56,7 +70,7 @@ export default function CreateChatBot() {
               <div
                 className={`absolute inset-0 bg-gradient-to-t rounded-xl from-teal-800/20 to-purple-900/10 border border-teal-100/10 `}
               ></div>
-              <div className="relative  z-10 text-white">
+              <div className="relative z-10 text-white">
                 <div className="relative mt-12">
                   <img
                     src={agent.image}
@@ -74,9 +88,7 @@ export default function CreateChatBot() {
                     Current Capacity:{" "}
                     <span className="font-bold">{agent.capacity}</span>
                   </p>
-                  <Link
-                    href={`/create-chatbot/${userId}/upload-pdf/${agent.id}`}
-                  >
+                  <Link href={`/create-chatbot/${userId}/upload-pdf/${agent.id}`}>
                     <Button className="mt-4 bg-[#7B8CE5] hover:bg-purple-400 w-full">
                       Create
                     </Button>
