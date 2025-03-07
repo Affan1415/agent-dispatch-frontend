@@ -1,2 +1,2 @@
 # agent-dispatch-frontend
-deployed
+deployed with stripe
