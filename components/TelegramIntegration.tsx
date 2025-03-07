@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { supabase } from "@/utils/supabase";
 import BlurredCircle from "./BlurredCircle";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 interface TelegramBotSetupProps {
   userId: string;
@@ -48,8 +49,12 @@ export default function TelegramBotSetup({ userId }: TelegramBotSetupProps) {
       if (!response.ok)
         throw new Error(apiResult.message || "Failed to send data to API");
 
-      setMessage("Bot token successfully saved and sent to API!");
-      setTelegramToken("");
+      setMessage("Redirecting to Dashboard");
+      setTimeout(() => {
+        setTelegramToken("");
+        redirect('/dashboard')
+      }, 2000);
+      
     } catch (err) {
       if (err instanceof Error) {
         setMessage(`Error: ${err.message}`);

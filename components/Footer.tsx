@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className=" bg-black text-gray-300 text-base">
@@ -26,7 +28,11 @@ export default function Footer() {
             <li>Customer Support</li>
             <li>Delivery Details</li>
             <li>Terms & Conditions</li>
-            <li>Privacy Policy</li>
+            <li>
+              <Link href="/privacy-policy">
+                Privacy Policy
+              </Link>
+            </li>
           </ul>
         </div>
 

@@ -70,7 +70,7 @@ export default function DashboardPage() {
   }, [supabase]);
 
   // Define chatbot limits
-  const chatbotLimit = plan === "pro" ? 2 : 0;
+  const chatbotLimit = plan === "pro" ? 1 : 0;
   const hasReachedLimit = chatbots.length >= chatbotLimit;
 
   const createCheckoutSession = async (userId: string, userEmail: string) => {
@@ -164,7 +164,7 @@ export default function DashboardPage() {
                 </div>
               ) : (
                 <>
-                  <section className="flex flex-col md:flex-row  h-[70vh]  max-h-[600px] items-center justify-center gap-12 sm:gap-8 px-4 sm:px-8 md:px-12 lg:px-20 py-8 sm:py-12 md:py-16">
+                  <section className="flex flex-col md:flex-row z-[50] h-[70vh]  max-h-[600px] items-center justify-center gap-12 sm:gap-8 px-4 sm:px-8 md:px-12 lg:px-20 py-8 sm:py-12 md:py-16">
                     {/* Left Side - Text & Button */}
                     <div className="max-w-xl text-center md:text-left text-white">
                       <h2 className="text-4xl lg:text-6xl font-semibold w-full  leading-tight">

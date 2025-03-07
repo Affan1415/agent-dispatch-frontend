@@ -85,8 +85,10 @@ const CustomDetails: React.FC<CustomDetailsProps> = ({ widget_script }) => {
             Read the Instructions
           </h2>
           <p className="text-gray-400 mt-6 text-sm sm:text-base max-w-4xl">
-            Choose the colors, position, and integrate the bot into your
-            website.
+            Follow our instruction to deploy your wonderful {" "}
+            <span className="bg-gradient-to-r from-white to-blue-300 text-transparent bg-clip-text">
+            Chatbot.
+            </span>{" "}
           </p>
         </div>
 
