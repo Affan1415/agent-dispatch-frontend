@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { Button } from "@/components/ui/button";
 import { User } from "@supabase/supabase-js";
+import { redirect } from "next/navigation";
 
 export default function AuthNavbar() {
   const [user, setUser] = useState<User | null>(null);
@@ -20,7 +21,9 @@ export default function AuthNavbar() {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
+
     setUser(null);
+    redirect("/")
   };
 
   return (
