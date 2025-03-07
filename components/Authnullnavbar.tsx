@@ -6,11 +6,13 @@ import { createClient } from "@/utils/supabase/client";
 import { Button } from "@/components/ui/button";
 import { User } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
+import { useRouter } from "next/router";
 
 export default function AuthNavbar() {
   const [user, setUser] = useState<User | null>(null);
   const supabase = createClient();
-  const baseurl = process.env.NEXT_BASE_URL || "/";
+  const baseurl = process.env.NEXT_BASE_URL || "https://agent-dispatch.com/";
+  const router = useRouter();
   useEffect(() => {
     const getUser = async () => {
       const { data } = await supabase.auth.getUser();
@@ -23,6 +25,7 @@ export default function AuthNavbar() {
     await supabase.auth.signOut();
 
     setUser(null);
+    router.push(baseurl);
     redirect(baseurl)
   };
 
