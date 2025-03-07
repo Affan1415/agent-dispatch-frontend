@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 export default function AuthNavbar() {
   const [user, setUser] = useState<User | null>(null);
   const supabase = createClient();
-
+  const baseurl = process.env.NEXT_BASE_URL || "/";
   useEffect(() => {
     const getUser = async () => {
       const { data } = await supabase.auth.getUser();
@@ -23,7 +23,7 @@ export default function AuthNavbar() {
     await supabase.auth.signOut();
 
     setUser(null);
-    redirect("/")
+    redirect(baseurl)
   };
 
   return (

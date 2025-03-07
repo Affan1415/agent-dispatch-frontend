@@ -10,7 +10,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
   const supabase = createClient();
-
+  const baseurl = process.env.NEXT_BASE_URL || '';
   useEffect(() => {
     const getUser = async () => {
       const { data } = await supabase.auth.getUser();
@@ -22,7 +22,7 @@ export default function Navbar() {
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     setUser(null);
-    redirect("/");
+    redirect(baseurl);
   };
 
   return (
