@@ -8,13 +8,20 @@ import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useState } from "react"; // Import useState
 
 function SignupForm() {
   const searchParams = useSearchParams();
   const message: Message | null = searchParams
     ? JSON.parse(searchParams.get("message") || "null")
     : null;
+
+  const [formMessage, setFormMessage] = useState<Message | null>(null); // State to handle form messages
+
+  const handleSignUp = async (formData: FormData) => {
+    const result = await signUpAction(formData); // Call the signup action
+    setFormMessage(result); // Set the message from the server action
+  };
 
   const BlurredEllipse = () => {
     return (
@@ -72,22 +79,23 @@ function SignupForm() {
       </svg>
     );
   };
+
   return (
-    <div className="flex items-center justify-center  bg-black px-4">
-      <div className="flex w-full max-w-screen-xl min-h-[60vh]  flex-col md:flex-row rounded-lg overflow-hidden bg-gradient-to-t  from-teal-800/20 to-purple-900/10 border border-teal-100/10 bg-opacity-10 items-center justify-center gap-10 p-6 ">
+    <div className="flex items-center justify-center bg-black px-4">
+      <div className="flex w-full max-w-screen-xl min-h-[60vh] flex-col md:flex-row rounded-lg overflow-hidden bg-gradient-to-t from-teal-800/20 to-purple-900/10 border border-teal-100/10 bg-opacity-10 items-center justify-center gap-10 p-6">
         {/* Left Section - Robot Illustration */}
         <div className="hidden md:flex flex-col items-center">
-          <div className="relative -translate-x-10 ">
-            <div className="relative w-[300px] lg:w-[610px]   mx-auto xl:translate-x-[10%] h-auto flex items-center justify-center z-[10]">
+          <div className="relative -translate-x-10">
+            <div className="relative w-[300px] lg:w-[610px] mx-auto xl:translate-x-[10%] h-auto flex items-center justify-center z-[10]">
               <Image
                 src="/images/1.png"
-                className=" z-[10]"
+                className="z-[10]"
                 alt="AI Bot"
                 width={1200}
                 height={1200}
               />
             </div>
-            <div className="absolute -translate-x-[200px] lg:-translate-x-0 -translate-y-[80px]  scale-90 ">
+            <div className="absolute -translate-x-[200px] lg:-translate-x-0 -translate-y-[80px] scale-90">
               <BlurredEllipse />
             </div>
           </div>
@@ -95,9 +103,9 @@ function SignupForm() {
 
         {/* Right Section - Sign Up Form or Message */}
         <div className="w-full md:w-1/2 max-w-md p-6 bg-opacity-10">
-          {message ? (
+          {formMessage ? ( // Show form message if it exists
             <div className="flex items-center justify-center min-h-[300px]">
-              <FormMessage message={message} />
+              <FormMessage message={formMessage} />
             </div>
           ) : (
             <>
@@ -119,7 +127,10 @@ function SignupForm() {
                 <div className="flex-grow border-t border-gray-600"></div>
               </div>
 
-              <form className="flex flex-col gap-4 text-gray-200">
+              <form
+                className="flex flex-col gap-4 text-gray-200"
+                action={handleSignUp}
+              >
                 <Label htmlFor="email">Email</Label>
                 <Input
                   name="email"
@@ -144,7 +155,6 @@ function SignupForm() {
                   className="w-full p-3 bg-gray-900 text-white rounded-md border border-gray-800 focus:outline-none"
                 />
                 <SubmitButton
-                  formAction={signUpAction}
                   pendingText="Signing up..."
                   className="w-full p-3 bg-[#7B8CE5] text-white rounded-md border border-gray-800 focus:outline-none"
                 >

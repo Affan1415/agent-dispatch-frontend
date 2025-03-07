@@ -9,66 +9,50 @@ export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
   const username = formData.get("username")?.toString();
-  console.log("username", username);
+
+  if (!email || !password || !username) {
+    return { success: false, message: "All fields are required." };
+  }
+
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
 
-  if (!email || !password) {
-    return encodedRedirect(
-      "error",
-      "/sign-up",
-      "Email and password are required"
-    );
-  }
-
-  // Sign up the user with Supabase Auth
+  // Sign up user via Supabase Auth
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: {
-      emailRedirectTo: `${origin}/auth/callback`,
-    },
+    options: { emailRedirectTo: `${origin}/auth/callback` },
   });
 
   if (error) {
-    console.error(error.code + " " + error.message);
-    return encodedRedirect("error", "/sign-up", error.message);
+    console.error("Signup Error:", error.message);
+    return { success: false, message: error.message };
   }
 
-  const user = data.user;
-
-  if (user) {
-    // Insert user details into the "Users" table WITHOUT storing passwords
-    const { error: insertError } = await supabase
-    .from("users")
-    .upsert(
-      [
-        {
-          username,
-          userID: user.id, // UUID from Supabase Auth
-          email: user.email,
-        },
-      ],
-    );
+  if (data.user) {
+    const { error: insertError } = await supabase.from("users").upsert([
+      {
+        username,
+        userID: data.user.id,
+        email: data.user.email,
+      },
+    ]);
 
     if (insertError) {
-      console.error("Error inserting into Users table:", insertError.message);
-      return encodedRedirect(
-        "error",
-        "/sign-up",
-        "User created, but failed to save details."
-      );
+      console.error("Database Insert Error:", insertError.message);
+      return {
+        success: false,
+        message: "User created, but failed to save details.",
+      };
     }
   }
 
-  return encodedRedirect(
-    "success",
-    "/sign-up",
-    "Thanks for signing up! Please check your email for a verification link."
-  );
+  return {
+    success: true,
+    message:
+      "A verification link has been sent to your email. Please check your inbox!",
+  };
 };
-
-
 
 
 export const signInAction = async (formData: FormData) => {
