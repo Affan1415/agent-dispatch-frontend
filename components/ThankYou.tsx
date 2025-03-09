@@ -57,12 +57,13 @@ const ThankYou = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full h-[500px] flex items-center justify-center">
+      <div className="w-full h-[500px] flex items-center justify-center text-center">
         <h2 className="text-4xl lg:text-6xl font-semibold w-full leading-tight">
           <span className="bg-gradient-to-r from-blue-500 via-purple-200 to-pink-300 text-transparent bg-clip-text">
             Retrieving...!
           </span>
-          <br /> Payment Plan.
+          <br /> 
+          <span className="block">Payment Plan.</span>
         </h2>
       </div>
     );

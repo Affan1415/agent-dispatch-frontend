@@ -13,7 +13,7 @@ export default function Footer() {
             <li>Pricing</li>
           </ul>
         </div>
-        <div className="w-fit">
+        {/* <div className="w-fit">
           <h4 className="text-white font-bold mb-3 text-lg ">Resources</h4>
           <ul className="space-y-2 text-base">
             <li>Case Studies</li>
@@ -21,7 +21,7 @@ export default function Footer() {
             <li>Developer</li>
             <li>Documentation</li>
           </ul>
-        </div>
+        </div> */}
         <div className="w-fit">
           <h4 className="text-white font-bold mb-3 text-lg">Help</h4>
           <ul className="space-y-2 text-base">
