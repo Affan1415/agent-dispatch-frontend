@@ -17,7 +17,7 @@ export default function ResetPassword() {
         >
             <h1 className="text-2xl font-medium text-white">Reset Password</h1>
 
-            <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
+            <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8 text-white">
                 <Label htmlFor="password">New Password</Label>
                 <Input type="password" name="password" placeholder="Enter new password" required />
 
