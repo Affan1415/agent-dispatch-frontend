@@ -187,16 +187,15 @@ export default function Home() {
         <div className="max-w-xl text-center md:text-left">
           <h2 className="text-4xl lg:text-6xl font-semibold w-full  leading-tight">
             <span className="bg-gradient-to-r from-blue-500 via-purple-200 to-pink-300 text-transparent bg-clip-text">
-              AI-Powered Agents,
+              Your employees that never sleep!
             </span>
-            <br /> Always On.
+            {/* <br /> Always On. */}
           </h2>
           <p className="text-gray-400 mt-8 text-sm sm:text-base">
-            Leverage AI-driven automation to handle repetitive tasks, provide
-            insightful data analysis, and improve decision-making. From customer
-            support and content creation to marketing strategies, our AI
-            assistants seamlessly integrate into your workflow maximizing
-            efficiency.
+            Agent-Dispatch is your all-in-one
+            command center to streamline operations,
+            boost productivity, and maximize profits.
+            Manage and coordinate your agents effortlessly! anytime, anywhere!
           </p>
           <button className="mt-8 sm:mt-6 bg-[#7B8CE5] px-4 sm:px-6 py-2 sm:py-3  text-white font-semibold hover:bg-blue-600 transition rounded-full">
             Get Started →
@@ -255,16 +254,27 @@ export default function Home() {
         <div className="max-w-screen-xl items-center justify-between z-10 flex flex-col lg:flex-row w-full gap-12  px-7 sm:px-8 md:px-12 lg:px-20 ">
           <div className="max-w-xl text-center md:text-left w-full ">
             <h3 className="text-2xl sm:text-2xl md:text-3xl font-semibold">
-              A tireless teammate, always on duty.
+              A Tireless Workforce, Always on Duty.
             </h3>
             <p className="text-gray-400 max-w-xl mt-4 text-sm sm:text-base font-light">
-              Available around the clock—your AI workforce that thrives on
-              overtime, ensuring you save what matters most: your time.
+              Available 24/7, our Al-powered agents work around the clock, so you don't have to.
+              Automate tasks, enhance customer support, and maximize efficiency while saving valuable time.
             </p>
 
             <p className="text-gray-400 max-w-xl  text-sm sm:text-base font-light mt-8">
-              Break barriers and work seamlessly across the globe with AI that
-              speaks, understands, and delivers in over 100 languages.
+              Break barriers and scale globally with Al that speaks, understands, and delivers in over 100 languages.
+            </p>
+            <p className="text-gray-400 max-w-xl  text-sm sm:text-base font-light mt-8">
+              {"    "}
+            </p>
+            <h3 className="text-2xl sm:text-2xl md:text-3xl font-semibold">
+              A Tireless Workforce, Always on Duty.
+            </h3>
+            <p className="text-gray-400 max-w-xl mt-4 text-sm sm:text-base font-light">
+              Your Al team learns the ins and outs of your business,
+               delivering accurate and personalized responses.
+                Simply upload files, share instructions,
+                 or integrate your website—the more they know, the better they perform.
             </p>
           </div>
 
