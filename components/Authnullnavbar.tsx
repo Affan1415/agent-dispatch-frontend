@@ -5,33 +5,36 @@ import { useState, useEffect } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { Button } from "@/components/ui/button";
 import { User } from "@supabase/supabase-js";
-import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 export default function AuthNavbar() {
   const [user, setUser] = useState<User | null>(null);
   const supabase = createClient();
-  const baseurl = process.env.NEXT_BASE_URL || "https://agent-dispatch.com/";
   const router = useRouter();
+  const baseurl = process.env.NEXT_PUBLIC_BASE_URL || "https://agent-dispatch.com/";
+
   useEffect(() => {
     const getUser = async () => {
       const { data } = await supabase.auth.getUser();
-      setUser(data?.user || null);
+      if (data?.user) {
+        setUser(data.user);
+      } else {
+        setUser(null);
+      }
     };
+
     getUser();
-  }, [supabase]);
+  }, []); // Removed supabase from dependency array to avoid unnecessary re-fetches.
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-
     setUser(null);
-    router.push(baseurl);
-    redirect(baseurl)
+    router.push(baseurl); // `redirect(baseurl)` is removed because `router.push()` is enough.
   };
 
   return (
     <header className="w-screen h-[80px] overflow-hidden flex items-center justify-center border-b border-b-gray-800 z-[100]">
-      <div className="w-full max-w-6xl mx-auto p-6 flex justify-between items-center  text-white">
+      <div className="w-full max-w-6xl mx-auto p-6 flex justify-between items-center text-white">
         {/* Logo */}
         <Link href="/">
           <img
@@ -47,13 +50,13 @@ export default function AuthNavbar() {
             href="/dashboard"
             className="text-white hover:underline underline-offset-2"
           >
-            Dashboard{" "}
-          </Link>{" "}
+            Dashboard
+          </Link>
           <Link
             href="/dashboard/myChatbots"
             className="text-white hover:underline underline-offset-2"
           >
-            My Chatbots{" "}
+            My Chatbots
           </Link>
           {user ? (
             <Button
