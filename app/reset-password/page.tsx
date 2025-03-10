@@ -8,6 +8,8 @@ import { useSearchParams } from "next/navigation";
 
 export default function ResetPassword() {
     const searchParams = useSearchParams();
+    const messageParam = searchParams.get("message");
+    const message = messageParam ? (JSON.parse(messageParam) as Message) : "message";
     return (
         <form
             className="flex-1 flex flex-col w-full gap-2 text-foreground [&>input]:mb-6 min-w-64 max-w-64 mx-auto"
@@ -23,7 +25,7 @@ export default function ResetPassword() {
                 <Input type="password" name="confirmPassword" placeholder="Confirm new password" required />
 
                 <SubmitButton>Update Password</SubmitButton>
-                <FormMessage message={searchParams.get("message") as unknown as Message} />
+                {/* <FormMessage message={message} /> */}
 
             </div>
         </form>
