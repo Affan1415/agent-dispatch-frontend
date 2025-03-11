@@ -31,7 +31,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/">
           <img
-            src="/images/LOGO.jpeg"
+            src="/images/LOGO1.png"
             alt="Agent Dispatch Logo"
             className="w-32 h-auto"
           />
@@ -43,17 +43,20 @@ export default function Navbar() {
           <Link href="/#agents" className="hover:text-gray-400">Agents</Link>
           <Link href="/pricing" className="hover:text-gray-400">Pricing</Link>
           <Link href="/contact-us" className="hover:text-gray-400">Contact Us</Link>
+          <Link href="/sign-in" className="hover:text-gray-400">Log In</Link>
+
           {user ? (
             <Button onClick={handleSignOut} className="bg-red-500 hover:bg-red-600">
               Sign Out
             </Button>
           ) : (
-            <Link href="/sign-in">
+            <Link href="/pricing">
               <Button className="bg-[#7B8CE5] px-6 py-2 rounded-full text-white font-semibold transition-all duration-300 hover:bg-indigo-600 hover:scale-105">
-                Log In
+                Get Started
               </Button>
             </Link>
           )}
+
         </nav>
 
         {/* Mobile Menu Button */}
@@ -80,17 +83,20 @@ export default function Navbar() {
           <Link href="/agents" className="text-lg hover:text-gray-400">Agents</Link>
           <Link href="/pricing" className="text-lg hover:text-gray-400">Pricing</Link>
           <Link href="/contact-us" className="text-lg hover:text-gray-400">Contact Us</Link>
+          <Link href="/sign-in" className="hover:text-gray-400">Login</Link>
           {user ? (
             <Button onClick={handleSignOut} className="bg-red-500 hover:bg-red-600 w-11/12">
               Sign Out
             </Button>
           ) : (
-            <Link href="/sign-in">
+            <Link href="/pricing">
               <Button className="bg-indigo-500 px-6 py-3 w-11/12 text-center rounded-full hover:bg-indigo-600 transition">
                 GET STARTED
               </Button>
             </Link>
           )}
+         
+
         </div>
       )}
     </header>

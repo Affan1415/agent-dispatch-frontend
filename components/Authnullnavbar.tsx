@@ -38,7 +38,7 @@ export default function AuthNavbar() {
         {/* Logo */}
         <Link href="/">
           <img
-            src="/images/Logo.png"
+            src="/images/LOGO1.png"
             alt="Agent Dispatch Logo"
             className="w-32 h-auto"
           />
