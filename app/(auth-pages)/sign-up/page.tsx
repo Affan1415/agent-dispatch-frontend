@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react"; // Import useState
+import GoogleAuthButton from "@/components/GoogleAuthButton";
 
 function SignupForm() {
   const searchParams = useSearchParams();
@@ -118,6 +119,9 @@ function SignupForm() {
                   Login
                 </Link>
               </p>
+              <GoogleAuthButton />
+
+              {/* Divider */}
 
               <div className="relative flex items-center my-6">
                 <div className="flex-grow border-t border-gray-600"></div>

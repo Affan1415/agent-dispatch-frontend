@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import Image from "next/image";
+import GoogleAuthButton from "@/components/GoogleAuthButton";
 
 export default async function Login(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
@@ -97,6 +98,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
               Sign Up Here
             </Link>
           </p>
+          <GoogleAuthButton />
 
           <div className="relative flex items-center my-6">
             <div className="flex-grow border-t border-gray-600"></div>
