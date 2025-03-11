@@ -180,7 +180,6 @@ export default function Home() {
       <Head>
         <title>AI-Powered Agents | Agent Dispatch</title>
       </Head>
-
       {/* Hero Section */}
       <section className="flex flex-col md:flex-row  h-[70vh]  max-h-[600px] items-center justify-center gap-12 sm:gap-8 px-4 sm:px-8 md:px-12 lg:px-20 py-8 sm:py-12 md:py-16">
         {/* Left Side - Text & Button */}

@@ -9,8 +9,9 @@ export default function EmbeddedCodeGenerator({
   widgetMessage: string;
   apikey: string;
 }) {
+  const url = process.env.NEXT_PUBLIC_API_URL || "https://api.agent-dispatch.com";
   const embedCode =
-    `<script src="https://api.thetasden.site/chat-widget.js?api_key=${apikey}&color=${widgetColor}&position=${widgetPosition}"></script>`.trim();
+    `<script src="https://${url}/chat-widget.js?api_key=${apikey}&color=${widgetColor}&position=${widgetPosition}"></script>`.trim();
 
   return (
     <textarea

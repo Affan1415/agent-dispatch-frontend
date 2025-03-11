@@ -43,6 +43,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
       <body className="bg-background bg-black text-foreground">
+
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -54,6 +55,8 @@ export default async function RootLayout({
               <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
                 {user ? <Authnullnavbar /> : <HeaderAuth />}
               </nav>
+              <script src="https://api.agent-dispatch.com/chat-widget.js?api_key=ce6aaaef75ebe552d420cf96f92a9d2a&color=%232563eb&message=Hi%20there!%20How%20can%20I%20help%20you%3F&position=bottom-right"></script>
+
               <div>{children}</div>
               <Footer />
             </div>
