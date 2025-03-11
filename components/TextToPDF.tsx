@@ -37,7 +37,7 @@ export default function TextToPDF({ userId, onUploadSuccess }: TextToPDFProps) {
     let cursorY = marginTop;
 
     // Loop through lines and add pages if needed.
-    lines.forEach((line) => {
+    lines.forEach((line:string) => {
       if (cursorY + lineHeight > pageHeight - marginTop) {
         doc.addPage();
         cursorY = marginTop;
