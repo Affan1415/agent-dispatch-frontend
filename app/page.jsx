@@ -211,7 +211,7 @@ export default function Home() {
         <title>AI-Powered Agents | Agent Dispatch</title>
       </Head>
       {/* Hero Section */}
-      <section className="flex flex-col md:flex-row h-[40vh] lg:h-[80vh]  items-center justify-center relative w-full bg-[url('/images/bg.jpeg')] bg-cover bg-[position:-0%]">
+      <section className="flex flex-col md:flex-row h-[40vh] lg:h-[80vh] mt-32 lg:mt-4 items-center justify-center relative w-full bg-[url('/images/bg.jpeg')] bg-cover bg-[position:-0%]">
         <div className="bg-gradient-to-b from-black/90 via-black/0 to-black/90 absolute w-full h-full z-0"></div>
 
         <div className="bg-gradient-to-r from-black/80 via-black/0 to-black/80 absolute w-full h-full z-0"></div>
@@ -236,7 +236,7 @@ export default function Home() {
 
       {/* AI Models Section */}
 
-      <section className="py-8 mt-8 sm:mt-0 sm:py-12 flex z-50 items-center justify-center md:py-32">
+      <section className="py-8 mt-32 md:mt-8 sm:mt-0 sm:py-12 flex z-50 items-center justify-center md:py-32">
         <div className="max-w-screen-xl px-7 sm:px-8 md:px-12 lg:px-20 w-full flex flex-col items-center justify-center gap-12 ">
           <h1 className="text-2xl md:text-4xl text-center lg:text-3xl max-w-[750px] font-medium ">
             The Next Generation of AI Workforce, Tailored to Your business.
@@ -497,7 +497,7 @@ export default function Home() {
               { name: "telegram", logo: "images/telegram.png" },
               { name: "wordpress", logo: "images/wordpress (1).png" },
               { name: "Facebook", logo: "images/communication.png" },
-              { name: "Webflow", logo: "images/webflow.svg" },
+              { name: "Webflow", logo: "images/Webflow.svg" },
             ].map((tool) => (
               <div
                 key={tool.name}
