@@ -10,7 +10,7 @@ export default function GoogleAuthButton() {
         const { error } = await supabase.auth.signInWithOAuth({
             provider: "google",
             options: {
-                redirectTo: "http://localhost:3000/dashboard"
+                redirectTo: `${window.location.origin}/auth/callback`
             },
         });
         if (error) console.error("Google sign-in error:", error.message);
@@ -22,7 +22,7 @@ export default function GoogleAuthButton() {
             className="flex items-center justify-center w-full bg-white text-black py-2 rounded-md hover:bg-gray-200 transition mb-4"
         >
             <Image
-                src="/icons8-google-48.png" // ensure you have a google-icon.svg in your public folder
+                src="\images\icons8-google.svg" // ensure you have a google-icon.svg in your public folder
                 alt="Google"
                 width={20}
                 height={20}

@@ -1,3 +1,4 @@
+import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
@@ -9,8 +10,14 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Authorization code is missing" }, { status: 400 });
   }
 
-  // Exchange the authorization code for an access token
-  
+  const supabase = await createClient(); // Ensure you await the client
 
-  return NextResponse.redirect(`${origin}/dashboard`); // Redirect user after authentication
+  // Exchange the authorization code for a session
+  const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 400 });
+  }
+
+  return NextResponse.redirect(`${origin}/dashboard`);
 }
