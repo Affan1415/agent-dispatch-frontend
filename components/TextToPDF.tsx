@@ -31,13 +31,13 @@ export default function TextToPDF({ userId, onUploadSuccess }: TextToPDFProps) {
     const maxWidth = doc.internal.pageSize.width - marginLeft * 2; // available width
     const lineHeight = 10;
     const pageHeight = doc.internal.pageSize.height;
-    
+
     // Split the text into lines that fit the maxWidth.
     const lines = doc.splitTextToSize(text, maxWidth);
     let cursorY = marginTop;
 
     // Loop through lines and add pages if needed.
-    lines.forEach((line:string) => {
+    lines.forEach((line: string) => {
       if (cursorY + lineHeight > pageHeight - marginTop) {
         doc.addPage();
         cursorY = marginTop;
@@ -45,7 +45,7 @@ export default function TextToPDF({ userId, onUploadSuccess }: TextToPDFProps) {
       doc.text(line, marginLeft, cursorY);
       cursorY += lineHeight;
     });
-    
+
     return doc;
   };
 
@@ -54,7 +54,7 @@ export default function TextToPDF({ userId, onUploadSuccess }: TextToPDFProps) {
       setUploadStatus("User ID is missing.");
       return;
     }
-    
+
     const doc = generatePDF();
     if (!doc) return;
 
@@ -90,7 +90,7 @@ export default function TextToPDF({ userId, onUploadSuccess }: TextToPDFProps) {
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto p-6 bg-gray-800 text-white rounded-lg shadow-lg">
+    <div className="w-full max-w-lg mx-auto p-6  mt-4 text-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-4">Convert Text to PDF & Upload</h2>
       <textarea
         className="w-full p-3 rounded bg-gray-900 border border-gray-700 text-white"
@@ -102,7 +102,7 @@ export default function TextToPDF({ userId, onUploadSuccess }: TextToPDFProps) {
       <button
         onClick={handleUpload}
         disabled={uploading}
-        className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition flex items-center justify-center gap-2"
+        className="w-full mt-4 bg-blue-600/40 hover:bg-blue-700 text-white font-semibold py-2 rounded transition flex items-center justify-center gap-2"
       >
         <UploadIcon className="w-5 h-5" />
         {uploading ? "Uploading..." : "Generate & Upload PDF"}

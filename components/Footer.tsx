@@ -7,10 +7,22 @@ export default function Footer() {
         <div className=" w-fit">
           <h4 className="text-white font-bold mb-3 text-lg">Company</h4>
           <ul className="space-y-2 text-base">
-            <li>About</li>
-            <li>Services</li>
-            <li>Features</li>
-            <li>Pricing</li>
+            <li>
+              {" "}
+              <Link href="/#about">About</Link>
+            </li>
+            <li>
+              {" "}
+              <Link href="/#features">Features</Link>
+            </li>
+            <li>
+              {" "}
+              <Link href="/pricing">Pricing</Link>
+            </li>
+            <li>
+              {" "}
+              <Link href="/pricing">Agents</Link>
+            </li>
           </ul>
         </div>
         {/* <div className="w-fit">
@@ -23,15 +35,22 @@ export default function Footer() {
           </ul>
         </div> */}
         <div className="w-fit">
-          <h4 className="text-white font-bold mb-3 text-lg">Help</h4>
+          <h4 className="text-white font-bold mb-3 text-lg">App</h4>
           <ul className="space-y-2 text-base">
-            <li>Customer Support</li>
-            <li>Delivery Details</li>
-            <li>Terms & Conditions</li>
             <li>
-              <Link href="/privacy-policy">
-                Privacy Policy
-              </Link>
+              {" "}
+              <Link href="/sign-in">Sign In</Link>
+            </li>
+            <li>
+              {" "}
+              <Link href="/sign-up">Sign Up</Link>
+            </li>
+            <li>
+              {" "}
+              <Link href="/contact-us">Contact us</Link>
+            </li>
+            <li>
+              <Link href="/privacy-policy">Privacy Policy</Link>
             </li>
           </ul>
         </div>

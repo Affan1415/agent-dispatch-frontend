@@ -17,11 +17,15 @@ export default function UploadPage() {
 
   const [loading, setLoading] = useState(false);
   const [uploadPath, setUploadPath] = useState("");
-  const [selectedMethod, setSelectedMethod] = useState<"upload" | "text">("upload");
+  const [selectedMethod, setSelectedMethod] = useState<"upload" | "text">(
+    "upload"
+  );
 
   useEffect(() => {
     async function checkAuth() {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) {
         router.push("/sign-in");
       }
@@ -50,13 +54,18 @@ export default function UploadPage() {
   };
 
   return (
-    <div className="min-h-fit text-white flex flex-col items-center justify-center py-16 lg:py-32 relative">
+    <div className="min-h-fit text-white flex flex-col  w-full items-center justify-center py-16 lg:py-32 relative">
       <div className="absolute left-0 opacity-80 -z-0">
         <BlurredCircle />
       </div>
       <div className="absolute right-0 opacity-80 -z-0 scale-x-[-1]">
         <BlurredCircle />
       </div>
+      <h2 className="text-4xl lg:text-6xl w-full text-center font-semibold mb-8  leading-tight">
+        <span className="bg-gradient-to-r from-blue-200 via-purple-200 to-pink-300 text-transparent bg-clip-text">
+          Train Your Agent!
+        </span>
+      </h2>
 
       <div className="max-w-screen-xl md:min-w-[500px] flex items-center shadow-2xl shadow-teal-700/10 z-10 justify-center px-7 md:px-8 flex-col bg-gradient-to-t from-teal-800/20 to-purple-900/10 border border-teal-100/10 p-10 rounded-xl">
         <nav className="mb-4 text-sm text-white">
@@ -71,7 +80,9 @@ export default function UploadPage() {
           <button
             onClick={() => setSelectedMethod("upload")}
             className={`py-2 px-4 rounded ${
-              selectedMethod === "upload" ? "bg-blue-600" : "bg-gray-600 hover:bg-gray-700"
+              selectedMethod === "upload"
+                ? "bg-blue-600/40"
+                : "bg-gray-600 hover:bg-gray-700"
             }`}
           >
             Upload PDF
@@ -79,7 +90,9 @@ export default function UploadPage() {
           <button
             onClick={() => setSelectedMethod("text")}
             className={`py-2 px-4 rounded ${
-              selectedMethod === "text" ? "bg-blue-600" : "bg-gray-600 hover:bg-gray-700"
+              selectedMethod === "text"
+                ? "bg-blue-600/40"
+                : "bg-gray-600 hover:bg-gray-700"
             }`}
           >
             Convert Text to PDF

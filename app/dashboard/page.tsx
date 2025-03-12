@@ -26,8 +26,11 @@ export default function DashboardPage() {
       setIsLoading(true);
 
       // Fetch the user using Supabase auth
-      const { data: { user }, error } = await supabase.auth.getUser();
-      
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+
       // Redirect to /sign-in if no user is authenticated
       if (!user) {
         router.push("/sign-in");
@@ -70,7 +73,7 @@ export default function DashboardPage() {
   }, [supabase, router]);
 
   // Define chatbot limits
-  const chatbotLimit = plan === "pro" ? 1 : 0;
+  const chatbotLimit = plan === "pro" ? 5 : 1;
   const hasReachedLimit = chatbots.length >= chatbotLimit;
 
   const createCheckoutSession = async (userId: string, userEmail: string) => {
@@ -109,6 +112,64 @@ export default function DashboardPage() {
     capacity: 0,
   }));
 
+  const agents = [
+    {
+      id: "1",
+      name: "Nova - Social Media Manager",
+      role: "AI Social Media Manager",
+      description:
+        "Seamlessly embed an intelligent, interactive chat agent into any website with a single script. Elevate engagement, automate customer support, and enhance user interactions effortlessly!",
+      image: "images/Sophia.png",
+      price: "49",
+      glowColor: "#68E4FF",
+    },
+    {
+      id: "2",
+      name: "Sophia - Chatbot Developer",
+      role: "Customer Service & Social Media Chatbot Agent",
+      description:
+        "Easily integrate smart, engaging chatbots into your webiste with just a simple script or with social media . Boost engagement, automate responses, and interact 24/7—all in minutes!",
+      image: "images/Phone.png",
+      price: "49",
+      glowColor: "#DC75F5",
+    },
+    {
+      id: "3",
+      name: "Neon. eCommerce Expert.",
+      price: "49",
+      role: "eCommerce Expert. Coming Soon!",
+      description:
+        "Your go-to AI for online business success, helping with store setup, product launches, and optimizing eCommerce operations for smooth growth..",
+      image: "images/Business.png",
+      glowColor: "#68E4FF",
+    },
+  ];
+
+  const agents2 = [
+    {
+      id: "1",
+      name: "Sophia - Website Agent",
+      role: "AI Customer Service Chatbot Agent",
+      description:
+        "Effortlessly integrate smart, dynamic chatagent into any website with just a simple script. Boost engagement, automate support, and enhanceinteractions, all in minutes!",
+      image: "/images/Sophia.png",
+      price: "49",
+      glowColor: "#68E4FF",
+    },
+    {
+      id: "2",
+      name: "Sophia - Social Agent",
+      role: "Social Media Messaging Chatbot Agent",
+      description:
+        "Easily integrate smart, engaging chatbots into your social media with just a simple script. Boost engagement, automate responses, and interact 24/7—all in minutes!",
+      image: "/images/Phone.png",
+      price: "49",
+      glowColor: "#DC75F5",
+    },
+  ];
+
+  const totalSlides = agents.length;
+
   return (
     <>
       {isLoading ? (
@@ -116,7 +177,7 @@ export default function DashboardPage() {
           <Loader2Icon className="w-12 h-12 text-white animate-spin rotate-360" />
         </div>
       ) : (
-        <div className="p-8 bg-black min-h-[80vh] relative flex items-center justify-center">
+        <div className="p-8 bg-black h-full min-h-[80vh] relative flex items-center justify-center">
           <div className="absolute left-0 opacity-90">
             <BlurredCircle />
           </div>
@@ -133,73 +194,89 @@ export default function DashboardPage() {
                       <LayoutGridIcon className="w-6 h-6 text-white" />
                       Dashboard
                     </h1>
-
-                    <Link href={hasReachedLimit ? "#" : `/create-chatbot/${userId}`}>
-                      <button
-                        className={`flex flex-row items-center gap-2 text-white px-6 py-2 rounded-full transition ${
-                          hasReachedLimit
-                            ? "bg-gray-500 cursor-not-allowed"
-                            : "bg-gradient-to-tr from-blue-500 via-blue-600 to-blue-500 hover:bg-blue-600 text-white"
-                        }`}
-                        disabled={hasReachedLimit}
-                      >
-                        {!hasReachedLimit ? (
-                          <>
-                            <PlusIcon className="w-6 h-6 text-white" /> Create a New Chatbot
-                          </>
-                        ) : (
-                          <>Limit Exceeded</>
-                        )}
-                      </button>
-                    </Link>
                   </div>
                   <div className="p-2 rounded-xl">
-                    <DashboardCards cards={chatbotCards} />
+                    <DashboardCards
+                      cards={chatbotCards}
+                      hasReachedLimit={hasReachedLimit}
+                      userId={userId}
+                    />
                   </div>
                 </div>
               ) : (
-                <section className="flex flex-col md:flex-row z-[50] h-[70vh] max-h-[600px] items-center justify-center gap-12 sm:gap-8 px-4 sm:px-8 md:px-12 lg:px-20 py-8 sm:py-12 md:py-16">
-                  <div className="max-w-xl text-center md:text-left text-white">
-                    <h2 className="text-4xl lg:text-6xl font-semibold w-full leading-tight">
-                      <span className="bg-gradient-to-r from-blue-300 via-purple-200 to-pink-300 text-transparent bg-clip-text">
-                        No Agents
-                      </span>
-                      <span> Have Been Queued for </span>
-                      <span className="bg-gradient-to-r from-pink-300 via-pink-200 to-teal-100 text-transparent bg-clip-text">
-                        Work!
-                      </span>
-                    </h2>
-                    <p className="text-gray-400 mt-8 text-sm sm:text-base">
-                      Click on the "Create Agent" button to queue the Chatbot Developer Agent and let it handle the work for you effortlessly.
-                    </p>
-                    {hasReachedLimit ? (
-                      <button
-                        onClick={() => createCheckoutSession(userId, userEmail)}
-                        className="px-6 py-2 rounded-full cursor-pointer text-white hover:bg-blue-600 mt-8 bg-[#7B8CE5] disabled:bg-gray-600"
-                        disabled={isPurchasing}
-                      >
-                        {isPurchasing ? <span>Please Wait ...</span> : <>Buy the Agent</>}
-                      </button>
-                    ) : (
-                      <Link href={`/create-chatbot/${userId}`}>
-                        <button className="px-6 py-2 rounded-full transition mt-8 bg-[#7B8CE5] hover:bg-blue-600 text-white">
-                          Create a Chatbot
-                        </button>
-                      </Link>
-                    )}
-                    {hasReachedLimit && (
-                      <p className="text-red-400 mt-2 text-sm">
-                        Subscribe to Pro plan to increase limit to 5 chatbots.
-                      </p>
-                    )}
-                  </div>
-                  <div className="w-full md:w-[35%] flex justify-center overflow-hiden">
-                    <div className="relative">
-                      <div className="relative w-[300px] lg:w-[610px] mx-auto xl:translate-x-[10%] h-auto flex items-center justify-center z-[10]">
-                        <Image src="/images/2.png" className="z-[10]" alt="AI Bot" width={1200} height={1200} />
-                      </div>
-                      <div className="absolute opacity-40 md:opacity-65 -translate-x-[200px] lg:-translate-x-0 -translate-y-[80px] scale-90">
-                        <BlurredEllipse />
+                <section className="flex flex-col   z-[50] min-h-[70vh] h-auto  items-center justify-center gap-4 sm:gap-8 px-4 sm:px-8 md:px-12 lg:px-20 py-4 sm:py-12 md:py-16">
+                  <h2 className="text-4xl lg:text-6xl font-semibold  leading-tight text-center w-full text-white">
+                    <span className="bg-gradient-to-r from-blue-300 via-purple-200 to-pink-300 text-transparent bg-clip-text">
+                      You are on Pro Plan!
+                    </span>
+                  </h2>
+                  <h2 className="text-2xl lg:text-3xl -translate-y-2  leading-tight text-center w-full text-gray-400">
+                    Choose the agent to deploy.
+                  </h2>
+                  <div className="relative flex items-center justify-center mt-8">
+                    <div className="relative flex o w-full flex-col  items-center justify-center">
+                      <div className="flex flex-col lg:flex-row gap-6 transition-transform duration-500">
+                        {agents2.slice(0, 2).map((agent, i) => (
+                          <div
+                            key={agent.name}
+                            className={`relative w-[350px] lg:w-[460px] p-6 rounded-xl shadow-lg`}
+                          >
+                            <div
+                              className={`absolute inset-0 bg-gradient-to-t rounded-xl from-blue-800/20 to-purple-900/10 border border-teal-100/10 `}
+                            ></div>
+                            <div className="relative  flex flex-col justify-between h-full z-10">
+                              <div className="relative mt-8">
+                                <img
+                                  src={agent.image}
+                                  alt={agent.name}
+                                  className="mx-auto h-48 z-[100]"
+                                />
+                                <div className="absolute top-0 left-0 -z-[10] opacity-70 scale-125 translate-x-12 -translate-y-2 ">
+                                  <GlowEffect color={agent.glowColor} />
+                                </div>
+                              </div>
+                              <h4 className="text-xl font-semibold text-white mt-8">
+                                {agent.name}
+                              </h4>
+                              <p className="text-white font-medium mt-4">
+                                {agent.role}
+                              </p>
+                              <p className="text-gray-400 text-md  mt-6">
+                                {agent.description}
+                              </p>
+
+                              {hasReachedLimit ? (
+                                <button
+                                  onClick={() =>
+                                    createCheckoutSession(userId, userEmail)
+                                  }
+                                  className="px-6 py-2 rounded-full cursor-pointer text-white hover:bg-blue-600 mt-8 bg-[#7B8CE5] disabled:bg-gray-600"
+                                  disabled={isPurchasing}
+                                >
+                                  {isPurchasing ? (
+                                    <span>Please Wait ...</span>
+                                  ) : (
+                                    <>Buy the Agent</>
+                                  )}
+                                </button>
+                              ) : (
+                                <Link
+                                  href={`/create-chatbot/${userId}/upload-pdf/${agent.id}`}
+                                >
+                                  <button className="px-6 py-2 rounded-lg w-full transition mt-8 bg-[#7b8de557] hover:bg-blue-600 text-white">
+                                    Deploy Agent
+                                  </button>
+                                </Link>
+                              )}
+                              {hasReachedLimit && (
+                                <p className="text-red-400 mt-2 text-sm">
+                                  Subscribe to Pro plan to increase limit to 5
+                                  chatbots.
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -207,35 +284,75 @@ export default function DashboardPage() {
               )}
             </>
           ) : (
-            <section className="flex flex-col md:flex-row z-20 h-[70vh] max-h-[600px] items-center justify-center gap-12 sm:gap-8 px-4 sm:px-8 md:px-12 lg:px-20 py-8 sm:py-12 md:py-16">
-              <div className="max-w-xl text-center md:text-left text-white">
-                <h2 className="text-4xl lg:text-6xl font-semibold w-full leading-tight">
-                  <span className="bg-gradient-to-r from-blue-300 via-purple-200 to-pink-300 text-transparent bg-clip-text">
-                    You are on
-                  </span>
-                  <span> Free </span>
-                  <span className="bg-gradient-to-r from-pink-300 via-pink-200 to-teal-100 text-transparent bg-clip-text">
-                    Plan
-                  </span>
-                </h2>
-                <p className="text-gray-400 mt-8 text-sm sm:text-base">
-                  Click on the "Buy Agent" button to queue the Chatbot Developer Agent and let it handle the work for you effortlessly.
-                </p>
-                <button
-                  onClick={() => createCheckoutSession(userId, userEmail)}
-                  className="px-6 py-2 rounded-full cursor-pointer text-white hover:bg-blue-600 mt-8 bg-[#7B8CE5] disabled:bg-gray-600"
-                  disabled={isPurchasing}
-                >
-                  {isPurchasing ? <span>Please Wait ...</span> : <>Buy the Agent</>}
-                </button>
-              </div>
-              <div className="w-full md:w-[35%] flex justify-center overflow-hiden">
-                <div className="relative">
-                  <div className="relative w-[300px] lg:w-[610px] mx-auto xl:translate-x-[10%] h-auto flex items-center justify-center z-[10]">
-                    <Image src="/images/2.png" className="z-[10]" alt="AI Bot" width={1200} height={1200} />
-                  </div>
-                  <div className="absolute opacity-40 md:opacity-65 -translate-x-[200px] lg:-translate-x-0 -translate-y-[80px] scale-90">
-                    <BlurredEllipse />
+            <section className="relative flex flex-col items-center justify-center  w-full px-4 sm:px-8 md:px-12 lg:px-20 py-4 mb-4 lg:mb-16 sm:py-12 md:py-20">
+              <h2 className="text-4xl lg:text-6xl font-semibold  leading-tight text-center w-full text-white">
+                <span className="bg-gradient-to-r from-blue-300 via-purple-200 to-pink-300 text-transparent bg-clip-text">
+                  Subscribe to Pro Plan
+                </span>
+              </h2>
+              <div className="relative flex items-center justify-center mt-8 md:mt-32">
+                <div className="relative flex o w-full flex-col  items-center justify-center">
+                  <div className="flex flex-col lg:flex-row gap-6 transition-transform duration-500">
+                    {agents.map((agent, i) => (
+                      <div
+                        key={agent.name}
+                        className={`relative w-[350px] lg:w-[360px] p-6 rounded-xl shadow-lg ${i === 0 ? "lg:-translate-x-8" : ""} ${i === 1 ? "lg:scale-[1.2] lg:z-10 lg:shadow-3xl lg:shadow-blue-700/20 lg:w-[350px]" : "w-[320]"} ${i === 2 ? "lg:translate-x-8" : ""}`}
+                      >
+                        <div
+                          className={`absolute inset-0 bg-gradient-to-t rounded-xl from-blue-800/20 to-purple-900/10 border border-teal-100/10 `}
+                        ></div>
+                        <div className="relative  flex flex-col justify-between h-full z-10">
+                          <div className="relative mt-8">
+                            <img
+                              src={agent.image}
+                              alt={agent.name}
+                              className="mx-auto h-48 z-[100]"
+                            />
+                            <div className="absolute top-0 left-0 -z-[10] opacity-70 scale-125 translate-x-4 -translate-y-2 ">
+                              <GlowEffect color={agent.glowColor} />
+                            </div>
+                          </div>
+                          <h4 className="text-xl font-semibold text-white mt-8">
+                            {agent.name}
+                          </h4>
+                          <p className="text-white font-medium mt-4">
+                            {agent.role}
+                          </p>
+                          <p className="text-gray-400 text-md  mt-6">
+                            {agent.description}
+                          </p>
+
+                          <p className="text-4xl text-white mt-8  ">
+                            ${agent.price}{" "}
+                            <span className="text-xl text-gray-500">
+                              / month
+                            </span>
+                          </p>
+                          {i === 1 ? (
+                            <button
+                              onClick={() =>
+                                createCheckoutSession(userId, userEmail)
+                              }
+                              className="px-6 py-2 rounded-lg cursor-pointer text-white hover:bg-blue-600 mt-8 bg-[#7b8de56a] disabled:bg-gray-600"
+                              disabled={isPurchasing}
+                            >
+                              {isPurchasing ? (
+                                <span>Please Wait ...</span>
+                              ) : (
+                                <>Buy the Agent</>
+                              )}
+                            </button>
+                          ) : (
+                            <button
+                              className="px-6 py-2 rounded-lg cursor-pointer text-white hover:bg-blue-600 mt-8 bg-[#7b8de56a] disabled:bg-gray-600"
+                              disabled={true}
+                            >
+                              Coming Soon
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -246,3 +363,64 @@ export default function DashboardPage() {
     </>
   );
 }
+
+interface GlowEffectProps {
+  color: string;
+}
+
+const GlowEffect: React.FC<GlowEffectProps> = ({ color }) => {
+  return (
+    <svg
+      width="225"
+      height="225"
+      viewBox="0 0 365 365"
+      className="scale-110"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g filter="url(#filter0_f_77_165)">
+        <circle
+          cx="182.5"
+          cy="182.5"
+          r="125.5"
+          fill={`url(#paint0_radial_77_165_${color})`}
+          fillOpacity="0.7"
+        />
+      </g>
+      <defs>
+        <filter
+          id="filter0_f_77_165"
+          x="0.91061"
+          y="0.91061"
+          width="363.179"
+          height="363.179"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="BackgroundImageFix"
+            result="shape"
+          />
+          <feGaussianBlur
+            stdDeviation="28.0447"
+            result="effect1_foregroundBlur_77_165"
+          />
+        </filter>
+        <radialGradient
+          id={`paint0_radial_77_165_${color}`}
+          cx="0"
+          cy="0"
+          r="1"
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(182.5 182.5) rotate(90) scale(125.5)"
+        >
+          <stop stopColor={color} />
+          <stop offset="1" stopColor={color} stopOpacity="0" />
+        </radialGradient>
+      </defs>
+    </svg>
+  );
+};

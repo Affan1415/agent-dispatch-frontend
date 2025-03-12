@@ -5,28 +5,28 @@ const AgentCarousel = () => {
 
   const agents = [
     {
-      name: "Nova",
-      role: "AI Custom Chatbot gent",
+      name: "Sophia - Website Agent",
+      role: "AI Customer Service Chatbot Agent",
       description:
-        "Nova is an AI-powered agent that effortlessly creates intelligent chatbots, seamlessly integrating into any website with just a simple script. Enhance customer engagement, automate support, and deliver dynamic interactions—all with minimal setup.",
-      image: "images/1.png",
+        "Effortlessly integrate smart, dynamic chatagent into any website with just a simple script. Boost engagement, automate support, and enhanceinteractions, all in minutes!",
+      image: "images/Sophia.png",
 
       glowColor: "#68E4FF",
     },
     {
-      name: "Lumi",
-      role: "Social Media Chatbot Agent",
+      name: "Sophia - Social Agent",
+      role: "Social Media Messaging Chatbot Agent",
       description:
-        "Lumi is a powerful AI agent that effortlessly creates and deploys bots, seamlessly integrating them into Telegram. Automate conversations, enhance engagement, and streamline interactions with ease..",
-      image: "images/2.png",
+        "Easily integrate smart, engaging chatbots into your social media with just a simple script. Boost engagement, automate responses, and interact 24/7—all in minutes!",
+      image: "images/Phone.png",
       glowColor: "#DC75F5",
     },
     {
-      name: "Neon",
+      name: "Neon. eCommerce Expert.",
       role: "eCommerce Expert. Coming Soon!",
       description:
-        "Your go-to AI for online business success—helping with store setup, product launches, and optimizing eCommerce operations for smooth growth.",
-      image: "images/4.png",
+        "Your go-to AI for online business success, helping with store setup, product launches, and optimizing eCommerce operations for smooth growth..",
+      image: "images/Business.png",
       glowColor: "#68E4FF",
     },
   ];
@@ -95,7 +95,7 @@ const AgentCarousel = () => {
       <h3 className="text-center text-3xl font-semibold text-white">
         Our Agents
       </h3>
-      <div className="relative flex items-center justify-center mt-6">
+      <div className="relative flex items-center justify-center mt-8 md:mt-32">
         {/* Left Arrow */}
         {/* <button
           onClick={prevSlide}
@@ -105,7 +105,7 @@ const AgentCarousel = () => {
         </button> */}
 
         {/* Carousel Container */}
-        <div className="relative flex overflow-hidden w-full flex-col  items-center justify-center">
+        <div className="relative flex o w-full flex-col  items-center justify-center">
           <div
             className="flex flex-col lg:flex-row gap-6 transition-transform duration-500"
             style={{ transform: `translateX(-${index * 220}px)` }} // Adjust slide movement
@@ -113,7 +113,7 @@ const AgentCarousel = () => {
             {agents.map((agent, i) => (
               <div
                 key={agent.name}
-                className="relative w-[320px] p-6 rounded-xl shadow-lg"
+                className={`relative w-[350px] lg:w-[320px] p-6 rounded-xl shadow-lg ${i === 0 ? "lg:-translate-x-8" : ""} ${i === 1 ? "lg:scale-[1.2] lg:z-10 lg:shadow-3xl lg:shadow-teal-700/20 lg:w-[350px]" : "w-[320]"} ${i === 2 ? "lg:translate-x-8" : ""}`}
               >
                 <div
                   className={`absolute inset-0 bg-gradient-to-t rounded-xl from-teal-800/20 to-purple-900/10 border border-teal-100/10 `}
@@ -123,13 +123,13 @@ const AgentCarousel = () => {
                     <img
                       src={agent.image}
                       alt={agent.name}
-                      className="mx-auto h-32 z-[100]"
+                      className="mx-auto h-48 z-[100]"
                     />
                     <div className="absolute top-0 left-0 -z-[10] opacity-70 scale-125 translate-x-4 -translate-y-2 ">
                       <GlowEffect color={agent.glowColor} />
                     </div>
                   </div>
-                  <h4 className="text-xl font-semibold text-white mt-20">
+                  <h4 className="text-xl font-semibold text-white mt-16">
                     {agent.name}
                   </h4>
                   <p className="text-white font-medium mt-2">{agent.role}</p>

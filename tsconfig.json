@@ -32,6 +32,6 @@
     "components/AgentCarousel.jsx",
     "app/page.jsx",
     "app/details/[chatbotid]/page.tsx"
-  ],
+, "app/pricing/page.jsx"  ],
   "exclude": ["node_modules"]
 }

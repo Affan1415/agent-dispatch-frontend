@@ -11,7 +11,8 @@ export default function AuthNavbar() {
   const [user, setUser] = useState<User | null>(null);
   const supabase = createClient();
   const router = useRouter();
-  const baseurl = process.env.NEXT_PUBLIC_BASE_URL || "https://agent-dispatch.com/";
+  const baseurl =
+    process.env.NEXT_PUBLIC_BASE_URL || "https://agent-dispatch.com/";
 
   useEffect(() => {
     const getUser = async () => {
@@ -34,34 +35,29 @@ export default function AuthNavbar() {
 
   return (
     <header className="w-screen h-[80px] overflow-hidden flex items-center justify-center border-b border-b-gray-800 z-[100]">
-      <div className="w-full max-w-6xl mx-auto p-6 flex justify-between items-center text-white">
+      <div className="w-full max-w-screen-xl mx-auto py-6 px-4 md:px-0 flex justify-between items-center text-white">
         {/* Logo */}
         <Link href="/">
           <img
             src="/images/LOGO1.png"
             alt="Agent Dispatch Logo"
-            className="w-32 h-auto"
+            className="w-32 h-auto brightness-[1.9]"
           />
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center space-x-10">
+        <nav className="flex items-center space-x-10">
           <Link
             href="/dashboard"
-            className="text-white hover:underline underline-offset-2"
+            className="text-white hidden lg:block hover:underline underline-offset-2"
           >
             Dashboard
           </Link>
-          <Link
-            href="/dashboard/myChatbots"
-            className="text-white hover:underline underline-offset-2"
-          >
-            My Chatbots
-          </Link>
+
           {user ? (
             <Button
               onClick={handleSignOut}
-              className="text-white hover:underline underline-offset-2"
+              className="text-white hover:underline bg-[#7B8CE5]  hover:bg-indigo-600   underline-offset-2"
             >
               Sign Out
             </Button>

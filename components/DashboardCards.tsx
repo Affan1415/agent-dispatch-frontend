@@ -17,13 +17,22 @@ interface DashboardCard {
 // Define the props for the component
 interface DashboardCardsProps {
   cards: DashboardCard[];
+  hasReachedLimit: boolean;
+  userId: string;
 }
 
-const DashboardCards: React.FC<DashboardCardsProps> = ({ cards }) => {
+const DashboardCards: React.FC<DashboardCardsProps> = ({
+  cards,
+  hasReachedLimit,
+  userId,
+}) => {
   return (
     <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mt-6 bg-gray-900/40 p-5 rounded-xl">
       {cards.map((card, index) => (
-        <div key={index} className="relative w-full p-6 rounded-xl shadow-lg">
+        <div
+          key={index}
+          className="relative w-full h-[450px] p-6 rounded-xl shadow-lg"
+        >
           <div
             className={`absolute inset-0 bg-gradient-to-t rounded-xl from-teal-800/20 to-purple-900/10 border border-teal-100/10`}
           ></div>
@@ -54,6 +63,26 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({ cards }) => {
           </div>
         </div>
       ))}
+
+      <div className="relative w-full p-6 h-[450px] shadow-lg bg-gradient-to-t rounded-xl from-teal-800/20 to-purple-900/10 border border-teal-100/10">
+        <div className="relative z-10 text-white h-full">
+          <div className="relative  flex items-center justify-center h-full">
+            <div className="absolute my-auto -z-[10] opacity-70 scale-[1.6] translate-x-4 -translate-y-2">
+              <GlowEffect color={"#7b8ce5"} />
+            </div>
+
+            <Link href={hasReachedLimit ? "#" : `/create-chatbot/${userId}`}>
+              <button
+                disabled={hasReachedLimit}
+                className="w-20 h-20 bg-gradient-to-br  from-purple-500/50 to-blue-500/50 rounded-full flex items-center justify-center shadow-lg cursor-pointer hover:scale-110 transition"
+              >
+                <span className="text-3xl font-bold">+</span>
+              </button>
+            </Link>
+          </div>
+          <div className="flex flex-col gap-1 mt-16"></div>
+        </div>
+      </div>
     </div>
   );
 };

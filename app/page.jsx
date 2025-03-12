@@ -3,10 +3,40 @@ import Head from "next/head";
 import { useState } from "react";
 import AgentCarousel from "../components/AgentCarousel";
 import Image from "next/image";
-import { StarIcon } from "lucide-react";
+
+import { ChevronDown, ChevronUp } from "lucide-react";
+
+const FAQs = [
+  {
+    question: "What can I use Agent Dispatch for?",
+    answer:
+      "Agent Dispatch helps automate customer support, task management, and AI-driven interactions for businesses.",
+  },
+  {
+    question: "Can Sophia work on a website and my social media?",
+    answer:
+      "Yes! You can integrate Sophia with any website and Telegram for now, with more platforms coming soon.",
+  },
+  {
+    question: "Does Agent Dispatch integrate with other software?",
+    answer:
+      "Currently, it works with Telegram and websites. Soon, Instagram, WhatsApp, and Facebook will be added.",
+  },
+  {
+    question: "What do I do if I need a more custom AI solution?",
+    answer:
+      "Contact us on the Contact page and submit the form. We'll get back to you with a tailored solution!",
+  },
+  {
+    question: "How do I get started?",
+    answer:
+      "Click on 'Get Started,' log in, upload your PDF, and your agent is ready to go!",
+  },
+];
 
 export default function Home() {
   const [faqOpen, setFaqOpen] = useState(null);
+
   const BlurredCircle = () => {
     return (
       <svg
@@ -181,61 +211,45 @@ export default function Home() {
         <title>AI-Powered Agents | Agent Dispatch</title>
       </Head>
       {/* Hero Section */}
-      <section className="flex flex-col md:flex-row  h-[70vh]  max-h-[600px] items-center justify-center gap-12 sm:gap-8 px-4 sm:px-8 md:px-12 lg:px-20 py-8 sm:py-12 md:py-16">
-        {/* Left Side - Text & Button */}
-        <div className="max-w-xl text-center md:text-left">
-          <h2 className="text-4xl lg:text-6xl font-semibold w-full  leading-tight">
-            <span className="bg-gradient-to-r from-blue-500 via-purple-200 to-pink-300 text-transparent bg-clip-text">
-              Your employees that never sleep!
-            </span>
-            {/* <br /> Always On. */}
-          </h2>
-          <p className="text-gray-400 mt-8 text-sm sm:text-base">
-            Agent-Dispatch is your all-in-one
-            command center to streamline operations,
-            boost productivity, and maximize profits.
-            Manage and coordinate your agents effortlessly! anytime, anywhere!
-          </p>
-          <button className="mt-8 sm:mt-6 bg-[#7B8CE5] px-4 sm:px-6 py-2 sm:py-3  text-white font-semibold hover:bg-blue-600 transition rounded-full">
-            Get Started →
-          </button>
-        </div>
+      <section className="flex flex-col md:flex-row h-[40vh] lg:h-[80vh]  items-center justify-center relative w-full bg-[url('/images/bg.jpeg')] bg-cover bg-[position:-0%]">
+        <div className="bg-gradient-to-b from-black/90 via-black/0 to-black/90 absolute w-full h-full z-0"></div>
 
-        {/* Right Side - Bot Image */}
-        <div className="w-full md:w-[35%] flex justify-center overflow-hiden">
-          <div className="relative ">
-            <div className="relative w-[300px] lg:w-[610px]   mx-auto xl:translate-x-[10%] h-auto flex items-center justify-center z-[10]">
-              <Image
-                src="/images/1.png"
-                className=" z-[10]"
-                alt="AI Bot"
-                width={1200}
-                height={1200}
-              />
-            </div>
-            <div className="absolute opacity-40 md:opacity-65 -translate-x-[200px] lg:-translate-x-0 -translate-y-[80px]  scale-90 ">
-              <BlurredEllipse />
-            </div>
+        <div className="bg-gradient-to-r from-black/80 via-black/0 to-black/80 absolute w-full h-full z-0"></div>
+        <div className="max-w-screen-xl flex flex-row z-[10] items-center justify-centergap-12 sm:gap-8 px-7 sm:px-0   py-8 sm:py-12 md:py-16">
+          <div className="max-w-3xl text-center md:text-left bg-gradient-to-r from-black/20 via-black/0 to-black/10 backdrop-blur-lg p-10 lg:p-16 rounded-xl border border-blue-400/20 ">
+            <h2 className="text-4xl lg:text-6xl font-semibold w-full  leading-tight">
+              <span className="bg-gradient-to-r from-blue-500 via-purple-200 to-pink-300 text-transparent bg-clip-text">
+                Your employees that never sleep!
+              </span>
+            </h2>
+            <p className="text-gray-400 mt-8 text-sm sm:text-base">
+              Agent-Dispatch is your all-in-one command center to streamline
+              operations, boost productivity, and maximize profits. Manage and
+              coordinate your agents effortlessly! anytime, anywhere!
+            </p>
+            <button className="mt-8 sm:mt-6 bg-[#7B8CE5] px-4 sm:px-6 py-2 sm:py-3  text-white font-semibold hover:bg-blue-600 transition rounded-full">
+              Get Started →
+            </button>
           </div>
         </div>
       </section>
 
       {/* AI Models Section */}
 
-      <section className="py-8 mt-8 sm:mt-0 sm:py-12 flex z-50 items-center justify-center md:py-16">
-        <div className="max-w-screen-xl px-7 sm:px-8 md:px-12 lg:px-20 w-full flex flex-col gap-12 ">
-          <h1 className="text-2xl md:text-4xl lg:text-3xl max-w-[750px] font-medium self-start">
+      <section className="py-8 mt-8 sm:mt-0 sm:py-12 flex z-50 items-center justify-center md:py-32">
+        <div className="max-w-screen-xl px-7 sm:px-8 md:px-12 lg:px-20 w-full flex flex-col items-center justify-center gap-12 ">
+          <h1 className="text-2xl md:text-4xl text-center lg:text-3xl max-w-[750px] font-medium ">
             The Next Generation of AI Workforce, Tailored to Your business.
             Transforming Work into Effortless Efficiency.
           </h1>
 
-          <div className="w-[60%]   self-end h-[1px] bg-gradient-to-r from-purple-400 via-blue-500 to-green-300"></div>
+          <div className="w-[40%] lg:mt-4   h-[1px] bg-gradient-to-r from-purple-400 via-blue-500 to-green-300"></div>
         </div>
       </section>
 
       <section
         id="agents"
-        className="py-0 sm:py-12 flex items-center justify-center md:py-16 relative"
+        className="py-0 sm:py-12 flex items-center justify-center md:py-0 relative lg:mb-8"
       >
         <div className="absolute left-0 opacity-90 ">
           <BlurredCircleLeft />
@@ -251,34 +265,61 @@ export default function Home() {
           <BlurredCircle />
         </div>
         <div className="max-w-screen-xl items-center justify-between z-10 flex flex-col lg:flex-row w-full gap-12  px-7 sm:px-8 md:px-12 lg:px-20 ">
-          <div className="max-w-xl text-center md:text-left w-full ">
-            <h3 className="text-2xl sm:text-2xl md:text-3xl font-semibold">
-              A Tireless Workforce, Always on Duty.
+          <div className=" max-w-4xl  flex items-center justify-center flex-col text-center md:text-left w-full ">
+            <h3 className="text-2xl sm:text-2xl md:text-3xl w-full font-semibold text-center ">
+              <span className="bg-gradient-to-r from-blue-300 via-purple-200 to-pink-200 text-transparent bg-clip-text">
+                A Tireless Workforce, Always on Duty.
+              </span>
             </h3>
-            <p className="text-gray-400 max-w-xl mt-4 text-sm sm:text-base font-light">
-              Available 24/7, our Al-powered agents work around the clock, so you don't have to.
-              Automate tasks, enhance customer support, and maximize efficiency while saving valuable time.
+            <p className="text-gray-300 max-w-xl mt-4 text-sm sm:text-base text-center font-light">
+              <span className=" underline underline-offset-2">
+                Available 24/7,
+              </span>{" "}
+              our Al-powered agents work{" "}
+              <span className=" underline underline-offset-2">
+                around the clock,
+              </span>{" "}
+              so you don't have to.{" "}
+              <span className=" underline underline-offset-2">
+                Automate tasks, enhance customer support,
+              </span>{" "}
+              and maximize efficiency while{" "}
+              <span className=" underline underline-offset-2">
+                saving valuable time.
+              </span>{" "}
             </p>
 
-            <p className="text-gray-400 max-w-xl  text-sm sm:text-base font-light mt-8">
-              Break barriers and scale globally with Al that speaks, understands, and delivers in over 100 languages.
+            <p className="text-gray-300 max-w-xl  text-sm sm:text-base font-light text-center mt-8">
+              Break barriers and scale globally with Al that speaks,
+              understands, and delivers in{" "}
+              <span className="underline underline-offset-2">
+                over 100 languages.
+              </span>{" "}
             </p>
-            <p className="text-gray-400 max-w-xl  text-sm sm:text-base font-light mt-8">
+            <p className="text-gray-300 max-w-xl  text-sm sm:text-base font-light mt-8">
               {"    "}
             </p>
-            <h3 className="text-2xl sm:text-2xl md:text-3xl font-semibold">
-              A Tireless Workforce, Always on Duty.
+            <h3 className="text-2xl sm:text-2xl md:text-3xl  text-center font-semibold">
+              <span className="bg-gradient-to-r from-blue-300 via-purple-200 to-pink-200 text-center  text-transparent bg-clip-text">
+                A Tireless Workforce, Always on Duty.
+              </span>
             </h3>
-            <p className="text-gray-400 max-w-xl mt-4 text-sm sm:text-base font-light">
-              Your Al team learns the ins and outs of your business,
-               delivering accurate and personalized responses.
-                Simply upload files, share instructions,
-                 or integrate your website—the more they know, the better they perform.
+            <p className="text-gray-300 max-w-xl mt-4 text-sm sm:text-base text-center font-light">
+              Your{" "}
+              <span className=" underline underline-offset-2">
+                Al team learns
+              </span>{" "}
+              the ins and outs of your business, delivering accurate and
+              personalized responses.{" "}
+              <span className=" underline underline-offset-2">Simply</span>{" "}
+              upload files, share instructions, or{" "}
+              <span className=" underline underline-offset-2">integrate</span>{" "}
+              your website—the more they know, the better they perform.
             </p>
           </div>
 
           {/* Right Content */}
-          <div className="w-full flex md:items-end md:justify-end gap-2 z-10 md:gap-6 flex-col ">
+          <div className="w-full flex md:items-end md:justify-end gap-2 z-10 md:gap-6 flex-col  max-w-fit">
             <div className="fleex flex-col gap-6 h-full items-center justify-center">
               <h2 className=" text-center text-8xl md:text-[150px] z-10 font-bold bg-gradient-to-r from-purple-500 via-blue-300 to-teal-300 text-transparent bg-clip-text ">
                 24/7
@@ -294,14 +335,14 @@ export default function Home() {
       {/* Tools Integration */}
       <section
         id="features"
-        className="relative py-16 md:py-24  text-white px-7 sm:px-8 md:px-12 lg:px-20 h-auto overflow-hidden"
+        className="relative py-16 md:py-24  text-white px-7 sm:px-8 md:px-12 w-full lg:px-20 h-auto overflow-hidden"
       >
         {/* Centered Text */}
-        <div className="text-center max-w-3xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl  ">
+        <div className="text-center flex flex-col items-center justify-center  w-full  mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl text-center  ">
             Tailored to Your Business, Just Like Real Employees.
           </h2>
-          <p className="text-gray-400 mt-4 lg:mt-8 text-sm sm:text-base font">
+          <p className="text-gray-400 max-w-2xl mt-4 lg:mt-8 text-sm sm:text-base text-center">
             Your AI team learns the ins and outs of your business, giving
             personalized answers about your brand. Upload files, share
             instructions, or link your website to enhance results—the more they
@@ -384,17 +425,62 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="py-8 sm:py-12 md:py-16 gap-32 flex items-center justify-center relative">
+        <div className="absolute right-0  opacity-90 -z-0 ">
+          <BlurredCircle />
+        </div>
+        <div className="max-w-screen-xl items-center justify-between z-10 flex flex-col lg:flex-row w-full gap-12  px-7 sm:px-8 md:px-12 lg:px-20 ">
+          <div className=" max-w-4xl  flex flex-col items-center justify-center text-center md:text-left w-full ">
+            <h3 className="text-2xl sm:text-2xl text-center md:text-6xl w-full font-semibold  ">
+              <span className="bg-gradient-to-r  from-blue-300 via-purple-200 to-pink-200 text-transparent bg-clip-text">
+                A co-worker who's always on the clock.
+              </span>
+            </h3>
+            <p className="text-gray-300 max-w-xl text-center mt-6 text-sm sm:text-base  font-light">
+              Available 24/7. The only employees who love overtime. Always ready
+              to save your most valuable asset your time.
+            </p>
+
+            <p className="text-gray-300 max-w-xl text-center  text-sm sm:text-base font-light  mt-8">
+              Speaks in 100+ languages. Go global, select, communicate, and
+              complete your work in over 100 languages.
+            </p>
+            <p className="text-gray-300 max-w-xl  text-sm sm:text-base font-light mt-8">
+              {"    "}
+            </p>
+          </div>
+
+          {/* Right Content */}
+          <div className="w-full md:w-[35%] flex justify-center overflow-hiden">
+            <div className="relative ">
+              <div className="relative w-[300px] lg:w-[610px]   mx-auto xl:translate-x-[10%] h-auto flex items-center justify-center z-[10]">
+                <Image
+                  src="/images/1.png"
+                  className=" z-[10]"
+                  alt="AI Bot"
+                  width={1200}
+                  height={1200}
+                />
+              </div>
+              <div className="absolute opacity-40 md:opacity-65 -translate-x-[200px] lg:-translate-x-0 -translate-y-[80px]  scale-90 ">
+                <BlurredEllipse />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Tools Integration Grid */}
-      <section className="bg-black text-white py-16 md:py-32 flex items-center justify-center w-full relative ">
+      <section className=" text-white py-16 md:py-32 flex items-center justify-center w-full relative ">
         <div className="absolute left-0 opacity-90  -z-0">
           <BlurredCircleLeft />
         </div>
         <div className="max-w-screen-xl px-7 sm:px-8 md:px-12 lg:px-20 w-full z-10">
-          <div className="text-center md:text-left  mx-auto">
-            <h3 className="text-2xl sm:text-3xl md:text-4xl  max-w-lg ">
+          <div className="text-center md:text-left items-center justify-center flex flex-col w-full mx-auto">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl text-center  max-w-3xl ">
               Seamlessly Connect with Your Favorite Tools.
             </h3>
-            <p className="text-gray-400 mt-4 md:mt-10 text-sm sm:text-base max-w-md">
+            <p className="text-gray-400 mt-4 md:mt-6 text-center text-sm sm:text-base max-w-2xl">
               Enhance your workflow by uniting AI-powered assistants with the
               tools you already use. Smart automation makes managing
               integrations smoother than ever.
@@ -402,26 +488,27 @@ export default function Home() {
           </div>
 
           {/* Grid Layout for Logos */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 bg-gradient-to-tr from-purple-400/30 via-blue-600/40 to-teal-300/20   p-[1px] md:grid-cols-4 gap-[1px]  w-full  mt-8 sm:mt-16  mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 bg-gradient-to-tr from-purple-400/30 via-blue-600/40 to-teal-300/20   p-[1px] md:grid-cols-4 gap-[1px]  w-full   mt-8 sm:mt-16  mx-auto">
             {[
-              { name: "Facebook", logo: "images/facebook.png" },
-              { name: "Instagram", logo: "images/instagrm.png" },
-              { name: "Google", logo: "images/google.png" },
-              { name: "YouTube", logo: "images/youtube.png" },
-              { name: "Microsoft", logo: "images/microsoft.png" },
-              { name: "Logoipsum", logo: "images/logoipsum.png" },
-              { name: "LinkedIn", logo: "images/linkedin.png" },
-              { name: "Slack", logo: "images/slack.png" },
+              { name: "Whatsapp", logo: "images/whatsapp.png" },
+              { name: "Instagram", logo: "images/instagram.png" },
+              { name: "Shopify", logo: "images/shopify.png" },
+              { name: "Wix", logo: "images/wix.png" },
+              { name: "telegram", logo: "images/telegram.png" },
+              { name: "wordpress", logo: "images/wordpress (1).png" },
+              { name: "Facebook", logo: "images/communication.png" },
+              { name: "Webflow", logo: "images/webflow.svg" },
             ].map((tool) => (
               <div
                 key={tool.name}
-                className="p-4 sm:p-6 bg-black flex items-center justify-center  h-16 sm:h-20 md:h-28"
+                className="p-4 sm:p-6 bg-black flex items-center flex-col gap-3 justify-center "
               >
                 <img
                   src={tool.logo}
                   alt={tool.name}
-                  className="h-6 sm:h-8 md:h-10"
+                  className="size-6 sm:size-8 md:size-16 rounded-lg "
                 />
+                <span className=" tracking-wide">{tool.name}</span>
               </div>
             ))}
           </div>
@@ -429,60 +516,39 @@ export default function Home() {
       </section>
 
       {/* AI Chat Bubbles Section */}
-      <section className=" text-white w-full py-16 md:py-16  flex items-center justify-center relative">
-        <div className="max-w-screen-xl w-full  px-4 sm:px-8 md:px-12 lg:px-20">
-          <div className="text-center max-w-3xl mx-auto">
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold">
-              Work Gets Done—Even While You Rest.
+      <section className="py-8 sm:py-12 md:py-16 gap-32 flex items-center justify-center relative">
+        <div className="absolute right-0 opacity-90 -z-0 ">
+          <BlurredCircle />
+        </div>
+        <div className="max-w-screen-xl items-center justify-between z-10 flex flex-col lg:flex-row w-full gap-12  px-7 sm:px-8 md:px-12 lg:px-20 ">
+          {/* Right Content */}
+          <div className="w-full md:w-[30%]  flex justify-center overflow-hiden">
+            <div className="relative ">
+              <div className="relative w-[300px] lg:w-[610px]   mx-auto xl:translate-x-[10%] h-auto flex items-center justify-center z-[10]">
+                <Image
+                  src="/images/1.png"
+                  className=" z-[10]"
+                  alt="AI Bot"
+                  width={1200}
+                  height={1200}
+                />
+              </div>
+              <div className="absolute opacity-40 md:opacity-65 -translate-x-[200px] lg:-translate-x-0 -translate-y-[80px]  scale-90 ">
+                <BlurredEllipse />
+              </div>
+            </div>
+          </div>
+          <div className=" max-w-5xl  lg:ml-24  flex items-center justify-center flex-col text-center md:text-left w-full ">
+            <h3 className="text-2xl sm:text-2xl text-center md:text-6xl w-full font-semibold  ">
+              <span className="bg-gradient-to-r  from-blue-300 via-purple-200 to-pink-200 text-transparent bg-clip-text">
+                Work Gets Done - Even While You Rest.
+              </span>
             </h3>
-            <p className="text-gray-400 mt-4 text-sm sm:text-base">
-              Let AI handle the routine—automate tasks like creating social
+            <p className="text-gray-300 text-center max-w-xl mt-6 text-sm sm:text-base  font-light">
+              Let AI handle the routine — automate tasks like creating social
               media posts, responding to comments, and more with powerful
               business automation tools.
             </p>
-          </div>
-
-          {/* AI Chat Bubbles Wrapper */}
-          <div className=" w-full max-w-3xl mx-auto mt-8 sm:mt-10  flex flex-col  gap-4">
-            {/* Nova's Chat */}
-            <div className="flex flex-col md:flex-row gap-4 md:gap-10 items-center ">
-              <div className="bg-indigo-500 text-white p-4 sm:p-6 max-w-lg max-h-[80px] rounded-[30px]  w-full flex flex-row items-center  gap-3   ">
-                <img
-                  src="images/haed1.png"
-                  alt="Nova Bot"
-                  className="w-16 h-16 md:w-28 md:h-28  md:-translate-x-12 -rotate-[25deg]"
-                />
-                <span className="whitespace-normal text-center  md:-translate-x-8  text-sm md:text-base">
-                  Nova, Customer Service Chatbot.
-                </span>
-              </div>
-
-              {/* Kai's Chat */}
-              <div className="bg-blue-700 text-white p-4 sm:p-6 max-w-lg max-h-[80px]  rounded-[30px] w-full  flex flex-row items-center gap-4 ">
-                <img
-                  src="images/head2.png"
-                  alt="Kai Bot"
-                  className="w-16 h-16 md:w-20 md:h-20  md:-translate-x-12 -rotate-[25deg]"
-                />
-                <span className="whitespace-nowrap text-center  md:-translate-x-8   text-sm md:text-base">
-                  Lumi, Social Media Chatbots.
-                </span>
-              </div>
-            </div>
-
-            {/* Sage's Chat */}
-            <div className="flex items-center justify-center w-full">
-              <div className="bg-purple-700 text-white p-4 sm:p-6 max-w-lg max-h-[80px] rounded-[30px] w-full flex flex-row items-center gap-4 ">
-                <img
-                  src="images/head3.png"
-                  alt="Sage Bot"
-                  className="w-16 h-16 md:w-20 md:h-20  md:-translate-x-12 -rotate-[25deg]"
-                />
-                <span className="whitespace-nowrap text-center md:-translate-x-8  text-sm md:text-base">
-                  Sage, Marketing Content Writer.
-                </span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -505,28 +571,28 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mt-2 sm:mt-10 max-w-4xl mx-auto">
             {[
               {
-                name: "Alex Mercer",
-                title: "Co-founder, XYZ",
+                name: "Emma Clarke",
+                title: "Head of Support, Nexora Solutions",
                 review:
-                  "Tried Nova Assist, and it’s been a game-changer! The AI’s adaptability and quick responses make work a breeze.",
+                  "Sophia Customer Service Bot has revolutionized our support system! It handles queries instantly, resolves issues efficiently, and has improved our response time by 70%. Our customers love it!",
               },
               {
-                name: "Jordan Ellis",
-                title: "Co-founder, XYZ",
+                name: "Daniel Foster",
+                title: "Marketing Lead, Virex Media",
                 review:
-                  "I use Lumi AI daily—it schedules my meetings, organizes tasks, and even drafts emails. Highly recommend!",
+                  "The Sophia Social Media Bot on Telegram is a lifesaver! It handle all the queries of our customer and reply efficiently. Now, I could'nt imagine how we had handled customer queries before. ",
               },
               {
-                name: "Priya Sharma",
-                title: "Co-founder, XYZ",
+                name: "Samantha Rodriguez",
+                title: "Founder, EcomEase",
                 review:
-                  "At first, I wasn’t sure about Vero AI, but after a week, it started generating perfect marketing strategies!",
+                  "I was skeptical at first, but Sophia AI exceeded my expectations. The customer service bot provides round-the-clock support, reducing workload for my team while keeping our customers happy.",
               },
               {
-                name: "Marcus Lee",
-                title: "Co-founder, XYZ",
+                name: "Liam Harrison",
+                title: "Community Manager, Digitech Group",
                 review:
-                  "Kai Support stands out. It handles customer inquiries seamlessly and saves me hours of work.",
+                  "Using Sophia Social Media Bot on Telegram has boosted our engagement significantly. It replies to messages, shares updates, and even interacts with users in real time. A must-have for any brand!",
               },
             ].map((testimonial, index) => (
               <div
@@ -535,7 +601,7 @@ export default function Home() {
               >
                 <div className="flex flex-row gap-1 items-center">
                   {Array.from({ length: 5 }).map((_, index) => (
-                    <StarIcon key={index} className="w-5 h-5 text-yellow-500" />
+                    <div key={index}>⭐️</div>
                   ))}
                 </div>
                 <p className="text-gray-400 mt-2 text-xs sm:text-sm">
@@ -569,7 +635,7 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-2 sm:py-12 md:py-16 px-7 sm:px-8 md:px-12 lg:px-20 bg-black text-white relative">
+      <section className="py-12 px-7 sm:px-8 md:px-12 lg:px-20 bg-black text-white relative">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center gap-6 sm:gap-10 z-10">
           {/* Left Section: Title & Description */}
           <div className="md:w-1/2">
@@ -582,24 +648,26 @@ export default function Home() {
           </div>
 
           {/* Right Section: FAQ List */}
-          <div className="md:w-1/2 space-y-3 sm:space-y-4">
-            {[
-              "How does the AI adapt to my business needs?",
-              "What tools does your platform integrate with?",
-              "Can I customize my AI assistants?",
-              "How do I get started with Agent Dispatch?",
-              "What kind of support do you offer?",
-            ].map((question, index) => (
-              <button
-                key={index}
-                className="w-full flex justify-between items-center p-3 sm:p-4 bg-gray-900 rounded-lg"
-                onClick={() => setFaqOpen(faqOpen === index ? null : index)}
-              >
-                <span className="text-sm sm:text-base">{question}</span>
-                <span className="text-gray-400">
-                  {faqOpen === index ? "▲" : "▼"}
-                </span>
-              </button>
+          <div className="md:w-1/2 space-y-3 sm:space-y-4 duration-200 ease-in-out transition-all">
+            {FAQs.map((faq, index) => (
+              <div key={index} className="bg-gray-900 rounded-lg">
+                <button
+                  className="w-full flex justify-between items-center p-4 text-left"
+                  onClick={() => setFaqOpen(faqOpen === index ? null : index)}
+                >
+                  <span className="text-sm sm:text-base">{faq.question}</span>
+                  {faqOpen === index ? (
+                    <ChevronUp className="text-gray-400 w-5 h-5" />
+                  ) : (
+                    <ChevronDown className="text-gray-400 w-5 h-5" />
+                  )}
+                </button>
+                {faqOpen === index && (
+                  <p className="p-4 text-gray-300 text-sm sm:text-base">
+                    {faq.answer}
+                  </p>
+                )}
+              </div>
             ))}
           </div>
         </div>

@@ -82,7 +82,7 @@ function SignupForm() {
   };
 
   return (
-    <div className="flex items-center justify-center bg-black px-4">
+    <div className="flex items-center justify-center bg-black px-4 py-16">
       <div className="flex w-full max-w-screen-xl min-h-[60vh] flex-col md:flex-row rounded-lg overflow-hidden bg-gradient-to-t from-teal-800/20 to-purple-900/10 border border-teal-100/10 bg-opacity-10 items-center justify-center gap-10 p-6">
         {/* Left Section - Robot Illustration */}
         <div className="hidden md:flex flex-col items-center">

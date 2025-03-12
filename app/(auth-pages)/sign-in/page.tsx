@@ -67,8 +67,8 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
     );
   };
   return (
-    <div className="flex  items-center justify-center bg-black px-4">
-      <div className="flex flex-col md:flex-row items-center min-h-[60vh]  justify-center w-full max-w-screen-xl overflow-hidden bg-gradient-to-t  from-teal-800/20 to-purple-900/10 border border-teal-100/10 bg-opacity-10 p-8 rounded-lg">
+    <div className="flex  items-center justify-center bg-black px-4 py-16">
+      <div className="flex flex-col md:flex-row items-center min-h-[60vh]   justify-center w-full max-w-screen-xl overflow-hidden bg-gradient-to-t  from-teal-800/20 to-purple-900/10 border border-teal-100/10 bg-opacity-10 p-8 rounded-lg">
         {/* Left Section - Robot Illustration */}
         <div className="hidden md:flex flex-col items-center">
           <div className="relative ">
