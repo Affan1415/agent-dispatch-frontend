@@ -12,9 +12,9 @@ export default function ProtectedPage() {
   const params = useParams();
   const botid = params?.botid as string;
   const [prompt, setPrompt] = useState("");
-  const [messages, setMessages] = useState<
-    { text: string; isUser: boolean }[]
-  >([]);
+  const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>(
+    []
+  );
   const [userId, setUserId] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [isBotTyping, setIsBotTyping] = useState(false);
@@ -81,8 +81,7 @@ export default function ProtectedPage() {
       console.log("API Response:", data);
 
       const responseText =
-        data.response?.content &&
-        typeof data.response.content === "string"
+        data.response?.content && typeof data.response.content === "string"
           ? data.response.content
           : "No valid response from server";
 
@@ -107,29 +106,21 @@ export default function ProtectedPage() {
   }, [messages, isBotTyping]);
 
   return (
-    <div className="w-full flex items-center gap-6 sm:p-6 flex-col relative">
+    <div className="w-full flex items-center gap-6 sm:p-6 flex-col relative md:mt-16">
       <div className="max-w-screen-xl w-full flex flex-col gap-2 z-50">
         <div className="flex flex-col items-center justify-center gap-4 text-white z-[100]">
           <div className="max-w-full flex flex-col items-center justify-center text-center z-[100]">
             <h2 className="text-4xl lg:text-6xl font-semibold w-full leading-tight">
               <span className="bg-gradient-to-r from-blue-300 via-blue-200 to-blue-200/40 text-transparent bg-clip-text">
-                Kaboom!
+                Test!
               </span>{" "}
-              Chatbot is Created
+              Your Agent
             </h2>
             <p className="text-gray-400 mt-6 text-sm sm:text-base max-w-4xl">
-              Test the bot using the provided window and ask relevant questions
-              based on the document. After testing, click on 'Integration' to
-              integrate the bot.
+              Test the agent using the provided window and ask relevant
+              questions based on the document. After testing, click on
+              'Integration' to integrate the agent.
             </p>
-
-            <Link
-              href={`/integrations/${userId}/${botid}`}
-              className="px-10 py-4 rounded-full border border-teal-700/20 bg-gradient-to-r from-blue-700/30 via-blue-700/20 to-black/0 text-white mt-6 hover:bg-blue-700/40 transition"
-            >
-              Go to Integrations{" "}
-              <ArrowRight className="w-5 h-5 text-white" />
-            </Link>
 
             <div className="flex flex-row gap-2 items-center flex-wrap mt-6">
               <h1 className="pr-6">Ask Some Question Like:</h1>
@@ -206,7 +197,13 @@ export default function ProtectedPage() {
             </button>
           </form>
         </div>
-
+        <Link
+          href={`/integrations/${userId}/${botid}`}
+          className="px-10 py-4 flex flex-row items-center justify-center rounded-xl border border-teal-700/20 bg-gradient-to-r from-blue-700/30 via-blue-700/20 to-black/0 text-white mt-6 hover:bg-blue-700/40 transition"
+        >
+          Click to Deploy the Agent{" "}
+          <ArrowRight className="w-5 h-5 text-white" />
+        </Link>
         {/* Error Message */}
         {error && <p className="text-red-500 mt-4">{error}</p>}
       </div>

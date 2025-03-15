@@ -61,6 +61,12 @@ export default function UploadPage() {
       <div className="absolute right-0 opacity-80 -z-0 scale-x-[-1]">
         <BlurredCircle />
       </div>
+
+      <div className="w-full max-w-screen-xl flex flex-row items-center justify-center text-gray-400">
+        <span>Step 1 : Train</span>
+        <span>Step 2 : Train</span>
+        <span>Step 3 : Train</span>
+      </div>
       <h2 className="text-4xl lg:text-6xl w-full text-center font-semibold mb-8  leading-tight">
         <span className="bg-gradient-to-r from-blue-200 via-purple-200 to-pink-300 text-transparent bg-clip-text">
           Train Your Agent!
@@ -68,12 +74,7 @@ export default function UploadPage() {
       </h2>
 
       <div className="max-w-screen-xl md:min-w-[500px] flex items-center shadow-2xl shadow-teal-700/10 z-10 justify-center px-7 md:px-8 flex-col bg-gradient-to-t from-teal-800/20 to-purple-900/10 border border-teal-100/10 p-10 rounded-xl">
-        <nav className="mb-4 text-sm text-white">
-          <Link href="/upload">Upload PDF</Link> &gt;{" "}
-          <Link href="#">Test Your Chatbot</Link> &gt;{" "}
-          <Link href="#">Integrations</Link>
-        </nav>
-        <h1 className="text-4xl font-bold mb-4">Upload Your PDF</h1>
+        <h1 className="text-4xl font-bold mb-4">Provide Instructions</h1>
 
         {/* Two buttons to select the method */}
         <div className="flex gap-4 mb-4">
@@ -85,7 +86,7 @@ export default function UploadPage() {
                 : "bg-gray-600 hover:bg-gray-700"
             }`}
           >
-            Upload PDF
+            Instruct from PDF
           </button>
           <button
             onClick={() => setSelectedMethod("text")}
@@ -95,7 +96,7 @@ export default function UploadPage() {
                 : "bg-gray-600 hover:bg-gray-700"
             }`}
           >
-            Convert Text to PDF
+            Instruct from Text
           </button>
         </div>
 
@@ -113,7 +114,7 @@ export default function UploadPage() {
             disabled={loading}
             className="mt-6 w-full bg-teal-900/60 hover:bg-teal-900/80 py-3 rounded-lg transition duration-200"
           >
-            {loading ? "Processing..." : "Test Your Chat Bot"}
+            {loading ? "Processing..." : "Test Your Agent"}
           </button>
         )}
       </div>

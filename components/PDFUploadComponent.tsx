@@ -9,7 +9,10 @@ interface PDFUploadComponentProps {
   onUploadSuccess: (filePath: string) => void;
 }
 
-export default function PDFUploadComponent({ userId, onUploadSuccess }: PDFUploadComponentProps) {
+export default function PDFUploadComponent({
+  userId,
+  onUploadSuccess,
+}: PDFUploadComponentProps) {
   const supabase = createClient();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -22,11 +25,14 @@ export default function PDFUploadComponent({ userId, onUploadSuccess }: PDFUploa
       return;
     }
     setUploading(true);
-    setUploadStatus("Uploading...");
+    setUploadStatus("Instructing...");
 
     const getRandomDigits = () => Math.floor(1000 + Math.random() * 9000);
     const fileExtension = selectedFile.name.split(".").pop();
-    const fileNameWithoutExt = selectedFile.name.replace(`.${fileExtension}`, "");
+    const fileNameWithoutExt = selectedFile.name.replace(
+      `.${fileExtension}`,
+      ""
+    );
     const newFileName = `${fileNameWithoutExt}_${getRandomDigits()}.${fileExtension}`;
 
     const filePath = `PDFS/${userId}/${newFileName}`;
@@ -40,7 +46,7 @@ export default function PDFUploadComponent({ userId, onUploadSuccess }: PDFUploa
       setUploadStatus(`Upload failed: ${error.message}`);
       return;
     }
-    setUploadStatus("Uploaded successfully!");
+    setUploadStatus("Instructed successfully!");
     setSelectedFile(null);
     onUploadSuccess(filePath); // Notify parent about successful upload
   };
@@ -68,7 +74,7 @@ export default function PDFUploadComponent({ userId, onUploadSuccess }: PDFUploa
             </p>
             <p className="text-white gap-2 font-light flex flex-row text-md w-full text-center mt-4">
               <UploadIcon className="w-5 h-5 text-white" /> Please click on
-              upload to upload the document
+              upload instructions to upload the document
             </p>
           </>
         )}
@@ -78,12 +84,10 @@ export default function PDFUploadComponent({ userId, onUploadSuccess }: PDFUploa
         disabled={uploading}
         className="w-full py-3 bg-[#24426b83] hover:bg-blue-800/40 rounded-lg transition duration-200"
       >
-        {uploading ? "Uploading..." : "Upload PDF"}
+        {uploading ? "Instructing..." : "Upload Instructions"}
       </button>
       {uploadStatus && (
-        <p className="mt-4 text-center text-sm text-gray-300">
-          Your Document is {uploadStatus}
-        </p>
+        <p className="mt-4 text-center text-sm text-gray-300">{uploadStatus}</p>
       )}
     </div>
   );

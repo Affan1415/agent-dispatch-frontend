@@ -118,29 +118,29 @@ export default function DashboardPage() {
       name: "Nova - Social Media Manager",
       role: "AI Social Media Manager",
       description:
-        "Seamlessly embed an intelligent, interactive chat agent into any website with a single script. Elevate engagement, automate customer support, and enhance user interactions effortlessly!",
+        "Seamlessly integrate a smart, interactive social media manager into your website with a single script. Enhance engagement, automate customer interactions, and streamline your online presence effortlessly!",
       image: "images/Sophia.png",
       price: "49",
       glowColor: "#68E4FF",
     },
     {
       id: "2",
-      name: "Sophia - Chatbot Developer",
-      role: "Customer Service & Social Media Chatbot Agent",
+      name: "Sophia - Customer Engagement Specialist",
+      role: "Customer Service & Social Media Agent",
       description:
-        "Easily integrate smart, engaging chatbots into your webiste with just a simple script or with social media . Boost engagement, automate responses, and interact 24/7—all in minutes!",
+        "Deploy an intelligent customer engagement agent that seamlessly integrates with your website or social media. Improve interactions, automate responses, and ensure 24/7 support—all in minutes!",
       image: "images/Phone.png",
       price: "49",
       glowColor: "#DC75F5",
     },
     {
       id: "3",
-      name: "Neon. eCommerce Expert.",
-      price: "49",
-      role: "eCommerce Expert. Coming Soon!",
+      name: "Neon - eCommerce Expert",
+      role: "eCommerce Expert (Coming Soon!)",
       description:
-        "Your go-to AI for online business success, helping with store setup, product launches, and optimizing eCommerce operations for smooth growth..",
+        "Your dedicated AI-driven eCommerce specialist for scaling online businesses. From store setup to product launches and seamless operations, optimize growth with ease!",
       image: "images/Business.png",
+      price: "49",
       glowColor: "#68E4FF",
     },
   ];
@@ -149,9 +149,9 @@ export default function DashboardPage() {
     {
       id: "1",
       name: "Sophia - Website Agent",
-      role: "AI Customer Service Chatbot Agent",
+      role: "AI Customer Service Agent",
       description:
-        "Effortlessly integrate smart, dynamic chatagent into any website with just a simple script. Boost engagement, automate support, and enhanceinteractions, all in minutes!",
+        "Effortlessly deploy a smart, dynamic customer service agent on any website with a simple script. Improve engagement, automate support, and enhance interactions seamlessly!",
       image: "/images/Sophia.png",
       price: "49",
       glowColor: "#68E4FF",
@@ -159,9 +159,9 @@ export default function DashboardPage() {
     {
       id: "2",
       name: "Sophia - Social Agent",
-      role: "Social Media Messaging Chatbot Agent",
+      role: "Social Media Messaging Agent",
       description:
-        "Easily integrate smart, engaging chatbots into your social media with just a simple script. Boost engagement, automate responses, and interact 24/7—all in minutes!",
+        "Easily integrate an intelligent social media agent to manage conversations, engage users, and automate responses—ensuring 24/7 interaction effortlessly!",
       image: "/images/Phone.png",
       price: "49",
       glowColor: "#DC75F5",
@@ -185,41 +185,27 @@ export default function DashboardPage() {
             <BlurredCircle />
           </div>
 
-          {plan === "pro" ? (
+          {plan !== "pro" ? (
             <>
-              {(chatbots?.length ?? 0) ? (
-                <div className="max-w-screen-xl z-[50] flex flex-col self-start  w-full">
-                  <div className="flex justify-between items-center w-full mb-6 max-w-screen-xl z-10  ">
-                    <h1 className="text-3xl font-semibold text-white flex flex-row gap-2 items-center">
-                      <LayoutGridIcon className="w-6 h-6 text-white" />
-                      Dashboard
-                    </h1>
-                  </div>
-                  <div className="p-2 rounded-xl">
-                    <DashboardCards
-                      cards={chatbotCards}
-                      hasReachedLimit={hasReachedLimit}
-                      userId={userId}
-                    />
-                  </div>
+              <div className="max-w-screen-xl z-[50] flex flex-col self-start  w-full">
+                <div className="flex justify-between items-center w-full mt-8 mb-6 max-w-screen-xl z-10  ">
+                  <h1 className="text-3xl md:pl-5 font-semibold text-white flex flex-row gap-2 items-center">
+                    <LayoutGridIcon className="w-6 h-6 text-white" />
+                    Dashboard
+                  </h1>
                 </div>
-              ) : (
-                <section className="flex flex-col   z-[50] min-h-[70vh] h-auto  items-center justify-center gap-4 sm:gap-8 px-4 sm:px-8 md:px-12 lg:px-20 py-4 sm:py-12 md:py-16">
-                  <h2 className="text-4xl lg:text-6xl font-semibold  leading-tight text-center w-full text-white">
-                    <span className="bg-gradient-to-r from-blue-300 via-purple-200 to-pink-300 text-transparent bg-clip-text">
-                      You are on Pro Plan!
-                    </span>
-                  </h2>
-                  <h2 className="text-2xl lg:text-3xl -translate-y-2  leading-tight text-center w-full text-gray-400">
-                    Choose the agent to deploy.
-                  </h2>
-                  <div className="relative flex items-center justify-center mt-8">
-                    <div className="relative flex o w-full flex-col  items-center justify-center">
+
+                <section className="flex flex-col  bg-gray-900/40 p-5 rounded-xl   z-[50] items-center justify-center gap-4  ">
+                  <div className="relative flex  w-full">
+                    <div className="relative flex o w-full flex-col ">
+                      <h1 className="text-2xl mb-4   text-gray-300 flex flex-row gap-2 items-center">
+                        Agents ready to work.
+                      </h1>
                       <div className="flex flex-col lg:flex-row gap-6 transition-transform duration-500">
                         {agents2.slice(0, 2).map((agent, i) => (
                           <div
                             key={agent.name}
-                            className={`relative w-[350px] lg:w-[460px] p-6 rounded-xl shadow-lg`}
+                            className={`relative w-[350px] lg:w-[340px] p-6 rounded-xl shadow-lg`}
                           >
                             <div
                               className={`absolute inset-0 bg-gradient-to-t rounded-xl from-blue-800/20 to-purple-900/10 border border-teal-100/10 `}
@@ -270,24 +256,49 @@ export default function DashboardPage() {
                               )}
                               {hasReachedLimit && (
                                 <p className="text-red-400 mt-2 text-sm">
-                                  Subscribe to Pro plan to increase limit to 5
-                                  chatbots.
+                                  Buy the agent as your limit is exceeded.
                                 </p>
                               )}
                             </div>
                           </div>
                         ))}
+
+                        <div className="relative  p-6 h-full w-[350px] lg:w-[340px] shadow-lg bg-gradient-to-t rounded-xl from-teal-800/20 to-purple-900/10 border border-teal-100/10">
+                          <div className="relative z-10 text-white h-full">
+                            <div className="relative  flex items-center justify-center h-full">
+                              <div className="absolute my-auto -z-[10] opacity-70 scale-[1.6] translate-x-4 -translate-y-2">
+                                <GlowEffect color={"#7b8ce5"} />
+                              </div>
+
+                              <Link href={"/pricing"}>
+                                <button className="w-20 h-20 bg-gradient-to-br  from-purple-500/50 to-blue-500/50 rounded-full flex items-center justify-center shadow-lg cursor-pointer hover:scale-110 transition">
+                                  <span className="text-3xl font-bold">+</span>
+                                </button>
+                              </Link>
+                            </div>
+                            <div className="flex flex-col gap-1 mt-16"></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </section>
-              )}
+                {chatbots?.length > 0 && (
+                  <div className="p-2 rounded-xl">
+                    <DashboardCards
+                      cards={chatbotCards}
+                      hasReachedLimit={hasReachedLimit}
+                      userId={userId}
+                    />
+                  </div>
+                )}
+              </div>
             </>
           ) : (
             <section className="relative flex flex-col items-center justify-center  w-full px-4 sm:px-8 md:px-12 lg:px-20 py-4 mb-4 lg:mb-16 sm:py-12 md:py-20">
               <h2 className="text-4xl lg:text-6xl font-semibold  leading-tight text-center w-full text-white">
                 <span className="bg-gradient-to-r from-blue-300 via-purple-200 to-pink-300 text-transparent bg-clip-text">
-                  Subscribe to Pro Plan
+                  Get an Agent Now!
                 </span>
               </h2>
               <div className="relative flex items-center justify-center mt-8 md:mt-32">

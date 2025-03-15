@@ -90,32 +90,32 @@ const PricingPage = () => {
   const agents = [
     {
       id: "1",
-      name: "Nova - Social Media Manger",
+      name: "Nova - Social Media Manager",
       role: "AI Social Media Manager",
       description:
-        "Seamlessly embed an intelligent, interactive chat agent into any website with a single script. Elevate engagement, automate customer support, and enhance user interactions effortlessly!",
+        "Seamlessly integrate a smart, interactive social media manager into your website with a single script. Enhance engagement, automate customer interactions, and streamline your online presence effortlessly!",
       image: "images/Sophia.png",
       price: "49",
       glowColor: "#68E4FF",
     },
     {
       id: "2",
-      name: "Sophia - Chatbot Developer",
-      role: "Customer Service & Social Media Chatbot Agent",
+      name: "Sophia - Customer Engagement Specialist",
+      role: "Customer Service & Social Media Agent",
       description:
-        "Easily integrate smart, engaging chatbots into your webiste with just a simple script or with social media . Boost engagement, automate responses, and interact 24/7—all in minutes!",
+        "Deploy an intelligent customer engagement agent that seamlessly integrates with your website or social media. Improve interactions, automate responses, and ensure 24/7 support—all in minutes!",
       image: "images/Phone.png",
       price: "49",
       glowColor: "#DC75F5",
     },
     {
       id: "3",
-      name: "Neon. eCommerce Expert.",
-      price: "49",
-      role: "eCommerce Expert. Coming Soon!",
+      name: "Neon - eCommerce Expert",
+      role: "eCommerce Expert (Coming Soon!)",
       description:
-        "Your go-to AI for online business success, helping with store setup, product launches, and optimizing eCommerce operations for smooth growth..",
+        "Your dedicated AI-driven eCommerce specialist for scaling online businesses. From store setup to product launches and seamless operations, optimize growth with ease!",
       image: "images/Business.png",
+      price: "49",
       glowColor: "#68E4FF",
     },
   ];
@@ -245,7 +245,7 @@ const PricingPage = () => {
                           )
                         ) : (
                           <Link href="/sign-in">
-                            <p className="bg-[#7b8de570] self-end w-full px-6 py-2 rounded-lg mt-6 text-white  transition-all duration-300 hover:bg-indigo-600 hover:scale-105">
+                            <p className="bg-[#7b8de570] text-center self-end w-full px-6 py-2 rounded-lg mt-6 text-white  transition-all duration-300 hover:bg-indigo-600 hover:scale-105">
                               Get the Agent
                             </p>
                           </Link>

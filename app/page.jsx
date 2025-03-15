@@ -1,10 +1,19 @@
 "use client";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AgentCarousel from "../components/AgentCarousel";
 import Image from "next/image";
 
-import { ChevronDown, ChevronUp } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronUp,
+  Globe,
+  MessageCircle,
+  Send,
+  Users,
+} from "lucide-react";
+import Link from "next/link";
+import { supabase } from "@/utils/supabase";
 
 const FAQs = [
   {
@@ -36,6 +45,20 @@ const FAQs = [
 
 export default function Home() {
   const [faqOpen, setFaqOpen] = useState(null);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      if (data?.user) {
+        setUser(data.user);
+      } else {
+        setUser(null);
+      }
+    };
+
+    getUser();
+  }, []); // Removed supabase from dependency array to avoid unnecessary re-fetches.
 
   const BlurredCircle = () => {
     return (
@@ -205,6 +228,93 @@ export default function Home() {
     );
   };
 
+  const GlowEffect = ({ color }) => (
+    <svg
+      width="225"
+      height="225"
+      viewBox="0 0 365 365"
+      className="scale-110"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g filter="url(#filter0_f_77_165)">
+        <circle
+          cx="182.5"
+          cy="182.5"
+          r="125.5"
+          fill={`url(#paint0_radial_77_165_${color})`}
+          fillOpacity="0.7"
+        />
+      </g>
+      <defs>
+        <filter
+          id="filter0_f_77_165"
+          x="0.91061"
+          y="0.91061"
+          width="363.179"
+          height="363.179"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="BackgroundImageFix"
+            result="shape"
+          />
+          <feGaussianBlur
+            stdDeviation="28.0447"
+            result="effect1_foregroundBlur_77_165"
+          />
+        </filter>
+        <radialGradient
+          id={`paint0_radial_77_165_${color}`}
+          cx="0"
+          cy="0"
+          r="1"
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(182.5 182.5) rotate(90) scale(125.5)"
+        >
+          <stop stopColor={color} />
+          <stop offset="1" stopColor={color} stopOpacity="0" />
+        </radialGradient>
+      </defs>
+    </svg>
+  );
+  const agents = [
+    {
+      id: "1",
+      name: "Nova - Social Media Manager",
+      role: "AI Social Media Manager",
+      description:
+        "Seamlessly integrate a smart, interactive social media manager into your website with a single script. Enhance engagement, automate customer interactions, and streamline your online presence effortlessly!",
+      image: "images/Sophia.png",
+      price: "49",
+      glowColor: "#68E4FF",
+    },
+    {
+      id: "2",
+      name: "Sophia - Customer Engagement Specialist",
+      role: "Customer Service & Social Media Agent",
+      description:
+        "Deploy an intelligent customer engagement agent that seamlessly integrates with your website or social media. Improve interactions, automate responses, and ensure 24/7 support—all in minutes!",
+      image: "images/Phone.png",
+      price: "49",
+      glowColor: "#DC75F5",
+    },
+    {
+      id: "3",
+      name: "Neon - eCommerce Expert",
+      role: "eCommerce Expert (Coming Soon!)",
+      description:
+        "Your dedicated AI-driven eCommerce specialist for scaling online businesses. From store setup to product launches and seamless operations, optimize growth with ease!",
+      image: "images/Business.png",
+      price: "49",
+      glowColor: "#68E4FF",
+    },
+  ];
+
   return (
     <div className="h-full bg-black text-white relative overflow-x-hidden ">
       <Head>
@@ -222,14 +332,17 @@ export default function Home() {
                 Your employees that never sleep!
               </span>
             </h2>
-            <p className="text-gray-400 mt-8 text-sm sm:text-base">
+            <p className="text-gray-400 mt-8 text-sm sm:text-base mb-8">
               Agent-Dispatch is your all-in-one command center to streamline
               operations, boost productivity, and maximize profits. Manage and
               coordinate your agents effortlessly! anytime, anywhere!
             </p>
-            <button className="mt-8 sm:mt-6 bg-[#7B8CE5] px-4 sm:px-6 py-2 sm:py-3  text-white font-semibold hover:bg-blue-600 transition rounded-full">
+            <Link
+              href="/pricing"
+              className="mt-16  bg-[#7B8CE5] px-4 sm:px-6 py-2 sm:py-3  text-white font-semibold hover:bg-blue-600 transition rounded-full"
+            >
               Get Started →
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -254,8 +367,77 @@ export default function Home() {
         <div className="absolute left-0 opacity-90 ">
           <BlurredCircleLeft />
         </div>
-        <div className="bg-black max-w-screen-xl w-full flex justify-center items-center">
-          <AgentCarousel />
+
+        <div className="bg-black flex-col  max-w-screen-xl w-full flex justify-center items-center">
+          <h2 className="text-4xl text-center lg:text-6xl font-semibold w-full   leading-tight">
+            <span className="bg-gradient-to-r from-blue-500 via-purple-200 to-pink-300 text-transparent bg-clip-text">
+              Our Agents
+            </span>
+          </h2>
+          <div className="relative flex items-center justify-center  mt-8 md:mt-32 md:mb-32">
+            <div className="relative flex o w-full flex-col  items-center justify-center">
+              <div className="flex flex-col lg:flex-row gap-6 transition-transform duration-500">
+                {agents.map((agent, i) => (
+                  <div
+                    key={agent.name}
+                    className={`relative w-[350px] lg:w-[360px] p-6 rounded-xl shadow-lg ${i === 0 ? "lg:-translate-x-8" : ""} ${i === 1 ? "lg:scale-[1.2] lg:z-10 lg:shadow-3xl lg:shadow-blue-700/20 lg:w-[350px]" : "w-[320]"} ${i === 2 ? "lg:translate-x-8" : ""}`}
+                  >
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-t rounded-xl from-blue-800/20 to-purple-900/10 border border-teal-100/10 `}
+                    ></div>
+                    <div className="relative  flex flex-col justify-between h-full z-10">
+                      <div className="relative mt-12">
+                        <img
+                          src={agent.image}
+                          alt={agent.name}
+                          className="mx-auto h-48 z-[100]"
+                        />
+                        <div className="absolute top-0 left-0 -z-[10] opacity-70 scale-125 translate-x-4 -translate-y-2 ">
+                          <GlowEffect color={agent.glowColor} />
+                        </div>
+                      </div>
+                      <h4 className="text-xl font-semibold text-white mt-16">
+                        {agent.name}
+                      </h4>
+                      <p className="text-white font-medium mt-4">
+                        {agent.role}
+                      </p>
+                      <p className="text-gray-400 text-md  mt-6">
+                        {agent.description}
+                      </p>
+
+                      <p className="text-4xl text-white mt-8  ">
+                        ${agent.price}{" "}
+                        <span className="text-xl text-gray-500">/ month</span>
+                      </p>
+                      {user ? (
+                        agent.id === 1 ? (
+                          <button
+                            onClick={() => {
+                              createCheckoutSession(user.id, user.email);
+                            }}
+                            className="bg-[#7b8de570] self-end w-full px-6 py-2 rounded-lg mt-6 text-white  transition-all duration-300 hover:bg-indigo-600 hover:scale-105"
+                          >
+                            Get the Agent
+                          </button>
+                        ) : (
+                          <button className="bg-[#7b8de570] self-end w-full px-6 py-2 rounded-lg mt-6 text-white  transition-all duration-300 hover:bg-indigo-600 hover:scale-105">
+                            Coming Soon
+                          </button>
+                        )
+                      ) : (
+                        <Link href="/sign-in">
+                          <p className="bg-[#7b8de570] text-center w-full px-6 py-2 rounded-lg mt-6 text-white  transition-all duration-300 hover:bg-indigo-600 hover:scale-105">
+                            Get the Agent
+                          </p>
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -272,29 +454,21 @@ export default function Home() {
               </span>
             </h3>
             <p className="text-gray-300 max-w-xl mt-4 text-sm sm:text-base text-center font-light">
-              <span className=" underline underline-offset-2">
-                Available 24/7,
-              </span>{" "}
-              our Al-powered agents work{" "}
-              <span className=" underline underline-offset-2">
-                around the clock,
-              </span>{" "}
-              so you don't have to.{" "}
-              <span className=" underline underline-offset-2">
+              <span className="font-semibold">Available 24/7,</span> our
+              Al-powered agents work{" "}
+              <span className="font-semibold">around the clock,</span> so you
+              don't have to.{" "}
+              <span className="font-semibold">
                 Automate tasks, enhance customer support,
               </span>{" "}
               and maximize efficiency while{" "}
-              <span className=" underline underline-offset-2">
-                saving valuable time.
-              </span>{" "}
+              <span className="font-semibold">saving valuable time.</span>{" "}
             </p>
 
             <p className="text-gray-300 max-w-xl  text-sm sm:text-base font-light text-center mt-8">
               Break barriers and scale globally with Al that speaks,
               understands, and delivers in{" "}
-              <span className="underline underline-offset-2">
-                over 100 languages.
-              </span>{" "}
+              <span className="font-semibold">over 100 languages.</span>{" "}
             </p>
             <p className="text-gray-300 max-w-xl  text-sm sm:text-base font-light mt-8">
               {"    "}
@@ -305,16 +479,12 @@ export default function Home() {
               </span>
             </h3>
             <p className="text-gray-300 max-w-xl mt-4 text-sm sm:text-base text-center font-light">
-              Your{" "}
-              <span className=" underline underline-offset-2">
-                Al team learns
-              </span>{" "}
-              the ins and outs of your business, delivering accurate and
-              personalized responses.{" "}
-              <span className=" underline underline-offset-2">Simply</span>{" "}
-              upload files, share instructions, or{" "}
-              <span className=" underline underline-offset-2">integrate</span>{" "}
-              your website—the more they know, the better they perform.
+              Your <span className="font-semibold">Al team learns</span> the ins
+              and outs of your business, delivering accurate and personalized
+              responses. <span className="font-semibold">Simply</span> upload
+              files, share instructions, or{" "}
+              <span className="font-semibold">integrate</span> your website—the
+              more they know, the better they perform.
             </p>
           </div>
 
@@ -335,94 +505,91 @@ export default function Home() {
       {/* Tools Integration */}
       <section
         id="features"
-        className="relative py-16 md:py-24  text-white px-7 sm:px-8 md:px-12 w-full lg:px-20 h-auto overflow-hidden"
+        className="relative py-16 md:py-20  text-white px-7 sm:px-8 md:px-12 w-full lg:px-20 h-auto overflow-hidden"
       >
-        {/* Centered Text */}
-        <div className="text-center flex flex-col items-center justify-center  w-full  mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl text-center  ">
-            Tailored to Your Business, Just Like Real Employees.
-          </h2>
-          <p className="text-gray-400 max-w-2xl mt-4 lg:mt-8 text-sm sm:text-base text-center">
-            Your AI team learns the ins and outs of your business, giving
-            personalized answers about your brand. Upload files, share
-            instructions, or link your website to enhance results—the more they
-            know, the better they perform.
-          </p>
-        </div>
-
         {/* Floating Integration Cards */}
-        <div className="relative w-full h-auto mt-8 sm:mt-12 flex flex-col items-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 w-full max-w-5xl px-4 sm:px-0">
-            {/* Facebook Insights */}
-            <div className="bg-gray-900 p-4 sm:p-5 rounded-xl shadow-md flex items-center gap-3 sm:gap-4 min-w-[260px] hover:scale-105 transition duration-300">
-              <img
-                src="/images/fb-icon.png"
-                className="w-6 h-6 sm:w-10 sm:h-10"
-              />
-              <div>
-                <h4 className="text-base sm:text-lg font-semibold">
-                  Facebook Insights
-                </h4>
-                <p className="text-gray-400 text-xs sm:text-sm">
-                  Trustpilot, 43 reviews
-                </p>
-              </div>
-            </div>
+        <section
+          id="features"
+          className="relative py-16 md:py-24 text-white px-7 sm:px-8 md:px-12 w-full lg:px-20 h-auto overflow-hidden"
+        >
+          {/* Centered Text */}
+          <div className="text-center flex flex-col items-center justify-center w-full mx-auto">
+            <h2 className="text-4xl lg:text-6xl max-w-4xl font-semibold w-full  leading-tight">
+              <span className="bg-gradient-to-r from-blue-500 via-purple-200 to-pink-300 text-transparent bg-clip-text">
+                Tailored to Your Business, Just Like Real Employees.
+              </span>
+            </h2>
 
-            {/* Brand Website */}
-            <div className="bg-gray-900 p-4 sm:p-5 rounded-xl shadow-md flex items-center gap-3 sm:gap-4 min-w-[260px] hover:scale-105 transition duration-300">
-              <img
-                src="/images/globe-icon.png"
-                className="w-6 h-6 sm:w-12 sm:h-12"
-              />
-              <div>
-                <h4 className="text-base sm:text-lg font-semibold">
-                  Brand Website
-                </h4>
-                <p className="text-gray-400 text-xs sm:text-sm">
-                  Customer Serice Bot Integrations
-                </p>
-              </div>
-            </div>
+            <p className="text-gray-400 max-w-2xl mt-4 lg:mt-8 text-sm sm:text-base text-center">
+              Your AI team learns the ins and outs of your business, giving
+              personalized answers about your brand. Upload files, share
+              instructions, or link your website to enhance results—the more
+              they know, the better they perform.
+            </p>
+          </div>
 
-            {/* Conversation with Julia */}
-            <div className="bg-gray-900 p-4 sm:p-5 rounded-xl shadow-md flex items-center gap-3 sm:gap-4 min-w-[280px] whitespace-nowrap hover:scale-105 transition duration-300">
-              <img
-                src="/images/telegram.png"
-                className="w-6 h-6 sm:w-10 sm:h-10"
-              />
-              <div>
-                <h4 className="text-base sm:text-lg font-semibold">
-                  Telegram Integration
-                </h4>
-                <p className="text-gray-400 text-xs sm:text-sm">
-                  Chatbot which responds efficiently and correctly.
-                </p>
+          {/* Floating Integration Cards */}
+          <div className="relative w-full h-auto mt-8 sm:mt-12 flex flex-col items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 w-full max-w-5xl px-4 sm:px-0">
+              {/* 24/7 AI Agents */}
+              <div className="bg-gray-900 p-4 sm:p-5 rounded-xl shadow-md flex items-center gap-3 sm:gap-4 min-w-[260px] hover:scale-105 transition duration-300">
+                <MessageCircle className="w-6 h-6 sm:w-10 sm:h-10 text-white" />
+                <div>
+                  <h4 className="text-base sm:text-lg font-semibold">
+                    24/7 AI Agents
+                  </h4>
+                  <p className="text-gray-400 text-xs sm:text-sm">
+                    AI-powered agents handle customer interactions around the
+                    clock.
+                  </p>
+                </div>
               </div>
-            </div>
 
-            {/* Team Photos */}
-            <div className="bg-gray-900 p-4 sm:p-5 rounded-xl shadow-md flex items-center gap-3 sm:gap-4 min-w-[260px] hover:scale-105 transition duration-300">
-              <img
-                src="/images/drive-icon.png"
-                className="w-6 h-6 sm:w-10 sm:h-10"
-              />
-              <div>
-                <h4 className="text-base sm:text-lg font-semibold">
-                  Team Photos
-                </h4>
-                <p className="text-gray-400 text-xs sm:text-sm">
-                  Company retreat 2025
-                </p>
+              {/* Tailored AI Solutions */}
+              <div className="bg-gray-900 p-4 sm:p-5 rounded-xl shadow-md flex items-center gap-3 sm:gap-4 min-w-[260px] hover:scale-105 transition duration-300">
+                <Globe className="w-6 h-6 sm:w-12 sm:h-12 text-white" />
+                <div>
+                  <h4 className="text-base sm:text-lg font-semibold">
+                    Tailored AI Solutions
+                  </h4>
+                  <p className="text-gray-400 text-xs sm:text-sm">
+                    AI agents that adapt to your brand’s voice and business
+                    needs.
+                  </p>
+                </div>
+              </div>
+
+              {/* Smart Integrations */}
+              <div className="bg-gray-900 p-4 sm:p-5 rounded-xl shadow-md flex items-center gap-3 sm:gap-4 min-w-[280px] whitespace-nowrap hover:scale-105 transition duration-300">
+                <Send className="w-6 h-6 sm:w-10 sm:h-10 text-white" />
+                <div>
+                  <h4 className="text-base sm:text-lg font-semibold">
+                    Smart Integrations
+                  </h4>
+                  <p className="text-gray-400 text-xs sm:text-sm">
+                    Connect seamlessly with your favorite tools and platforms.
+                  </p>
+                </div>
+              </div>
+
+              {/* Continuous Learning & Insights */}
+              <div className="bg-gray-900 p-4 sm:p-5 rounded-xl shadow-md flex items-center gap-3 sm:gap-4 min-w-[260px] hover:scale-105 transition duration-300">
+                <Users className="w-6 h-6 sm:w-10 sm:h-10 text-white" />
+                <div>
+                  <h4 className="text-base sm:text-lg font-semibold">
+                    Continuous Learning
+                  </h4>
+                  <p className="text-gray-400 text-xs sm:text-sm">
+                    AI agents improve over time, learning from past
+                    interactions.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* AI Bot Image at Bottom Right */}
-        <div className="absolute bottom-0 right-10 md:right-[15%] w-24 md:w-56 flex justify-end">
-          <img src="/images/Board.png" alt="AI Bot" className="w-full" />
-        </div>
       </section>
 
       <section className="py-8 sm:py-12 md:py-16 gap-32 flex items-center justify-center relative">
@@ -567,32 +734,31 @@ export default function Home() {
             Companies
           </h3>
 
-          {/* Testimonials Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mt-2 sm:mt-10 max-w-4xl mx-auto">
             {[
               {
                 name: "Emma Clarke",
                 title: "Head of Support, Nexora Solutions",
                 review:
-                  "Sophia Customer Service Bot has revolutionized our support system! It handles queries instantly, resolves issues efficiently, and has improved our response time by 70%. Our customers love it!",
+                  "Sophia Customer Engagement Agent has transformed our support system! It instantly handles queries, resolves issues efficiently, and has improved our response time by 70%. Our customers love the seamless experience!",
               },
               {
                 name: "Daniel Foster",
                 title: "Marketing Lead, Virex Media",
                 review:
-                  "The Sophia Social Media Bot on Telegram is a lifesaver! It handle all the queries of our customer and reply efficiently. Now, I could'nt imagine how we had handled customer queries before. ",
+                  "The Sophia Social Media Agent on Telegram is a lifesaver! It manages all customer inquiries efficiently and provides instant responses. I can't imagine how we handled customer queries before!",
               },
               {
                 name: "Samantha Rodriguez",
                 title: "Founder, EcomEase",
                 review:
-                  "I was skeptical at first, but Sophia AI exceeded my expectations. The customer service bot provides round-the-clock support, reducing workload for my team while keeping our customers happy.",
+                  "I was skeptical at first, but Sophia AI exceeded my expectations. The customer engagement agent provides round-the-clock support, reducing workload for my team while ensuring a great customer experience.",
               },
               {
                 name: "Liam Harrison",
                 title: "Community Manager, Digitech Group",
                 review:
-                  "Using Sophia Social Media Bot on Telegram has boosted our engagement significantly. It replies to messages, shares updates, and even interacts with users in real time. A must-have for any brand!",
+                  "Using Sophia Social Media Agent on Telegram has significantly boosted our engagement. It responds to messages, shares updates, and interacts with users in real time. A must-have for any brand!",
               },
             ].map((testimonial, index) => (
               <div

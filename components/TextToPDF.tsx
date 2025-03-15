@@ -84,18 +84,18 @@ export default function TextToPDF({ userId, onUploadSuccess }: TextToPDFProps) {
       return;
     }
 
-    setUploadStatus("Uploaded successfully!");
+    setUploadStatus("Instructed successfully!");
     setText("");
     onUploadSuccess(`PDFS/${userId}/${fileName}`);
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto p-6  mt-4 text-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-4">Convert Text to PDF & Upload</h2>
+    <div className="w-full max-w-lg mx-auto p-6   text-white rounded-lg shadow-lg">
+      <h2 className="text-2xl font-bold mb-4">Input Instructions</h2>
       <textarea
         className="w-full p-3 rounded bg-gray-900 border border-gray-700 text-white"
         rows={5}
-        placeholder="Enter text to convert into a PDF..."
+        placeholder="Enter instructions.."
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
@@ -105,12 +105,12 @@ export default function TextToPDF({ userId, onUploadSuccess }: TextToPDFProps) {
         className="w-full mt-4 bg-blue-600/40 hover:bg-blue-700 text-white font-semibold py-2 rounded transition flex items-center justify-center gap-2"
       >
         <UploadIcon className="w-5 h-5" />
-        {uploading ? "Uploading..." : "Generate & Upload PDF"}
+        {uploading ? "Instructing..." : "Instruct the Agent"}
       </button>
       {uploadStatus && (
         <p className="mt-4 text-center text-sm text-gray-300">{uploadStatus}</p>
       )}
-      {pdfUrl && pdfFileName && (
+      {/* {pdfUrl && pdfFileName && (
         <div className="mt-4 text-center">
           <a
             href={pdfUrl}
@@ -120,7 +120,7 @@ export default function TextToPDF({ userId, onUploadSuccess }: TextToPDFProps) {
             Download PDF
           </a>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

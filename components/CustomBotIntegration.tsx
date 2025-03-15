@@ -105,26 +105,29 @@ const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({
   }
 
   return (
-    <div className="w-full flex flex-col items-center p-6 py-16  bg-gradient-to-t rounded-xl border   from-blue-800/10 to-purple-900/10  border-teal-100/10 text-white">
-      <div className="absolute left-0 opacity-[0.7]  ">
+    <div className="w-full flex flex-col items-center p-6 py-16 md:mt-16 md:mb-16  bg-gradient-to-t rounded-xl border   from-blue-800/10 to-purple-900/10  border-teal-100/10 text-white">
+      <div className="absolute left-0 opacity-[0.7] -z-0 ">
         <BlurredCircle />
       </div>
-      <div className="absolute right-0 opacity-[0.7] scale-x-[-1]  ">
+      <div className="absolute right-0 opacity-[0.7] scale-x-[-1] -z-0 ">
         <BlurredCircle />
       </div>
-      <div className="text-center fleex flex-col items-center justify-center">
+      <div className="text-center fleex flex-col z-[100] items-center justify-center">
         <h2 className="text-4xl lg:text-5xl mt-2 font-semibold w-full  leading-tight">
           <span className="bg-gradient-to-r from-white to-blue-300 text-transparent bg-clip-text">
             Customization!
           </span>{" "}
           As You Like.
         </h2>
-        <p className="text-gray-400 mt-6 text-sm sm:text-base max-w-4xl">
-          Choose the colors, postion and integrate the bot into your website.
+        <p className="text-gray-400 mt-4 text-sm sm:text-base max-w-4xl">
+          Choose the colors, postion and integrate the agent into your website.
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="w-full max-w-5xl space-y-4 mt-6">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full z-[100] max-w-5xl space-y-4 mt-6"
+      >
         {/* Customization Form */}
         <CustomizationForm
           widgetColor={widgetColor}
