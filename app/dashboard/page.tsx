@@ -185,7 +185,7 @@ export default function DashboardPage() {
             <BlurredCircle />
           </div>
 
-          {plan !== "pro" ? (
+          {plan === "pro" ? (
             <>
               <div className="max-w-screen-xl z-[50] flex flex-col self-start  w-full">
                 <div className="flex justify-between items-center w-full mt-8 mb-6 max-w-screen-xl z-10  ">

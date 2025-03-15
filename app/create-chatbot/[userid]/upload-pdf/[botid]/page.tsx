@@ -62,10 +62,30 @@ export default function UploadPage() {
         <BlurredCircle />
       </div>
 
-      <div className="w-full max-w-screen-xl flex flex-row items-center justify-center text-gray-400">
-        <span>Step 1 : Train</span>
-        <span>Step 2 : Train</span>
-        <span>Step 3 : Train</span>
+      <div className="w-full max-w-screen-xl flex flex-row gap-12 mb-8 items-center justify-center text-gray-400">
+        <div className="flex flex-col  items-center justify-center">
+          <span className="text-xs  text-gray-300 ">Step 1</span>
+          <span className="text-3xl text-blue-50 font-bold">Train</span>
+        </div>
+
+        <div className="flex flex-col  items-center justify-center">
+          <span className="text-xs  text-white/30 ">Step 2</span>
+          <span className="text-3xl text-gray-400/30 ">Test</span>
+        </div>
+
+        {botid === "1" && (
+          <div className="flex flex-col  items-center justify-center">
+            <span className="text-xs  text-white/30 ">Step 3</span>
+            <span className="text-3xl text-gray-400/30 ">Customize</span>
+          </div>
+        )}
+
+        <div className="flex flex-col  items-center justify-center">
+          <span className="text-xs  text-white/30 ">
+            Step {botid === "1" ? "4" : "3"}
+          </span>
+          <span className="text-3xl text-gray-400/30 ">Deploy</span>
+        </div>
       </div>
       <h2 className="text-4xl lg:text-6xl w-full text-center font-semibold mb-8  leading-tight">
         <span className="bg-gradient-to-r from-blue-200 via-purple-200 to-pink-300 text-transparent bg-clip-text">

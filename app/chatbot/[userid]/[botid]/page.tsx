@@ -107,6 +107,30 @@ export default function ProtectedPage() {
 
   return (
     <div className="w-full flex items-center gap-6 sm:p-6 flex-col relative md:mt-16">
+      <div className="w-full max-w-screen-xl flex flex-row gap-12 mb-8 items-center justify-center text-gray-400">
+        <div className="flex flex-col  items-center justify-center">
+          <span className="text-xs  text-white/30 ">Step 1</span>
+          <span className="text-3xl text-gray-400/30 ">Train</span>
+        </div>
+        <div className="flex flex-col  items-center justify-center">
+          <span className="text-xs  text-gray-300 ">Step 2</span>
+          <span className="text-3xl text-blue-50 font-bold">Test</span>
+        </div>
+
+        {botid === "1" && (
+          <div className="flex flex-col  items-center justify-center">
+            <span className="text-xs  text-white/30 ">Step 3</span>
+            <span className="text-3xl text-gray-400/30 ">Customize</span>
+          </div>
+        )}
+
+        <div className="flex flex-col  items-center justify-center">
+          <span className="text-xs  text-white/30 ">
+            Step {botid === "1" ? "4" : "3"}
+          </span>
+          <span className="text-3xl text-gray-400/30 ">Deploy</span>
+        </div>
+      </div>
       <div className="max-w-screen-xl w-full flex flex-col gap-2 z-50">
         <div className="flex flex-col items-center justify-center gap-4 text-white z-[100]">
           <div className="max-w-full flex flex-col items-center justify-center text-center z-[100]">

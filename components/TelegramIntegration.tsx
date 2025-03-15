@@ -52,9 +52,8 @@ export default function TelegramBotSetup({ userId }: TelegramBotSetupProps) {
       setMessage("Redirecting to Dashboard");
       setTimeout(() => {
         setTelegramToken("");
-        redirect('/dashboard')
+        redirect("/dashboard");
       }, 2000);
-      
     } catch (err) {
       if (err instanceof Error) {
         setMessage(`Error: ${err.message}`);
@@ -72,6 +71,21 @@ export default function TelegramBotSetup({ userId }: TelegramBotSetupProps) {
       </div>
       <div className="absolute right-0 opacity-90 scale-x-[-1]  ">
         <BlurredCircle />
+      </div>
+      <div className="w-full max-w-screen-xl flex flex-row gap-12 mb-8 items-center justify-center text-gray-400">
+        <div className="flex flex-col  items-center justify-center">
+          <span className="text-xs  text-white/30 ">Step 1</span>
+          <span className="text-3xl text-gray-400/30 ">Train</span>
+        </div>
+
+        <div className="flex flex-col  items-center justify-center">
+          <span className="text-xs  text-white/30 ">Step 2</span>
+          <span className="text-3xl text-gray-400/30 ">Test</span>
+        </div>
+        <div className="flex flex-col  items-center justify-center">
+          <span className="text-xs  text-gray-300 ">Step 3</span>
+          <span className="text-3xl text-blue-50 font-bold">Deploy</span>
+        </div>
       </div>
       <div className=" w-full mx-auto p-8   text-white shadow-lg z-20 rounded-xl">
         <div className="flex flex-row gap-4 items-center">

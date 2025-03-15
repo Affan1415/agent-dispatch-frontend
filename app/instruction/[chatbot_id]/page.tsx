@@ -97,6 +97,26 @@ const IntegrationInstructionsPage = () => {
       <div className="absolute right-0 opacity-90 scale-x-[-1]  ">
         <BlurredCircle />
       </div>
+      <div className="w-full max-w-screen-xl flex flex-row gap-12 mb-8 items-center justify-center text-gray-400">
+        <div className="flex flex-col  items-center justify-center">
+          <span className="text-xs  text-white/30 ">Step 1</span>
+          <span className="text-3xl text-gray-400/30 ">Train</span>
+        </div>
+
+        <div className="flex flex-col  items-center justify-center">
+          <span className="text-xs  text-white/30 ">Step 2</span>
+          <span className="text-3xl text-gray-400/30 ">Test</span>
+        </div>
+        <div className="flex flex-col  items-center justify-center">
+          <span className="text-xs  text-white/30 ">Step 3</span>
+          <span className="text-3xl text-gray-400/30">Customize</span>
+        </div>
+
+        <div className="flex flex-col  items-center justify-center">
+          <span className="text-xs  text-gray-300 ">Step 4</span>
+          <span className="text-3xl text-blue-50 font-bold">Deploy</span>
+        </div>
+      </div>
       <div className="max-w-screen-xl flex items-center justify-center flex-col gap-3 z-10">
         <div className="text-center fleex flex-col items-center justify-center text-white">
           <h2 className="text-4xl lg:text-5xl mt-2 font-semibold w-full  leading-tight">
