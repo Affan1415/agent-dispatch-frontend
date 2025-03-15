@@ -62,29 +62,71 @@ export default function UploadPage() {
         <BlurredCircle />
       </div>
 
-      <div className="w-full max-w-screen-xl flex flex-row gap-12 mb-8 items-center justify-center text-gray-400">
-        <div className="flex flex-col  items-center justify-center">
-          <span className="text-xs  text-gray-300 ">Step 1</span>
-          <span className="text-3xl text-blue-50 font-bold">Train</span>
-        </div>
-
-        <div className="flex flex-col  items-center justify-center">
-          <span className="text-xs  text-white/30 ">Step 2</span>
-          <span className="text-3xl text-gray-400/30 ">Test</span>
-        </div>
-
-        {botid === "1" && (
+      <div className="w-full max-w-screen-xl flex flex-col gap-2  mb-8 items-center justify-center text-gray-400">
+        <div className="flex flex-row max-w-3xl w-full items-center justify-center">
           <div className="flex flex-col  items-center justify-center">
-            <span className="text-xs  text-white/30 ">Step 3</span>
-            <span className="text-3xl text-gray-400/30 ">Customize</span>
+            <div className="rounded-full size-16 flex items-center justify-center p-1 border-2 border-gray-300">
+              <div className="bg-gradient-to-tr from-blue-700/90 to-teal-700/30 text-white text-xl w-full h-full rounded-full flex items-center justify-center font-bold">
+                1
+              </div>
+            </div>
           </div>
-        )}
+          <div className="w-24 h-[2px] bg-blue-700/40"></div>
 
-        <div className="flex flex-col  items-center justify-center">
-          <span className="text-xs  text-white/30 ">
-            Step {botid === "1" ? "4" : "3"}
+          <div className="flex flex-col  items-center justify-center">
+            <div className="rounded-full size-14 flex items-center justify-center ">
+              <div className="bg-gradient-to-tr from-blue-700/40 to-teal-700/30 text-gray-500/60 text-xl w-full h-full rounded-full flex items-center justify-center font-bold">
+                2
+              </div>
+            </div>
+          </div>
+
+          <div className="w-24 h-[2px]  bg-blue-700/40"></div>
+
+          {botid === "1" && (
+            <div className="flex flex-col  items-center justify-center">
+              <div className="rounded-full size-14 flex items-center justify-center ">
+                <div className="bg-gradient-to-tr from-blue-700/40 to-teal-700/30 text-gray-500/60 text-xl w-full h-full rounded-full flex items-center justify-center font-bold">
+                  3
+                </div>
+              </div>
+            </div>
+          )}
+
+          {botid === "1" && (
+            <div className="w-24 h-[2px]  bg-blue-700/40"></div>
+          )}
+
+          <div className="flex flex-col  items-center justify-center">
+            <div className="rounded-full size-14 flex items-center justify-center ">
+              <div className="bg-gradient-to-tr from-blue-700/40 to-teal-700/30 text-gray-500/60 text-xl w-full h-full rounded-full flex items-center justify-center font-bold">
+                {botid === "1" ? "4" : "3"}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-row items-center justify-center w-full max-w-xl ">
+          <span
+            className={` text-white text-lg ${botid === "1" ? "translate-x-2" : "-translate-x-2"}`}
+          >
+            Train
           </span>
-          <span className="text-3xl text-gray-400/30 ">Deploy</span>
+          <span
+            className={` text-gray-500/60  text-lg ml-24 ${botid === "1" ? "translate-x-7" : "translate-x-3"}`}
+          >
+            Test
+          </span>
+          {botid === "1" && (
+            <span className=" text-gray-500/60 text-lg ml-24 translate-x-7 ">
+              Customize
+            </span>
+          )}
+
+          <span
+            className={` text-gray-500/60 text-lg  ml-24 ${botid === "1" ? "translate-x-3" : "translate-x-6"} `}
+          >
+            Deploy
+          </span>
         </div>
       </div>
       <h2 className="text-4xl lg:text-6xl w-full text-center font-semibold mb-8  leading-tight">

@@ -120,7 +120,6 @@ const Desc: React.FC<DescProps> = ({ id }) => {
     return (
       <>
         <p className="mt-2 font-bold  text-lg">{title}</p>
-        <p className="mt-2 text-sm text-gray-300">{description}</p>
       </>
     );
   }
@@ -143,7 +142,7 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({
         Agents out in field.
       </h1>
 
-      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mt-2">
+      <div className="flex flex-wrap flex-row gap-6  mt-2">
         {cards.map((card, index) => (
           <div
             key={index}

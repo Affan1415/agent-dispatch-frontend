@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { supabase } from "@/utils/supabase";
 import BlurredCircle from "@/components/BlurredCircle";
+import { CheckIcon } from "lucide-react";
 
 const IntegrationInstructionsPage = () => {
   const params = useParams();
@@ -97,24 +98,53 @@ const IntegrationInstructionsPage = () => {
       <div className="absolute right-0 opacity-90 scale-x-[-1]  ">
         <BlurredCircle />
       </div>
-      <div className="w-full max-w-screen-xl flex flex-row gap-12 mb-8 items-center justify-center text-gray-400">
-        <div className="flex flex-col  items-center justify-center">
-          <span className="text-xs  text-white/30 ">Step 1</span>
-          <span className="text-3xl text-gray-400/30 ">Train</span>
+      <div className="w-full max-w-screen-xl flex flex-col gap-2  mb-8 items-center justify-center text-gray-400">
+        <div className="flex flex-row max-w-3xl w-full items-center justify-center">
+          <div className="flex flex-col  items-center justify-center">
+            <div className="rounded-full size-14 flex items-center border border-gray-200 justify-center ">
+              <div className="bg-gradient-to-tr from-teal-700/80 to-teal-700/30 text-white text-xl w-full h-full rounded-full flex items-center justify-center font-bold">
+                <CheckIcon className="w-5 h-5 text-white" />
+              </div>
+            </div>
+          </div>
+          <div className="w-24 h-[2px] bg-blue-700/40"></div>
+          <div className="flex flex-col  items-center justify-center">
+            <div className="rounded-full size-14 flex items-center border border-gray-200 justify-center ">
+              <div className="bg-gradient-to-tr from-teal-700/80 to-teal-700/30 text-white text-xl w-full h-full rounded-full flex items-center justify-center font-bold">
+                <CheckIcon className="w-5 h-5 text-white" />
+              </div>
+            </div>
+          </div>
+          <div className="w-24 h-[2px] bg-blue-700/40"></div>
+          <div className="flex flex-col  items-center justify-center">
+            <div className="rounded-full size-14 flex items-center border border-gray-200 justify-center ">
+              <div className="bg-gradient-to-tr from-teal-700/80 to-teal-700/30 text-white text-xl w-full h-full rounded-full flex items-center justify-center font-bold">
+                <CheckIcon className="w-5 h-5 text-white" />
+              </div>
+            </div>
+          </div>
+          <div className="w-24 h-[2px] bg-blue-700/40"></div>
+          <div className="flex flex-col  items-center justify-center">
+            <div className="rounded-full size-14 flex items-center border border-gray-200 justify-center ">
+              <div className="bg-gradient-to-tr from-teal-700/80 to-teal-700/30 text-white text-xl w-full h-full rounded-full flex items-center justify-center font-bold">
+                <CheckIcon className="w-5 h-5 text-white" />
+              </div>
+            </div>
+          </div>
         </div>
+        <div className="flex flex-row items-center justify-center w-full max-w-xl ">
+          <span className=" text-gray-200 text-lg translate-x-1">Train</span>
+          <span className=" text-gray-200 text-lg ml-24 translate-x-6 ">
+            Test
+          </span>
 
-        <div className="flex flex-col  items-center justify-center">
-          <span className="text-xs  text-white/30 ">Step 2</span>
-          <span className="text-3xl text-gray-400/30 ">Test</span>
-        </div>
-        <div className="flex flex-col  items-center justify-center">
-          <span className="text-xs  text-white/30 ">Step 3</span>
-          <span className="text-3xl text-gray-400/30">Customize</span>
-        </div>
+          <span className=" text-gray-200 text-lg ml-24 translate-x-6 ">
+            Customize
+          </span>
 
-        <div className="flex flex-col  items-center justify-center">
-          <span className="text-xs  text-gray-300 ">Step 4</span>
-          <span className="text-3xl text-blue-50 font-bold">Deploy</span>
+          <span className=" text-gray-200 text-lg  ml-24 translate-x-2 ">
+            Deploy
+          </span>
         </div>
       </div>
       <div className="max-w-screen-xl flex items-center justify-center flex-col gap-3 z-10">

@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CheckIcon } from "lucide-react";
 import BlurredCircle from "@/components/BlurredCircle";
 import { createClient } from "@/utils/supabase/client";
 
@@ -107,28 +107,71 @@ export default function ProtectedPage() {
 
   return (
     <div className="w-full flex items-center gap-6 sm:p-6 flex-col relative md:mt-16">
-      <div className="w-full max-w-screen-xl flex flex-row gap-12 mb-8 items-center justify-center text-gray-400">
-        <div className="flex flex-col  items-center justify-center">
-          <span className="text-xs  text-white/30 ">Step 1</span>
-          <span className="text-3xl text-gray-400/30 ">Train</span>
-        </div>
-        <div className="flex flex-col  items-center justify-center">
-          <span className="text-xs  text-gray-300 ">Step 2</span>
-          <span className="text-3xl text-blue-50 font-bold">Test</span>
-        </div>
-
-        {botid === "1" && (
+      <div className="w-full max-w-screen-xl flex flex-col gap-2  mb-8 items-center justify-center text-gray-400">
+        <div className="flex flex-row max-w-3xl w-full items-center justify-center">
           <div className="flex flex-col  items-center justify-center">
-            <span className="text-xs  text-white/30 ">Step 3</span>
-            <span className="text-3xl text-gray-400/30 ">Customize</span>
+            <div className="rounded-full size-14 flex items-center border border-gray-200 justify-center ">
+              <div className="bg-gradient-to-tr from-teal-700/80 to-teal-700/30 text-white text-xl w-full h-full rounded-full flex items-center justify-center font-bold">
+                <CheckIcon className="w-5 h-5 text-white" />
+              </div>
+            </div>
           </div>
-        )}
+          <div className="w-24 h-[2px] bg-blue-700/40"></div>
 
-        <div className="flex flex-col  items-center justify-center">
-          <span className="text-xs  text-white/30 ">
-            Step {botid === "1" ? "4" : "3"}
+          <div className="flex flex-col  items-center justify-center">
+            <div className="rounded-full size-16 flex items-center justify-center p-1 border-2 border-gray-300">
+              <div className="bg-gradient-to-tr from-blue-700/90 to-teal-700/30 text-white text-xl w-full h-full rounded-full flex items-center justify-center font-bold">
+                2
+              </div>
+            </div>
+          </div>
+
+          <div className="w-24 h-[2px]  bg-blue-700/40"></div>
+
+          {botid === "1" && (
+            <div className="flex flex-col  items-center justify-center">
+              <div className="rounded-full size-14 flex items-center justify-center ">
+                <div className="bg-gradient-to-tr from-blue-700/40 to-teal-700/30 text-gray-500/60 text-xl w-full h-full rounded-full flex items-center justify-center font-bold">
+                  3
+                </div>
+              </div>
+            </div>
+          )}
+
+          {botid === "1" && (
+            <div className="w-24 h-[2px]  bg-blue-700/40"></div>
+          )}
+
+          <div className="flex flex-col  items-center justify-center">
+            <div className="rounded-full size-14 flex items-center justify-center ">
+              <div className="bg-gradient-to-tr from-blue-700/40 to-teal-700/30 text-gray-500/60 text-xl w-full h-full rounded-full flex items-center justify-center font-bold">
+                {botid === "1" ? "4" : "3"}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-row items-center justify-center w-full max-w-xl ">
+          <span
+            className={` text-gray-200 text-lg ${botid === "1" ? "translate-x-1" : "-translate-x-2"}`}
+          >
+            Train
           </span>
-          <span className="text-3xl text-gray-400/30 ">Deploy</span>
+          <span
+            className={` text-white font-bold  text-lg ml-24 ${botid === "1" ? "translate-x-6" : "translate-x-2"} `}
+          >
+            Test
+          </span>
+          {botid === "1" && (
+            <span className=" text-gray-500/60 text-lg ml-24 translate-x-7 ">
+              Customize
+            </span>
+          )}
+
+          <span
+            className={` text-gray-500/60 text-lg  ml-24 ${botid === "1" ? "translate-x-2" : "translate-x-5"}`}
+          >
+            Deploy
+          </span>
         </div>
       </div>
       <div className="max-w-screen-xl w-full flex flex-col gap-2 z-50">
