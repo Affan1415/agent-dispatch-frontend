@@ -9,66 +9,69 @@ import PDFUploadComponent from "@/components/PDFUploadComponent";
 import TextToPDF from "@/components/TextToPDF";
 
 export default function UploadPage() {
-  const params = useParams();
-  const router = useRouter();
-  const userId = params?.userid as string;
-  const botid = params?.botid as string;
-  const supabase = createClient();
+   const params = useParams();
+   const router = useRouter();
+   const userId = params?.userid as string;
+   const botid = params?.botid as string;
+   const supabase = createClient();
 
-  const [loading, setLoading] = useState(false);
-  const [uploadPath, setUploadPath] = useState("");
-  const [chatbotId, setChatbotId] = useState("");
-  const [selectedMethod, setSelectedMethod] = useState<"upload" | "text">(
-    "upload"
-  );
+   const [loading, setLoading] = useState(false);
+   const [uploadPath, setUploadPath] = useState("");
+   const [selectedMethod, setSelectedMethod] = useState<"upload" | "text">(
+     "upload"
+   );
 
-  useEffect(() => {
-    async function checkAuth() {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) {
-        router.push("/sign-in");
-      }
-    }
-    checkAuth();
-  }, [router, supabase]);
+   useEffect(() => {
+     async function checkAuth() {
+       const {
+         data: { user },
+       } = await supabase.auth.getUser();
+       if (!user) {
+         router.push("/sign-in");
+       }
+     }
+     checkAuth();
+   }, [router, supabase]);
 
-  // Handle document retrieval after upload
-  const handleFetchDocument = async () => {
-    setLoading(true);
-    try {
-      try {
-        const { data: chatbotData, error: chatbotError } = await supabase
-          .from("chatbots")
-          .insert([{ user_id: userId }])
-          .select("chatbot_id")
-          .single();
-  
-        if (chatbotError) {
-          throw new Error(`Error creating chatbot: ${chatbotError.message}`);
-        }
-  
-        setChatbotId(chatbotData.chatbot_id);
-      } catch (error) {
-        console.error("Error creating chatbot:", error);
-      }
-  
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-      if (!apiUrl) throw new Error("API URL is not defined.");
-      const response = await fetch(`${apiUrl}/fetch_latest_pdf/${userId}/${chatbotId}`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-      if (!response.ok) throw new Error("Failed to fetch document.");
-      alert("Document retrieved successfully!");
-      router.push(`/chatbot/${userId}/${botid}/${chatbotId}`);
-    } catch (error: any) {
-      console.error("Error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+   const handleFetchDocument = async () => {
+     setLoading(true);
+     try {
+       const { data: chatbotData, error: chatbotError } = await supabase
+         .from("chatbots")
+         .insert([{ user_id: userId }])
+         .select("chatbot_id")
+         .single();
+
+       if (chatbotError || !chatbotData?.chatbot_id) {
+         throw new Error(
+           `Error creating chatbot: ${chatbotError?.message || "Unknown error"}`
+         );
+       }
+
+       const newChatbotId = chatbotData.chatbot_id;
+
+       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+       if (!apiUrl) throw new Error("API URL is not defined.");
+
+       const response = await fetch(
+         `${apiUrl}/fetch_latest_pdf/${userId}/${newChatbotId}`,
+         {
+           method: "GET",
+           headers: { "Content-Type": "application/json" },
+         }
+       );
+
+       if (!response.ok) throw new Error("Failed to fetch document.");
+       alert("Document retrieved successfully!");
+
+       router.push(`/chatbot/${userId}/${botid}/${newChatbotId}`);
+     } catch (error: any) {
+       console.error("Error:", error.message);
+       alert("Something went wrong: " + error.message);
+     } finally {
+       setLoading(false);
+     }
+   };
 
   return (
     <div className="min-h-fit text-white flex flex-col  w-full items-center justify-center py-16 lg:py-32 relative">

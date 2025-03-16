@@ -15,7 +15,9 @@ export default function ProtectedPage() {
   const supabase = createClient();
 
   const [prompt, setPrompt] = useState("");
-  const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>([]);
+  const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>(
+    []
+  );
   const [userId, setUserId] = useState<string | null>(null);
 
   const [error, setError] = useState("");
@@ -35,8 +37,7 @@ export default function ProtectedPage() {
       }
 
       setUserId(user.id);
-
-          }
+    }
 
     checkAuth();
   }, [router, supabase]);
@@ -202,14 +203,16 @@ export default function ProtectedPage() {
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`flex ${message.isUser ? "justify-end" : "justify-start"
-                  }`}
+                className={`flex ${
+                  message.isUser ? "justify-end" : "justify-start"
+                }`}
               >
                 <div
-                  className={`max-w-[80%] p-3 rounded-lg text-sm ${message.isUser
+                  className={`max-w-[80%] p-3 rounded-lg text-sm ${
+                    message.isUser
                       ? "bg-blue-700/40 text-white rounded-br-none"
                       : "bg-teal-700/20 text-gray-200 rounded-bl-none"
-                    }`}
+                  }`}
                 >
                   {message.text}
                 </div>
