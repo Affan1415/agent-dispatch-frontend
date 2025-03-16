@@ -62,7 +62,7 @@ export default function UploadPage() {
       });
       if (!response.ok) throw new Error("Failed to fetch document.");
       alert("Document retrieved successfully!");
-      router.push(`/chatbot/${userId}/${botid}/`);
+      router.push(`/chatbot/${userId}/${botid}/${chatbotId}`);
     } catch (error: any) {
       console.error("Error:", error);
     } finally {
