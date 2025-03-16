@@ -10,10 +10,12 @@ import { CheckIcon } from "lucide-react";
 
 interface CustomIntegrationProps {
   userId: string;
+  chatbotid: string;
 }
 
 const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({
   userId,
+  chatbotid
 }) => {
   const [widgetColor, setWidgetColor] = useState("#2563eb");
   const [widgetPosition, setWidgetPosition] = useState("bottom-right");
@@ -56,18 +58,6 @@ const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({
     }
 
     try {
-      // 1. Insert into 'chatbots' table
-      const { data: chatbotData, error: chatbotError } = await supabase
-        .from("chatbots")
-        .insert([{ user_id: userId }])
-        .select("chatbot_id")
-        .single();
-
-      if (chatbotError) {
-        throw new Error(`Error creating chatbot: ${chatbotError.message}`);
-      }
-      const { chatbot_id } = chatbotData;
-
       // 2. Construct the widget script
       const encodedMessage = encodeURIComponent(widgetMessage);
       const encodedColor = encodeURIComponent(widgetColor);
@@ -78,7 +68,7 @@ const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({
         .from("custom_website_chatbots")
         .insert([
           {
-            chatbot_id,
+            chatbot_id: chatbotid,
             api_key: apiKey,
             widget_script: widgetScript,
           },
@@ -91,7 +81,7 @@ const CustomIntegrationComponent: React.FC<CustomIntegrationProps> = ({
       }
 
       // 4. Redirect after successful insertion
-      window.location.href = `/instruction/${chatbot_id}`;
+      window.location.href = `/instruction/${chatbotid}`;
     } catch (error) {
       console.error("Error:", error);
       alert((error as Error).message || "An unknown error occurred.");

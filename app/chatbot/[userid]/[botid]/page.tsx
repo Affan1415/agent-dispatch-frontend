@@ -11,35 +11,49 @@ export default function ProtectedPage() {
   const router = useRouter();
   const params = useParams();
   const botid = params?.botid as string;
+  const supabase = createClient();
+
   const [prompt, setPrompt] = useState("");
-  const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>(
-    []
-  );
+  const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>([]);
   const [userId, setUserId] = useState<string | null>(null);
+  const [chatbotId, setChatbotId] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [isBotTyping, setIsBotTyping] = useState(false);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const supabase = createClient();
 
-  // Authentication check: redirect to sign-in if no user is authenticated
   useEffect(() => {
     async function checkAuth() {
       const {
         data: { user },
       } = await supabase.auth.getUser();
+
       if (!user) {
         router.push("/sign-in");
         return;
       }
-      // Retrieve user id from params if available
-      const userid = params?.userid as string;
-      if (userid) {
-        setUserId(userid);
+
+      setUserId(user.id);
+
+      try {
+        const { data: chatbotData, error: chatbotError } = await supabase
+          .from("chatbots")
+          .insert([{ user_id: user.id }])
+          .select("chatbot_id")
+          .single();
+
+        if (chatbotError) {
+          throw new Error(`Error creating chatbot: ${chatbotError.message}`);
+        }
+
+        setChatbotId(chatbotData.chatbot_id);
+      } catch (error) {
+        console.error("Error creating chatbot:", error);
       }
     }
+
     checkAuth();
-  }, [router, params, supabase]);
+  }, [router, supabase]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,19 +63,13 @@ export default function ProtectedPage() {
     }
 
     setError("");
-
-    // Append the user message to state
-    const newUserMessage = { text: prompt, isUser: true };
-    setMessages((prev) => [...prev, newUserMessage]);
+    setMessages((prev) => [...prev, { text: prompt, isUser: true }]);
     setPrompt("");
-
     setIsBotTyping(true);
 
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-      if (!apiUrl) {
-        throw new Error("API URL is not defined");
-      }
+      if (!apiUrl) throw new Error("API URL is not defined");
 
       const res = await fetch(`${apiUrl}/rag`, {
         method: "POST",
@@ -69,25 +77,20 @@ export default function ProtectedPage() {
         body: JSON.stringify({
           question: prompt,
           user_id: userId,
-          history: [...messages, newUserMessage].slice(-5),
+          chatbot_id: chatbotId,
+          history: [...messages, { text: prompt, isUser: true }].slice(-5),
         }),
       });
 
-      if (!res.ok) {
-        throw new Error(`Server error: ${res.status}`);
-      }
+      if (!res.ok) throw new Error(`Server error: ${res.status}`);
 
       const data = await res.json();
-      console.log("API Response:", data);
-
       const responseText =
-        data.response?.content && typeof data.response.content === "string"
+        typeof data.response?.content === "string"
           ? data.response.content
           : "No valid response from server";
 
-      // Append bot message to state
-      const newBotMessage = { text: responseText, isUser: false };
-      setMessages((prev) => [...prev, newBotMessage]);
+      setMessages((prev) => [...prev, { text: responseText, isUser: false }]);
     } catch (error) {
       console.error("Fetch error:", error);
       setError("Failed to fetch response");
@@ -213,16 +216,14 @@ export default function ProtectedPage() {
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`flex ${
-                  message.isUser ? "justify-end" : "justify-start"
-                }`}
+                className={`flex ${message.isUser ? "justify-end" : "justify-start"
+                  }`}
               >
                 <div
-                  className={`max-w-[80%] p-3 rounded-lg text-sm ${
-                    message.isUser
+                  className={`max-w-[80%] p-3 rounded-lg text-sm ${message.isUser
                       ? "bg-blue-700/40 text-white rounded-br-none"
                       : "bg-teal-700/20 text-gray-200 rounded-bl-none"
-                  }`}
+                    }`}
                 >
                   {message.text}
                 </div>
@@ -265,7 +266,7 @@ export default function ProtectedPage() {
           </form>
         </div>
         <Link
-          href={`/integrations/${userId}/${botid}`}
+          href={`/integrations/${userId}/${botid}/${chatbotId}`}
           className="px-10 py-4 flex flex-row items-center justify-center rounded-xl border border-teal-700/20 bg-gradient-to-r from-blue-700/30 via-blue-700/20 to-black/0 text-white mt-6 hover:bg-blue-700/40 transition"
         >
           Click to Deploy the Agent{" "}

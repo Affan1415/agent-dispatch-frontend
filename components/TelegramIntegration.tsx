@@ -9,9 +9,10 @@ import { CheckIcon } from "lucide-react";
 
 interface TelegramBotSetupProps {
   userId: string;
+  chatbotid: string;
 }
 
-export default function TelegramBotSetup({ userId }: TelegramBotSetupProps) {
+export default function TelegramBotSetup({ userId, chatbotid }: TelegramBotSetupProps) {
   const [telegramToken, setTelegramToken] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -29,6 +30,7 @@ export default function TelegramBotSetup({ userId }: TelegramBotSetupProps) {
     // Data payload to be sent
     const payload = {
       userID: userId,
+      chatbotId: chatbotid,
       telegram_bot_token: telegramToken,
     };
 

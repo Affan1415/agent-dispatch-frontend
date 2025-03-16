@@ -28,6 +28,7 @@ const Integrations: React.FC = () => {
   // Extract parameters and ensure they are strings
   const userIdParam = params?.userId;
   const botidParam = params?.botid;
+  const chatbotIdParam = Array.isArray(params?.chatbotId) ? params.chatbotId[0] : params?.chatbotId || "";
   const userId = Array.isArray(userIdParam)
     ? userIdParam[0]
     : userIdParam || "";
@@ -37,9 +38,9 @@ const Integrations: React.FC = () => {
     <div className="h-full bg-black w-full flex items-center justify-center text-white">
       <div className="max-w-screen-xl w-full flex items-center justify-center">
         {botid === "2" ? (
-          <TelegramIntegration userId={userId} />
+          <TelegramIntegration userId={userId} chatbotid={chatbotIdParam} />
         ) : botid === "1" ? (
-          <CustomBotIntegration userId={userId} />
+          <CustomBotIntegration userId={userId} chatbotid={chatbotIdParam}/>
         ) : (
           <p className="mt-6 text-center text-gray-400">
             No integration available.
