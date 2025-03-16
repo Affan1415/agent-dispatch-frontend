@@ -17,6 +17,7 @@ export default function UploadPage() {
 
   const [loading, setLoading] = useState(false);
   const [uploadPath, setUploadPath] = useState("");
+  const [chatbotId, setChatbotId] = useState("");
   const [selectedMethod, setSelectedMethod] = useState<"upload" | "text">(
     "upload"
   );
@@ -37,15 +38,31 @@ export default function UploadPage() {
   const handleFetchDocument = async () => {
     setLoading(true);
     try {
+      try {
+        const { data: chatbotData, error: chatbotError } = await supabase
+          .from("chatbots")
+          .insert([{ user_id: userId }])
+          .select("chatbot_id")
+          .single();
+  
+        if (chatbotError) {
+          throw new Error(`Error creating chatbot: ${chatbotError.message}`);
+        }
+  
+        setChatbotId(chatbotData.chatbot_id);
+      } catch (error) {
+        console.error("Error creating chatbot:", error);
+      }
+  
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
       if (!apiUrl) throw new Error("API URL is not defined.");
-      const response = await fetch(`${apiUrl}/fetch_latest_pdf/${userId}`, {
+      const response = await fetch(`${apiUrl}/fetch_latest_pdf/${userId}/${chatbotId}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
       if (!response.ok) throw new Error("Failed to fetch document.");
       alert("Document retrieved successfully!");
-      router.push(`/chatbot/${userId}/${botid}`);
+      router.push(`/chatbot/${userId}/${botid}/`);
     } catch (error: any) {
       console.error("Error:", error);
     } finally {

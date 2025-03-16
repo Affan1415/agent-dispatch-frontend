@@ -11,12 +11,13 @@ export default function ProtectedPage() {
   const router = useRouter();
   const params = useParams();
   const botid = params?.botid as string;
+  const chatbotId = params?.chatbotId as string;
   const supabase = createClient();
 
   const [prompt, setPrompt] = useState("");
   const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>([]);
   const [userId, setUserId] = useState<string | null>(null);
-  const [chatbotId, setChatbotId] = useState<string | null>(null);
+
   const [error, setError] = useState("");
   const [isBotTyping, setIsBotTyping] = useState(false);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
@@ -35,22 +36,7 @@ export default function ProtectedPage() {
 
       setUserId(user.id);
 
-      try {
-        const { data: chatbotData, error: chatbotError } = await supabase
-          .from("chatbots")
-          .insert([{ user_id: user.id }])
-          .select("chatbot_id")
-          .single();
-
-        if (chatbotError) {
-          throw new Error(`Error creating chatbot: ${chatbotError.message}`);
-        }
-
-        setChatbotId(chatbotData.chatbot_id);
-      } catch (error) {
-        console.error("Error creating chatbot:", error);
-      }
-    }
+          }
 
     checkAuth();
   }, [router, supabase]);
