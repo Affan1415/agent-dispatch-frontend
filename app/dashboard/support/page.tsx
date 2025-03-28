@@ -12,6 +12,7 @@ interface Ticket {
     agenda: string;
     description: string;
     status: string;
+    admin_reply: string;
 }
 
 export default function SupportPage() {
@@ -46,7 +47,7 @@ export default function SupportPage() {
             const { data, error } = await supabase
                 .from("tickets")
                 .select("*")
-                .eq("userid", userId); // Fetch only the user's tickets
+                .eq("user_id", userId); // Fetch only the user's tickets
 
             if (error) {
                 console.error("Error fetching tickets:", error.message);
@@ -68,7 +69,7 @@ export default function SupportPage() {
 
         const { data, error } = await supabase
             .from("tickets")
-            .insert([{ userid: userId, agenda: selectedAgenda, description, status: "Active" }]);
+            .insert([{ user_id: userId, agenda: selectedAgenda, description, status: "Active" }]);
 
         setLoading(false);
 
@@ -105,6 +106,9 @@ export default function SupportPage() {
                                 {ticket.description.length > 30
                                     ? ticket.description.substring(0, 30) + "..."
                                     : ticket.description}
+                            </p>
+                            <p className="text-sm text-gray-400">
+                                Reply: {ticket.admin_reply}
                             </p>
                             <span className={`text-sm font-bold ${ticket.status === "Active" ? "text-green-400" : "text-red-400"}`}>
                                 {ticket.status}
