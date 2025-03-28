@@ -78,7 +78,7 @@ const Desc: React.FC<DescProps> = ({ id }) => {
 
         if (customData) {
           setDescription(
-            "Seamlessly integrate a smart, interactive social media manager into your website with a single script. Enhance engagement, automate customer interactions, and streamline your online presence effortlessly!"
+            "Seamlessly integrate a smart, interactive social media manager into your website with a single script. Enhance engagement, automate customer interactions, and streamline your online presence effortlessly!",
           );
           setTitle("Sophia - Customer Service Agent Websites");
           return;
@@ -93,7 +93,7 @@ const Desc: React.FC<DescProps> = ({ id }) => {
 
         if (telegramData) {
           setDescription(
-            "Deploy an intelligent customer engagement agent that seamlessly integrates with your website or social media. Improve interactions, automate responses, and ensure 24/7 support—all in minutes!"
+            "Deploy an intelligent customer engagement agent that seamlessly integrates with your website or social media. Improve interactions, automate responses, and ensure 24/7 support—all in minutes!",
           );
           setTitle("Sophia - Social Media Agent");
           return;
@@ -136,6 +136,18 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({
   hasReachedLimit,
   userId,
 }) => {
+  const updateChatbotStatus = async (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    chatbotId: string,
+  ) => {
+    const isActive = e.target.value === "1";
+    const { data, error } = await supabase
+      .from("chatbots")
+      .update({ isActive: isActive })
+      .eq("chatbot_id", chatbotId);
+    if (error) console.error(error.message);
+    else console.log("Updated");
+  };
   return (
     <div className="flex flex-col  mt-6 bg-gray-900/40 p-5 rounded-xl">
       <h1 className="text-2xl mb-4   text-gray-300 flex flex-row gap-2 items-center">
@@ -176,6 +188,13 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({
                     Analytics & Details
                   </Button>
                 </Link>
+                <select
+                  className="mt-4 bg-gray-800 text-white rounded p-2 w-full"
+                  onChange={(e) => updateChatbotStatus(e, card.id)}
+                >
+                  <option value={"1"}>True</option>
+                  <option value={"0"}>False</option>
+                </select>
               </div>
             </div>
           </div>
