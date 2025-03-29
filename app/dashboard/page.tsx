@@ -9,7 +9,7 @@ import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
 import { LayoutGridIcon, Loader2Icon, PlusIcon } from "lucide-react";
-
+import { LanguageSwitcher } from "@/components/Language-Switcher";
 export default function DashboardPage() {
   const router = useRouter();
   const [chatbots, setChatbots] = useState<any[]>([]);
@@ -172,6 +172,8 @@ export default function DashboardPage() {
 
   return (
     <>
+      <LanguageSwitcher />
+      <div key={"lanchange"}></div>
       {isLoading ? (
         <div className="py-32 flex items-center justify-center w-fit mx-auto ">
           <Loader2Icon className="w-12 h-12 text-white animate-spin rotate-360" />

@@ -11,7 +11,7 @@ import Footer from "@/components/Footer";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Authnullnavbar from "@/components/Authnullnavbar";
-
+import Script from "next/script";
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
@@ -43,6 +43,13 @@ export default async function RootLayout({
   return (
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
       <body className="bg-background bg-black text-foreground">
+        {/* Google Translate Scripts */}
+        <Script src="/assets/lang-config.js" strategy="beforeInteractive" />
+        <Script src="/assets/translation.js" strategy="beforeInteractive" />
+        <Script
+          src="//translate.google.com/translate_a/element.js?cb=TranslateInit"
+          strategy="afterInteractive"
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

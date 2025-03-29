@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import AgentCarousel from "../components/AgentCarousel";
 import Image from "next/image";
-
+import { LanguageSwitcher } from "@/components/Language-Switcher";
 import {
   ChevronDown,
   ChevronUp,
@@ -317,13 +317,13 @@ export default function Home() {
 
   return (
     <div className="h-full bg-black text-white relative overflow-x-hidden ">
+      
       <Head>
         <title>AI-Powered Agents | Agent Dispatch</title>
       </Head>
       {/* Hero Section */}
       <section className="flex flex-col md:flex-row h-[40vh] lg:h-[80vh] mt-32 lg:mt-4 items-center justify-center relative w-full bg-[url('/images/bg.jpeg')] bg-cover bg-[position:-0%]">
         <div className="bg-gradient-to-b from-black/90 via-black/0 to-black/90 absolute w-full h-full z-0"></div>
-
         <div className="bg-gradient-to-r from-black/80 via-black/0 to-black/80 absolute w-full h-full z-0"></div>
         <div className="max-w-screen-xl flex flex-row z-[10] items-center justify-centergap-12 sm:gap-8 px-7 sm:px-0   py-8 sm:py-12 md:py-16">
           <div className="max-w-3xl text-center md:text-left bg-gradient-to-r from-black/20 via-black/0 to-black/10 backdrop-blur-lg p-10 lg:p-16 rounded-xl border border-blue-400/20 ">
