@@ -53,6 +53,18 @@ export default function AuthNavbar() {
           >
             Dashboard
           </Link>
+          <Link
+            href={`/dashboard/account`}
+            className="text-white hidden lg:block hover:underline underline-offset-2"
+          >
+            Profile
+          </Link>
+          <Link
+            href={`/dashboard/support`}
+            className="text-white hidden lg:block hover:underline underline-offset-2"
+          >
+            Customer Support
+          </Link>
 
           {user ? (
             <Button

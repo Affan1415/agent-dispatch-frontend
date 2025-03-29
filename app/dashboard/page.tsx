@@ -105,6 +105,7 @@ export default function DashboardPage() {
   // Map chatbots to expected format for DashboardCards
   const chatbotCards = chatbots.map((bot) => ({
     id: bot.chatbot_id,
+    isActive: bot.isActive,
     image: bot.image || "/images/1.png",
     alt: bot.name,
     title: bot.name,

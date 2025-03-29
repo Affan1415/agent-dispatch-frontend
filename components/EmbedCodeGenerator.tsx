@@ -11,7 +11,7 @@ export default function EmbeddedCodeGenerator({
 }) {
   const url = process.env.NEXT_PUBLIC_API_URL || "https://api.agent-dispatch.com";
   const embedCode =
-    `<script src="https://${url}/chat-widget.js?api_key=${apikey}&color=${widgetColor}&position=${widgetPosition}"></script>`.trim();
+    `<script src="${url}/chat-widget.js?api_key=${apikey}&color=${widgetColor}&position=${widgetPosition}"></script>`.trim();
 
   return (
     <textarea
