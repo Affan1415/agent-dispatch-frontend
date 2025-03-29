@@ -1,17 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
-import { parseCookies, setCookie } from "nookies";
+import { parseCookies, setCookie } from 'nookies';
 
-// The following cookie name is important because it's Google-predefined for the translation engine purpose
 const COOKIE_NAME = "googtrans";
 
-// We should know a predefined nickname of a language and provide its title (the name for displaying)
 interface LanguageDescriptor {
   name: string;
   title: string;
 }
 
-// Types for JS-based declarations in public/assets/scripts/lang-config.js
 declare global {
   namespace globalThis {
     var __GOOGLE_TRANSLATION_CONFIG__: {
